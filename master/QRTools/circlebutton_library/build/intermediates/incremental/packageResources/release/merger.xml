@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merger version="3"><dataSet config="main"><source path="/home/db/AndroidStudioProjects/QRTools/circlebutton_library/src/main/res"><file path="/home/db/AndroidStudioProjects/QRTools/circlebutton_library/src/main/res/values/attrs.xml" qualifiers=""><declare-styleable name="CircleButton">
+        <attr format="color" name="cb_color"/>
+        <attr format="dimension" name="cb_pressedRingWidth"/>
+    </declare-styleable></file></source><source path="/home/db/AndroidStudioProjects/QRTools/circlebutton_library/build/generated/res/rs/release"/><source path="/home/db/AndroidStudioProjects/QRTools/circlebutton_library/build/generated/res/generated/release"/></dataSet><dataSet config="release"><source path="/home/db/AndroidStudioProjects/QRTools/circlebutton_library/src/release/res"/></dataSet><mergedItems><configuration qualifiers=""><declare-styleable name="CircleButton"><attr format="color" name="cb_color"/><attr format="dimension" name="cb_pressedRingWidth"/></declare-styleable></configuration></mergedItems></merger>

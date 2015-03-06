@@ -1,0 +1,26 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light">
+        <!-- Customize your theme here. -->
+        <item name="android:windowAnimationStyle">@style/FeelyouWindowAnimTheme</item>
+    </style>
+
+
+    <style name="FeelyouWindowAnimTheme" parent="@android:style/Animation.Activity">
+        <item name="android:activityOpenEnterAnimation">@anim/in_from_left</item>
+        <item name="android:activityOpenExitAnimation">@anim/out_from_right</item>
+        <item name="android:activityCloseEnterAnimation">@anim/in_from_right</item>
+        <item name="android:activityCloseExitAnimation">@anim/out_from_left</item>
+    </style>
+
+
+    <style name="myActionBarStyle" parent="android:Widget.ActionBar" >
+        <item name="android:background">#ff5f69</item>
+    </style>
+    <style name="PopupAnimation" parent="android:Animation">
+        <item name="android:windowEnterAnimation">@anim/popwindow_enter</item>
+        <item name="android:windowExitAnimation">@anim/popwindow_exit</item>
+    </style>
+
+</resources>
