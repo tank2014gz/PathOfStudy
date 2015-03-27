@@ -1,0 +1,4 @@
+include ':app', ':MaterialNavigationDrawerModule', ':library', ':ZDepthShadowLayout'
+include ':viewPagerIndicator_Library'
+include ':viewPagerIndicator_Library'
+include ':viewPagerIndicator_Library_db'

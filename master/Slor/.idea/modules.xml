@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/MaterialNavigationDrawerModule/MaterialNavigationDrawerModule.iml" filepath="$PROJECT_DIR$/MaterialNavigationDrawerModule/MaterialNavigationDrawerModule.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Slor.iml" filepath="$PROJECT_DIR$/Slor.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ZDepthShadowLayout/ZDepthShadowLayout.iml" filepath="$PROJECT_DIR$/ZDepthShadowLayout/ZDepthShadowLayout.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/library/library.iml" filepath="$PROJECT_DIR$/library/library.iml" />
+      <module fileurl="file://$PROJECT_DIR$/viewPagerIndicator_Library/viewPagerIndicator_Library.iml" filepath="$PROJECT_DIR$/viewPagerIndicator_Library/viewPagerIndicator_Library.iml" />
+      <module fileurl="file://$PROJECT_DIR$/viewPagerIndicator_Library_db/viewPagerIndicator_Library_db.iml" filepath="$PROJECT_DIR$/viewPagerIndicator_Library_db/viewPagerIndicator_Library_db.iml" />
+    </modules>
+  </component>
+</project>
+

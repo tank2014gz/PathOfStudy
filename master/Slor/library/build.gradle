@@ -1,0 +1,25 @@
+apply plugin: 'com.android.library'
+
+dependencies {
+    compile 'com.android.support:support-v4:19.1.+'
+}
+
+
+
+android {
+    compileSdkVersion 21
+    buildToolsVersion "21.1.2"
+
+    defaultConfig {
+        minSdkVersion 15
+        targetSdkVersion 21
+        versionCode 1
+        versionName "1.0"
+    }
+
+    lintOptions {
+        abortOnError false
+    }
+}
+
+//apply from: 'https://raw.githubusercontent.com/denizmveli/gradle-mvn-push/master/gradle-mvn-push.gradle'

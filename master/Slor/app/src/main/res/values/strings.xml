@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Slor</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_navigator">NavigatorActivity</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_edit_beauty_art">EditBeautyArtActivity</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="action_example">Example action</string>
+    <string name="title_activity_chatting">ChattingActivity</string>
+    <string name="title_activity_notebook">Notebook</string>
+    <string name="action_clicked">Action clicked</string>
+    <string name="light_theme">Light theme</string>
+    <string name="dark_theme">Dark theme</string>
+    <string name="title_activity_test">test</string>
+    <string name="title_activity_xml_buttons">XmlButtons</string>
+    <string name="title_activity_program_buttons">ProgramButtons</string>
+    <string name="icon_user"></string>
+    <string name="icon_add"></string>
+    <string name="icon_readmore"></string>
+    <string name="icon_answer"></string>
+    <string name="icon_mute"></string>
+    <string name="icon_like"></string>
+    <string name="icon_share"></string>
+    <string name="icon_follow"></string>
+    <string name="icon_android"></string>
+    <string name="icon_dropbox"></string>
+    <string name="icon_soundcloud"></string>
+    <string name="icon_spotify"></string>
+    <string name="icon_vine"></string>
+    <string name="icon_twitter"></string>
+    <string name="icon_tumbler"></string>
+    <string name="icon_stackoverflow"></string>
+    <string name="icon_gplus"></string>
+    <string name="icon_facebook"></string>
+    <string name="icon_entypo_facebook"></string>
+    <string name="icon_behance"></string>
+    <string name="icon_dribble"></string>
+    <string name="icon_send"></string>
+    <string name="icon_download"></string>
+    <string name="icon_upload"></string>
+    <string name="icon_config"></string>
+    <string name="title_activity_sign_up">SignUpActivity</string>
+    <string name="title_activity_edit_beauty_picture">EditBeautyPictureActivity</string>
+
+</resources>
