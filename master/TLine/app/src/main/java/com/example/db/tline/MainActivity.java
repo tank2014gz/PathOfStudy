@@ -16,7 +16,6 @@ import com.example.db.tline.fragment.FabTextFragment;
 import com.example.db.tline.fragment.HomeFragment;
 import com.example.db.tline.fragment.PersonalFragment;
 import com.example.db.tline.utils.AppConstant;
-import com.example.db.tline.view.RevealLayout;
 
 
 public class MainActivity extends ActionBarActivity implements FabTextFragment.OnFragmentInteractionListener,HomeFragment.OnFragmentInteractionListener
@@ -24,7 +23,6 @@ public class MainActivity extends ActionBarActivity implements FabTextFragment.O
                                                                 ,PersonalFragment.OnFragmentInteractionListener
                                                                 {
     public FragmentTransaction fragmentTransaction;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         AppConstant.setStatus(true,this);
@@ -46,7 +44,21 @@ public class MainActivity extends ActionBarActivity implements FabTextFragment.O
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
-
+    /*
+    <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="108dp"
+                android:background="@android:color/white"
+                android:orientation="horizontal">
+                <ImageView
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:scaleType="fitXY"
+                    android:id="@+id/preview"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginBottom="8dp"/>
+                </LinearLayout>
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will

@@ -119,7 +119,7 @@ public class FabPictureFragment extends Fragment {
         save=(Button)rootView.findViewById(R.id.save);
 
         mPictureContent=(EditText)rootView.findViewById(R.id.picture_edit_content);
-        mPictureTitle=(EditText)rootView.findViewById(R.id.picture_edit_content);
+        mPictureTitle=(EditText)rootView.findViewById(R.id.picture_edit_title);
         mImageView=(ImageView)rootView.findViewById(R.id.preview);
 
         mRevealLayout.setContentShown(false);
