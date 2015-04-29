@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <shape>
+            <padding android:left="1.0dip" android:top="1.0dip" android:right="1.0dip" android:bottom="1.0dip" />
+            <solid android:color="#00000000" />
+            <corners android:radius="@dimen/card_rounded_radius" />
+        </shape>
+    </item>
+    <item>
+        <shape>
+            <padding android:left="1.0dip" android:top="1.0dip" android:right="1.0dip" android:bottom="1.0dip" />
+            <solid android:color="#02000000" />
+            <corners android:radius="@dimen/card_rounded_radius" />
+        </shape>
+    </item>
+    <item>
+        <shape>
+            <padding android:left="1.0dip" android:top="1.0dip" android:right="1.0dip" android:bottom="1.0dip" />
+            <solid android:color="#04000000" />
+            <corners android:radius="@dimen/card_rounded_radius" />
+        </shape>
+    </item>
+    <item>
+        <shape>
+            <padding android:left="1.0dip" android:top="1.0dip" android:right="1.0dip" android:bottom="1.0dip" />
+            <solid android:color="#08000000" />
+            <corners android:radius="@dimen/card_rounded_radius" />
+        </shape>
+    </item>
+    <item>
+        <shape>
+            <padding android:left="1.0dip" android:top="1.0dip" android:right="1.0dip" android:bottom="1.0dip" />
+            <solid android:color="#10000000" />
+            <corners android:radius="@dimen/card_rounded_radius" />
+        </shape>
+    </item>
+</layer-list>

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="FloatingActionButton">
+        <attr name="fab_colorPressed" format="color"/>
+        <attr name="fab_colorDisabled" format="color"/>
+        <attr name="fab_colorNormal" format="color"/>
+        <attr name="fab_icon" format="reference"/>
+        <attr name="fab_size" format="enum">
+            <enum name="normal" value="0"/>
+            <enum name="mini" value="1"/>
+        </attr>
+        <attr name="fab_title" format="string"/>
+        <attr name="fab_stroke_visible" format="boolean"/>
+    </declare-styleable>
+    <declare-styleable name="AddFloatingActionButton">
+        <attr name="fab_plusIconColor" format="color"/>
+    </declare-styleable>
+    <declare-styleable name="FloatingActionsMenu">
+        <attr name="fab_addButtonColorPressed" format="color"/>
+        <attr name="fab_addButtonColorNormal" format="color"/>
+        <attr name="fab_addButtonSize" format="enum">
+            <enum name="normal" value="0"/>
+            <enum name="mini" value="1"/>
+        </attr>
+        <attr name="fab_addButtonPlusIconColor" format="color"/>
+        <attr name="fab_addButtonStrokeVisible" format="boolean"/>
+        <attr name="fab_labelStyle" format="reference"/>
+        <attr name="fab_labelsPosition" format="enum">
+            <enum name="left" value="0"/>
+            <enum name="right" value="1"/>
+        </attr>
+        <attr name="fab_expandDirection" format="enum">
+            <enum name="up" value="0"/>
+            <enum name="down" value="1"/>
+            <enum name="left" value="2"/>
+            <enum name="right" value="3"/>
+        </attr>
+    </declare-styleable>
+    //Waveview
+    <declare-styleable name="WaveView">
+        <attr name="above_wave_color" format="color"/>
+        <attr name="blow_wave_color" format="color"/>
+        <attr name="progress0" format="integer"/>
+        <attr name="wave_length" format="enum">
+            <enum name="large" value="1"/>
+            <enum name="middle" value="2"/>
+            <enum name="little" value="3"/>
+        </attr>
+        <attr name="wave_height" format="enum">
+            <enum name="large" value="1"/>
+            <enum name="middle" value="2"/>
+            <enum name="little" value="3"/>
+        </attr><attr name="wave_hz" format="enum">
+        <enum name="fast" value="1"/>
+        <enum name="normal" value="2"/>
+        <enum name="slow" value="3"/>
+    </attr>
+    </declare-styleable>
+    <declare-styleable name="Themes">
+        <attr name="waveViewStyle" format="reference"/>
+    </declare-styleable>
+    //ShadowLayout
+    <declare-styleable name="ZDepthShadowLayout"><attr name="z_depth" format="enum"><enum name="z_depth0" value="0"/><enum name="z_depth1" value="1"/><enum name="z_depth2" value="2"/><enum name="z_depth3" value="3"/><enum name="z_depth4" value="4"/><enum name="z_depth5" value="5"/></attr><attr name="z_depth_shape" format="enum"><enum name="rect" value="0"/><enum name="oval" value="1"/></attr><attr name="z_depth_padding" format="enum"><enum name="z_depth0" value="0"/><enum name="z_depth1" value="1"/><enum name="z_depth2" value="2"/><enum name="z_depth3" value="3"/><enum name="z_depth4" value="4"/><enum name="z_depth5" value="5"/></attr><attr name="z_depth_paddingLeft" format="enum"><enum name="z_depth0" value="0"/><enum name="z_depth1" value="1"/><enum name="z_depth2" value="2"/><enum name="z_depth3" value="3"/><enum name="z_depth4" value="4"/><enum name="z_depth5" value="5"/></attr><attr name="z_depth_paddingTop" format="enum"><enum name="z_depth0" value="0"/><enum name="z_depth1" value="1"/><enum name="z_depth2" value="2"/><enum name="z_depth3" value="3"/><enum name="z_depth4" value="4"/><enum name="z_depth5" value="5"/></attr><attr name="z_depth_paddingRight" format="enum"><enum name="z_depth0" value="0"/><enum name="z_depth1" value="1"/><enum name="z_depth2" value="2"/><enum name="z_depth3" value="3"/><enum name="z_depth4" value="4"/><enum name="z_depth5" value="5"/></attr><attr name="z_depth_paddingBottom" format="enum"><enum name="z_depth0" value="0"/><enum name="z_depth1" value="1"/><enum name="z_depth2" value="2"/><enum name="z_depth3" value="3"/><enum name="z_depth4" value="4"/><enum name="z_depth5" value="5"/></attr><attr name="z_depth_animDuration" format="integer"/><attr name="z_depth_doAnim" format="boolean"/></declare-styleable>
+</resources>
