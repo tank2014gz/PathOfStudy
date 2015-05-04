@@ -9,5 +9,9 @@
     <string name="title_activity_login">LoginActivity</string>
     <string name="title_activity_tline_details">TLineDetailsActivity</string>
     <string name="title_activity_edit_tline_details">EditTlineDetailsActivity</string>
+    <string name="title_activity_setting">SettingActivity</string>
+    <string name="title_activity_home_pager_acticity">HomePagerActicity</string>
+    <string name="title_activity_pline_details">PLineDetailsActivity</string>
+    <string name="title_activity_edit_pline_details">EditPLineDetailsActivity</string>
 
 </resources>

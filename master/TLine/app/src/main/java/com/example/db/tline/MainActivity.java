@@ -1,7 +1,9 @@
 package com.example.db.tline;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -11,31 +13,48 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.example.db.tline.fragment.AppLockFragment;
 import com.example.db.tline.fragment.FabPictureFragment;
 import com.example.db.tline.fragment.FabTextFragment;
 import com.example.db.tline.fragment.HomeFragment;
 import com.example.db.tline.fragment.PersonalFragment;
 import com.example.db.tline.utils.AppConstant;
+import com.example.db.tline.view.switchbutton.SwitchButton;
 
 
 public class MainActivity extends ActionBarActivity implements FabTextFragment.OnFragmentInteractionListener,HomeFragment.OnFragmentInteractionListener
                                                                 ,FabPictureFragment.OnFragmentInteractionListener
                                                                 ,PersonalFragment.OnFragmentInteractionListener
-                                                                {
+                                                                ,AppLockFragment.OnFragmentInteractionListener{
     public FragmentTransaction fragmentTransaction;
+
+    public boolean FLAG=false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         AppConstant.setStatus(true,this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        SharedPreferences sharedPreferences=getSharedPreferences("com.db.tline", Context.MODE_PRIVATE);
+        FLAG=sharedPreferences.getBoolean("FLAG",false);
+
         fragmentTransaction=this.getSupportFragmentManager().beginTransaction();
         fragmentTransaction.setCustomAnimations(R.anim.activity_up_move_in,R.anim.abc_fade_out);
 
         if (savedInstanceState == null) {
-            getSupportFragmentManager().beginTransaction()
-                    .add(R.id.container, new HomeFragment())
-                    .commit();
+
+
+            if (FLAG){
+                getSupportFragmentManager().beginTransaction()
+                        .add(R.id.container, new AppLockFragment())
+                        .commit();
+            }else {
+                getSupportFragmentManager().beginTransaction()
+                        .add(R.id.container, new HomeFragment())
+                        .commit();
+            }
+
         }
     }
     @Override
@@ -44,21 +63,6 @@ public class MainActivity extends ActionBarActivity implements FabTextFragment.O
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
-    /*
-    <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="108dp"
-                android:background="@android:color/white"
-                android:orientation="horizontal">
-                <ImageView
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:scaleType="fitXY"
-                    android:id="@+id/preview"
-                    android:layout_marginLeft="8dp"
-                    android:layout_marginBottom="8dp"/>
-                </LinearLayout>
-     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will

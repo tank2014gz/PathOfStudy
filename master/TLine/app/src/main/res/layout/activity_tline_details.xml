@@ -50,13 +50,7 @@
 
             </LinearLayout>
 
-            <Button
-                android:id="@+id/save"
-                android:layout_width="28dp"
-                android:layout_height="28dp"
-                android:background="@drawable/ic_action_mode_done"
-                android:layout_gravity="center"
-                android:layout_marginRight="8dp"/>
+
         </LinearLayout>
     </LinearLayout>
     <LinearLayout
@@ -72,10 +66,9 @@
                 android:id="@+id/text_line"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:dividerHeight="16dp"
-                android:divider="@drawable/bkg"
+                android:dividerHeight="-1dp"
                 android:scrollbars="none"
-                android:background="@drawable/bkg">
+                android:background="#f3f3f3">
 
             </ListView>
             <com.example.db.tline.floatingactionbutton.FloatingActionButton

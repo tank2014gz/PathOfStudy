@@ -24,6 +24,7 @@ import android.widget.Toast;
 import com.example.db.tline.R;
 import com.example.db.tline.beans.TextLineInfo;
 import com.example.db.tline.database.TLineSQLiDataBaseHelper;
+import com.example.db.tline.floatingactionbutton.FloatingActionButton;
 import com.example.db.tline.utils.AppConstant;
 import com.example.db.tline.view.RevealLayout;
 
@@ -47,7 +48,8 @@ public class FabTextFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    public Button back,save;
+    public Button back;
+    public FloatingActionButton save;
     public EditText mTextTitle,mTextContent;
     public FragmentTransaction fragmentTransaction;
     private OnFragmentInteractionListener mListener;
@@ -102,7 +104,7 @@ public class FabTextFragment extends Fragment {
         fragmentTransaction.setCustomAnimations(R.anim.activity_up_move_in,R.anim.abc_fade_out);
 
         back=(Button)rootView.findViewById(R.id.back);
-        save=(Button)rootView.findViewById(R.id.save);
+        save=(FloatingActionButton)rootView.findViewById(R.id.save);
         mTextTitle=(EditText)rootView.findViewById(R.id.text_edit_title);
         mTextContent=(EditText)rootView.findViewById(R.id.text_edit_content);
 

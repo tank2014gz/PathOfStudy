@@ -8,16 +8,16 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:background="@drawable/bkg">
-        <com.example.db.tline.view.PullToZoomListView
+        android:background="#f3f3f3">
+        <ListView
             android:id="@+id/list_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:divider="@drawable/bkg"
+            android:divider="#f3f3f3"
             android:dividerHeight="16dp"
             android:scrollbars="none">
 
-        </com.example.db.tline.view.PullToZoomListView>
+        </ListView>
 
     </FrameLayout>
 

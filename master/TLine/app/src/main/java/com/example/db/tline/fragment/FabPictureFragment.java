@@ -18,6 +18,7 @@ import android.widget.ImageView;
 
 import com.example.db.tline.R;
 import com.example.db.tline.database.PLineSQLiDataBaseHelper;
+import com.example.db.tline.floatingactionbutton.FloatingActionButton;
 import com.example.db.tline.utils.AppConstant;
 import com.example.db.tline.view.RevealLayout;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
@@ -42,7 +43,8 @@ public class FabPictureFragment extends Fragment {
     private String mParam1;
     private String mParam2;
     private OnFragmentInteractionListener mListener;
-    public Button back,save;
+    public Button back;
+    public FloatingActionButton save;
     public EditText mPictureTitle,mPictureContent;
     public ImageView mImageView;
     public String uri=null;
@@ -116,7 +118,7 @@ public class FabPictureFragment extends Fragment {
         fragmentTransaction.setCustomAnimations(R.anim.activity_up_move_in,R.anim.abc_fade_out);
 
         back=(Button)rootView.findViewById(R.id.back);
-        save=(Button)rootView.findViewById(R.id.save);
+        save=(FloatingActionButton)rootView.findViewById(R.id.save);
 
         mPictureContent=(EditText)rootView.findViewById(R.id.picture_edit_content);
         mPictureTitle=(EditText)rootView.findViewById(R.id.picture_edit_title);

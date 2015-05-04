@@ -33,7 +33,7 @@ public class TLineDetailsActivity extends ActionBarActivity {
 
     public com.example.db.tline.floatingactionbutton.FloatingActionButton mFloatingActionButton;
     public ListView mListView;
-    public Button back,save;
+    public Button back;
 
     public TextView mTitle,mDate;
 
@@ -93,7 +93,6 @@ public class TLineDetailsActivity extends ActionBarActivity {
 
 
         back=(Button)findViewById(R.id.back);
-        save=(Button)findViewById(R.id.save);
 
         mFloatingActionButton=(com.example.db.tline.floatingactionbutton.FloatingActionButton)findViewById(R.id.fab_edit);
 
@@ -117,7 +116,8 @@ public class TLineDetailsActivity extends ActionBarActivity {
             public void onClick(View view) {
                 Intent intent=new Intent(TLineDetailsActivity.this, MainActivity.class);
                 startActivity(intent);
-                overridePendingTransition(R.anim.activity_up_move_in,R.anim.abc_fade_out);
+                TLineDetailsActivity.this.finish();
+//                overridePendingTransition(R.anim.activity_up_move_in,R.anim.abc_fade_out);
             }
         });
 

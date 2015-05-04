@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +17,8 @@ import android.widget.TextView;
 
 import com.example.db.tline.MainActivity;
 import com.example.db.tline.R;
+import com.example.db.tline.activity.PLineDetailsActivity;
+import com.example.db.tline.activity.TLineDetailsActivity;
 import com.example.db.tline.beans.PictureLineInfo;
 import com.example.db.tline.database.PLineSQLiDataBaseHelper;
 import com.example.db.tline.utils.AppConstant;
@@ -115,6 +118,20 @@ public class PictureLineAdapter extends BaseAdapter{
                 notifyDataSetChanged();
 
                 Intent intent=new Intent(context, MainActivity.class);
+                context.startActivity(intent);
+            }
+        });
+
+        view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(context, PLineDetailsActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                Bundle bundle =new Bundle();
+                bundle.putString("title",pictureLineInfo.getTitle().toString());
+                bundle.putString("content",pictureLineInfo.getContent().toString());
+                bundle.putString("date",pictureLineInfo.getDate().toString());
+                intent.putExtra("adapter",bundle);
                 context.startActivity(intent);
             }
         });

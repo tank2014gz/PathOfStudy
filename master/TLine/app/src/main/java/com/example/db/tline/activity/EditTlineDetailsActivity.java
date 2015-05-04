@@ -18,13 +18,15 @@ import android.widget.ListView;
 
 import com.example.db.tline.R;
 import com.example.db.tline.database.TLineListSQLiDateBaseHelper;
+import com.example.db.tline.floatingactionbutton.FloatingActionButton;
 import com.example.db.tline.utils.AppConstant;
 import com.example.db.tline.view.RevealLayout;
 
 public class EditTlineDetailsActivity extends ActionBarActivity {
 
     public EditText mTitle,mContent;
-    public Button back,save;
+    public Button back;
+    public FloatingActionButton save;
 
     public String title=null;
     public String content=null;
@@ -72,7 +74,7 @@ public class EditTlineDetailsActivity extends ActionBarActivity {
         mTitle=(EditText)findViewById(R.id.title);
         mContent=(EditText)findViewById(R.id.content);
         back=(Button)findViewById(R.id.back);
-        save=(Button)findViewById(R.id.save);
+        save=(FloatingActionButton)findViewById(R.id.save);
 
         back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -85,7 +87,8 @@ public class EditTlineDetailsActivity extends ActionBarActivity {
                 bundle.putString("date",relation_date);
                 intent.putExtra("adapter",bundle);
                 startActivity(intent);
-                overridePendingTransition(R.anim.activity_up_move_in,R.anim.abc_fade_out);
+                EditTlineDetailsActivity.this.finish();
+//                overridePendingTransition(R.anim.activity_up_move_in,R.anim.abc_fade_out);
             }
         });
 
@@ -127,7 +130,7 @@ public class EditTlineDetailsActivity extends ActionBarActivity {
                 bundle.putString("date",relation_date);
                 intent.putExtra("adapter",bundle);
                 startActivity(intent);
-                overridePendingTransition(R.anim.activity_up_move_in,R.anim.abc_fade_out);
+//                overridePendingTransition(R.anim.activity_up_move_in,R.anim.abc_fade_out);
             }
         });
 

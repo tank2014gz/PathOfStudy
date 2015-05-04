@@ -50,16 +50,16 @@
 
         </LinearLayout>
     </LinearLayout>
-    <com.example.db.tline.view.OverScrollView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        >
+    <!--<com.example.db.tline.view.OverScrollView-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_weight="1"-->
+        <!-->-->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:background="@drawable/bkg">
+        android:background="#f3f3f3">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="96dp"
@@ -81,7 +81,7 @@
                     android:layout_marginLeft="4dp"
                     android:background="@android:color/white"
                     android:paddingLeft="16dp"
-                    android:drawableLeft="@drawable/profile_icon_person"/>
+                    android:drawableLeft="@drawable/ic_invited_answer"/>
 
                 <EditText
                     android:layout_width="wrap_content"
@@ -106,7 +106,7 @@
                     android:paddingLeft="16dp"
                     android:layout_marginLeft="4dp"
                     android:background="@android:color/white"
-                    android:drawableLeft="@drawable/icon_password"/>
+                    android:drawableLeft="@drawable/ic_business"/>
 
                 <EditText
                     android:layout_width="wrap_content"
@@ -136,7 +136,7 @@
                 android:layout_gravity="center"
                 android:gravity="center|right"
                 android:textSize="14sp"
-                android:textColor="#673ab7"
+                android:textColor="#24ba91"
                 android:text="忘记密码"/>
         </LinearLayout>
         <LinearLayout
@@ -150,7 +150,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@drawable/card_item"
-                android:textColor="#673ab7"
+                android:textColor="#24ba91"
                 android:textSize="20sp"
                 android:layout_gravity="center"
                 android:gravity="center"
@@ -169,7 +169,7 @@
                 android:layout_gravity="center"
                 android:gravity="center"
                 android:textSize="14sp"
-                android:textColor="#673ab7"
+                android:textColor="#24ba91"
                 android:text="注册"/>
         </LinearLayout>
         <LinearLayout
@@ -228,10 +228,10 @@
                 android:layout_width="60dp"
                 android:layout_height="60dp"
                 android:layout_gravity="center"
-                android:background="@drawable/bkg"
+                android:background="#f3f3f3"
                 android:text="微博"
                 android:textSize="12sp"
-                android:textColor="#673ab7"
+                android:textColor="#24ba91"
                 android:drawableTop="@drawable/login_weibo"/>
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -241,10 +241,10 @@
                 android:layout_width="60dp"
                 android:layout_height="60dp"
                 android:layout_gravity="center"
-                android:background="@drawable/bkg"
+                android:background="#f3f3f3"
                 android:text="QQ"
                 android:textSize="12sp"
-                android:textColor="#673ab7"
+                android:textColor="#24ba91"
                 android:drawableTop="@drawable/login_qq"/>
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -254,10 +254,10 @@
                 android:layout_width="60dp"
                 android:layout_height="60dp"
                 android:layout_gravity="center"
-                android:background="@drawable/bkg"
+                android:background="#f3f3f3"
                 android:text="果壳"
                 android:textSize="12sp"
-                android:textColor="#673ab7"
+                android:textColor="#24ba91"
                 android:drawableTop="@drawable/login_guokr"/>
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -265,6 +265,6 @@
                 android:layout_weight="1"></LinearLayout>
         </LinearLayout>
     </LinearLayout>
-    </com.example.db.tline.view.OverScrollView>
+    <!--</com.example.db.tline.view.OverScrollView>-->
     </LinearLayout>
 </com.example.db.tline.view.RevealLayout>

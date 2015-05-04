@@ -53,13 +53,7 @@
                         android:layout_weight="1">
 
                     </LinearLayout>
-                    <Button
-                        android:id="@+id/save"
-                        android:layout_width="28dp"
-                        android:layout_height="28dp"
-                        android:background="@drawable/ic_action_mode_done"
-                        android:layout_gravity="center"
-                        android:layout_marginRight="8dp"/>
+
                 </LinearLayout>
             </LinearLayout>
             <LinearLayout
@@ -117,8 +111,8 @@
                 fab:fab_colorNormal="@color/white"
                 fab:fab_colorPressed="@color/white_pressed"
                 fab:fab_size="normal"
-                fab:fab_icon="@drawable/fab_new_post"
-                android:id="@+id/edit_text"/>
+                fab:fab_icon="@drawable/ic_action_mode_done"
+                android:id="@+id/save"/>
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"

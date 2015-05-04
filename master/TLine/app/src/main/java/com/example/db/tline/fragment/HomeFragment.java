@@ -2,11 +2,15 @@ package com.example.db.tline.fragment;
 
 import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
+import android.annotation.TargetApi;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -25,10 +29,14 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RadioButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.db.tline.R;
+import com.example.db.tline.activity.HomePagerActicity;
 import com.example.db.tline.activity.LoginActivity;
+import com.example.db.tline.activity.SettingActivity;
 import com.example.db.tline.adapter.HomeViewPagerAdapter;
 import com.example.db.tline.adapter.PictureLineAdapter;
 import com.example.db.tline.adapter.TextTimeLineAdapter;
@@ -81,7 +89,7 @@ public class HomeFragment extends Fragment {
 
     public FragmentTransaction fragmentTransaction;
 
-    public PullToZoomListView mListView1, mListView2, mListView3;
+    public ListView mListView1, mListView2, mListView3;
 
     public FloatingActionButton floatingActionButtonText, floatingActionButtonPicture;
 
@@ -91,12 +99,12 @@ public class HomeFragment extends Fragment {
     public ViewPager viewPager;
     public IndicatorViewPager indicatorViewPager;
     public List<View> mList = new ArrayList<View>();
-    public LinearLayout article_bar, picture_bar, music_bar;
-    public TextView picture, text, person;
-    public Button mLogin;
+    public Button mLogin,mMore,mSearch;
     public Bundle bundle;
     public String tText,tContent,pText,pContent,pUri;
     public LayoutInflater inflate;
+
+    public RadioButton mRadioPic,mRadioText,mRatiomy;
 
 
     public RevealLayout mRevealLayout;
@@ -135,7 +143,7 @@ public class HomeFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(final LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
         View rootView = inflater.inflate(R.layout.fragment_main, container, false);
@@ -147,7 +155,11 @@ public class HomeFragment extends Fragment {
         fragmentTransaction=getActivity().getSupportFragmentManager().beginTransaction();
         fragmentTransaction.setCustomAnimations(R.anim.activity_up_move_in,R.anim.abc_fade_out);
 
-
+        mMore=(Button)rootView.findViewById(R.id.btn_more);
+        mSearch=(Button)rootView.findViewById(R.id.search);
+        mRadioPic=(RadioButton)rootView.findViewById(R.id.radio_picture);
+        mRadioText=(RadioButton)rootView.findViewById(R.id.ratio_text);
+        mRatiomy=(RadioButton)rootView.findViewById(R.id.ratio_my);
 
 
         mLogin=(Button)rootView.findViewById(R.id.login);
@@ -161,12 +173,13 @@ public class HomeFragment extends Fragment {
         });
 
         View view1 = inflater.inflate(R.layout.text_line, null);
-        mListView1 = (PullToZoomListView) view1.findViewById(R.id.list_view);
-        View mHeadView1 = inflater.inflate(R.layout.head_view, null);
+        mListView1 = (ListView) view1.findViewById(R.id.list_view);
+        View mHeadView1 = inflater.inflate(R.layout.common_head, null);
         View mFootView1 = inflater.inflate(R.layout.foot_view,null);
         mListView1.addFooterView(mFootView1);
-        mListView1.getHeaderView().setImageResource(R.drawable.scroll2);
-        mListView1.getHeaderView().setScaleType(ImageView.ScaleType.CENTER_CROP);
+        mListView1.addHeaderView(mHeadView1);
+//        mListView1.getHeaderView().setImageResource(R.drawable.scroll2);
+//        mListView1.getHeaderView().setScaleType(ImageView.ScaleType.CENTER_CROP);
 
 
 
@@ -194,6 +207,15 @@ public class HomeFragment extends Fragment {
         });
 
 
+        mMore.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent();
+                intent.setClass(getActivity(), SettingActivity.class);
+                startActivity(intent);
+            }
+        });
+
         floatingActionButtonText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -216,12 +238,13 @@ public class HomeFragment extends Fragment {
 
 
         View view2 = inflater.inflate(R.layout.text_line, null);
-        mListView2 = (PullToZoomListView) view2.findViewById(R.id.list_view);
-        View mHeadView2 = inflater.inflate(R.layout.head_view, null);
+        mListView2 = (ListView) view2.findViewById(R.id.list_view);
+        View mHeadView2 = inflater.inflate(R.layout.common_head, null);
         View mFootView2 = inflater.inflate(R.layout.foot_view,null);
         mListView2.addFooterView(mFootView2);
-        mListView2.getHeaderView().setImageResource(R.drawable.scroll1);
-        mListView2.getHeaderView().setScaleType(ImageView.ScaleType.CENTER_CROP);
+        mListView2.addHeaderView(mHeadView2);
+//        mListView2.getHeaderView().setImageResource(R.drawable.scroll1);
+//        mListView2.getHeaderView().setScaleType(ImageView.ScaleType.CENTER_CROP);
 
 
 
@@ -243,6 +266,24 @@ public class HomeFragment extends Fragment {
         linearLayout3=(LinearLayout)view3.findViewById(R.id.safe);
         linearLayout4=(LinearLayout)view3.findViewById(R.id.copy);
 
+        linearLayout1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(getActivity(), HomePagerActicity.class);
+                startActivity(intent);
+            }
+        });
+        linearLayout3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                SharedPreferences sharedPreferences = getActivity().getSharedPreferences("com.db.tline", Context.MODE_PRIVATE); //私有数据
+                SharedPreferences.Editor editor = sharedPreferences.edit();//获取编辑器
+                editor.putString("password", "1234");
+                editor.putBoolean("FLAG", true);
+                editor.commit();//提交修改
+            }
+        });
+
         BadgeView badge = new BadgeView(getActivity(), linearLayout2);
         badge.setText("0");
         badge.setBadgeBackgroundColor(getActivity().getResources().getColor(R.color.white));
@@ -256,14 +297,6 @@ public class HomeFragment extends Fragment {
         mList.add(view3);
 
 
-        article_bar = (LinearLayout) rootView.findViewById(R.id.article_bar);
-        picture_bar = (LinearLayout) rootView.findViewById(R.id.picture_bar);
-        music_bar = (LinearLayout) rootView.findViewById(R.id.music_bar);
-
-        picture = (TextView) rootView.findViewById(R.id.picture);
-        text = (TextView) rootView.findViewById(R.id.text);
-        person = (TextView) rootView.findViewById(R.id.person);
-
         viewPager = (ViewPager) rootView.findViewById(R.id.guide_viewPager);
         HomeViewPagerAdapter homeViewPagerAdapter = new HomeViewPagerAdapter(getActivity(), mList);
         viewPager.setAdapter(homeViewPagerAdapter);
@@ -271,49 +304,42 @@ public class HomeFragment extends Fragment {
         viewPager.setCurrentItem(0);
 
 
-        article_bar.setBackgroundColor(getResources().getColor(R.color.white_pressed));
-        picture_bar.setBackgroundColor(getResources().getColor(R.color.actionbar));
-        music_bar.setBackgroundColor(getResources().getColor(R.color.actionbar));
-
-        picture.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                viewPager.setCurrentItem(0);
-            }
-        });
-        text.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                viewPager.setCurrentItem(1);
-            }
-        });
-        person.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                viewPager.setCurrentItem(2);
-            }
-        });
-
         viewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 
             }
 
+            @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
             @Override
             public void onPageSelected(int position) {
                 if (position == 0) {
-                    article_bar.setBackgroundColor(getResources().getColor(R.color.white_pressed));
-                    picture_bar.setBackgroundColor(getResources().getColor(R.color.actionbar));
-                    music_bar.setBackgroundColor(getResources().getColor(R.color.actionbar));
+
+                    mRadioPic.setBackground(getActivity().getResources().getDrawable(R.drawable.ratio_bkg_left_pressed));
+                    mRadioText.setBackground(getActivity().getResources().getDrawable(R.drawable.ratio_my));
+                    mRatiomy.setBackground(getActivity().getResources().getDrawable(R.drawable.ratio_bkg_right));
+                    mRadioPic.setTextColor(getActivity().getResources().getColor(R.color.actionbar));
+                    mRadioText.setTextColor(getActivity().getResources().getColor(R.color.white_pressed));
+                    mRatiomy.setTextColor(getActivity().getResources().getColor(R.color.white_pressed));
+
                 } else if (position == 1) {
-                    picture_bar.setBackgroundColor(getResources().getColor(R.color.white_pressed));
-                    article_bar.setBackgroundColor(getResources().getColor(R.color.actionbar));
-                    music_bar.setBackgroundColor(getResources().getColor(R.color.actionbar));
+
+                    mRadioText.setBackground(getActivity().getResources().getDrawable(R.drawable.ratio_my_pressed));
+                    mRadioPic.setBackground(getActivity().getResources().getDrawable(R.drawable.ratio_bkg_left));
+                    mRatiomy.setBackground(getActivity().getResources().getDrawable(R.drawable.ratio_bkg_right));
+                    mRadioText.setTextColor(getActivity().getResources().getColor(R.color.actionbar));
+                    mRadioPic.setTextColor(getActivity().getResources().getColor(R.color.white_pressed));
+                    mRatiomy.setTextColor(getActivity().getResources().getColor(R.color.white_pressed));
+
                 } else if (position == 2) {
-                    music_bar.setBackgroundColor(getResources().getColor(R.color.white_pressed));
-                    picture_bar.setBackgroundColor(getResources().getColor(R.color.actionbar));
-                    picture_bar.setBackgroundColor(getResources().getColor(R.color.actionbar));
+
+                    mRatiomy.setBackground(getActivity().getResources().getDrawable(R.drawable.ratio_bkg_right_pressed));
+                    mRadioPic.setBackground(getActivity().getResources().getDrawable(R.drawable.ratio_bkg_left));
+                    mRadioText.setBackground(getActivity().getResources().getDrawable(R.drawable.ratio_my));
+                    mRatiomy.setTextColor(getActivity().getResources().getColor(R.color.actionbar));
+                    mRadioPic.setTextColor(getActivity().getResources().getColor(R.color.white_pressed));
+                    mRadioText.setTextColor(getActivity().getResources().getColor(R.color.white_pressed));
+
                 }
             }
 
@@ -322,6 +348,49 @@ public class HomeFragment extends Fragment {
 
             }
         });
+
+
+        mRadioPic.setOnClickListener(new View.OnClickListener() {
+            @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
+            @Override
+            public void onClick(View view) {
+                mRadioPic.setBackground(getActivity().getResources().getDrawable(R.drawable.ratio_bkg_left_pressed));
+                mRadioText.setBackground(getActivity().getResources().getDrawable(R.drawable.ratio_my));
+                mRatiomy.setBackground(getActivity().getResources().getDrawable(R.drawable.ratio_bkg_right));
+                mRadioPic.setTextColor(getActivity().getResources().getColor(R.color.actionbar));
+                mRadioText.setTextColor(getActivity().getResources().getColor(R.color.white_pressed));
+                mRatiomy.setTextColor(getActivity().getResources().getColor(R.color.white_pressed));
+                viewPager.setCurrentItem(0);
+            }
+        });
+        mRadioText.setOnClickListener(new View.OnClickListener() {
+            @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
+            @Override
+            public void onClick(View view) {
+                mRadioText.setBackground(getActivity().getResources().getDrawable(R.drawable.ratio_my_pressed));
+                mRadioPic.setBackground(getActivity().getResources().getDrawable(R.drawable.ratio_bkg_left));
+                mRatiomy.setBackground(getActivity().getResources().getDrawable(R.drawable.ratio_bkg_right));
+                mRadioText.setTextColor(getActivity().getResources().getColor(R.color.actionbar));
+                mRadioPic.setTextColor(getActivity().getResources().getColor(R.color.white_pressed));
+                mRatiomy.setTextColor(getActivity().getResources().getColor(R.color.white_pressed));
+                viewPager.setCurrentItem(1);
+            }
+        });
+        mRatiomy.setOnClickListener(new View.OnClickListener() {
+            @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
+            @Override
+            public void onClick(View view) {
+                mRatiomy.setBackground(getActivity().getResources().getDrawable(R.drawable.ratio_bkg_right_pressed));
+                mRadioPic.setBackground(getActivity().getResources().getDrawable(R.drawable.ratio_bkg_left));
+                mRadioText.setBackground(getActivity().getResources().getDrawable(R.drawable.ratio_my));
+                mRatiomy.setTextColor(getActivity().getResources().getColor(R.color.actionbar));
+                mRadioPic.setTextColor(getActivity().getResources().getColor(R.color.white_pressed));
+                mRadioText.setTextColor(getActivity().getResources().getColor(R.color.white_pressed));
+                viewPager.setCurrentItem(2);
+
+            }
+        });
+
 
         if (bundle!=null){
             switch (bundle.getString("command")){

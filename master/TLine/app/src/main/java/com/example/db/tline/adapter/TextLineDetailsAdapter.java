@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.db.tline.R;
@@ -52,9 +53,28 @@ public class TextLineDetailsAdapter extends BaseAdapter {
             viewHolder.mTitle=(TextView)view.findViewById(R.id.title);
             viewHolder.mContent=(TextView)view.findViewById(R.id.content);
             viewHolder.mDate=(TextView)view.findViewById(R.id.date);
+            viewHolder.up=(LinearLayout)view.findViewById(R.id.up);
+            viewHolder.down=(LinearLayout)view.findViewById(R.id.down);
             view.setTag(viewHolder);
         }else {
             viewHolder=(ViewHolder)view.getTag();
+        }
+
+        if (tLineListInfos.size()==1){
+            viewHolder.up.setVisibility(View.GONE);
+            viewHolder.down.setVisibility(View.GONE);
+        }else {
+            viewHolder.up.setVisibility(View.VISIBLE);
+            viewHolder.down.setVisibility(View.VISIBLE);
+        }
+
+        if (i==0){
+            viewHolder.up.setVisibility(View.GONE);
+        }else if (i==tLineListInfos.size()-1){
+            viewHolder.down.setVisibility(View.GONE);
+        }else {
+            viewHolder.up.setVisibility(View.VISIBLE);
+            viewHolder.down.setVisibility(View.VISIBLE);
         }
 
         TLineListInfo tLineListInfo=tLineListInfos.get(i);
@@ -66,5 +86,6 @@ public class TextLineDetailsAdapter extends BaseAdapter {
 
     public static class ViewHolder{
         TextView mTitle,mContent,mDate;
+        LinearLayout up,down;
     }
 }
