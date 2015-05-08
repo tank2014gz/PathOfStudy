@@ -7,6 +7,7 @@ public class TextLineInfo {
     public String title;
     public String content;
     public String date;
+    public String location;
     public void setTitle(String title){
         this.title=title;
     }
@@ -24,5 +25,11 @@ public class TextLineInfo {
     }
     public String getDate(){
         return date;
+    }
+    public void setLocation(String location){
+        this.location=location;
+    }
+    public String getLocation(){
+        return location;
     }
 }

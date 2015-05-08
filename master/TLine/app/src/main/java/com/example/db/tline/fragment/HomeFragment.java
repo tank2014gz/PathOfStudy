@@ -34,6 +34,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.db.tline.R;
+import com.example.db.tline.SetPasswordActivity;
+import com.example.db.tline.activity.CameraActivity;
 import com.example.db.tline.activity.HomePagerActicity;
 import com.example.db.tline.activity.LoginActivity;
 import com.example.db.tline.activity.SettingActivity;
@@ -91,7 +93,7 @@ public class HomeFragment extends Fragment {
 
     public ListView mListView1, mListView2, mListView3;
 
-    public FloatingActionButton floatingActionButtonText, floatingActionButtonPicture;
+    public FloatingActionButton floatingActionButtonText, floatingActionButtonPicture,floatingActionButtonCamera;
 
     public LinearLayout linearLayout1,linearLayout2,linearLayout3,linearLayout4;
 
@@ -99,7 +101,7 @@ public class HomeFragment extends Fragment {
     public ViewPager viewPager;
     public IndicatorViewPager indicatorViewPager;
     public List<View> mList = new ArrayList<View>();
-    public Button mLogin,mMore,mSearch;
+    public Button mLogin,mMore;
     public Bundle bundle;
     public String tText,tContent,pText,pContent,pUri;
     public LayoutInflater inflate;
@@ -156,7 +158,6 @@ public class HomeFragment extends Fragment {
         fragmentTransaction.setCustomAnimations(R.anim.activity_up_move_in,R.anim.abc_fade_out);
 
         mMore=(Button)rootView.findViewById(R.id.btn_more);
-        mSearch=(Button)rootView.findViewById(R.id.search);
         mRadioPic=(RadioButton)rootView.findViewById(R.id.radio_picture);
         mRadioText=(RadioButton)rootView.findViewById(R.id.ratio_text);
         mRatiomy=(RadioButton)rootView.findViewById(R.id.ratio_my);
@@ -168,7 +169,6 @@ public class HomeFragment extends Fragment {
             public void onClick(View view) {
                 Intent intent=new Intent(getActivity(), LoginActivity.class);
                 startActivity(intent);
-                getActivity().overridePendingTransition(R.anim.activity_up_move_in, R.anim.abc_fade_out);
             }
         });
 
@@ -190,6 +190,7 @@ public class HomeFragment extends Fragment {
 
         floatingActionButtonPicture = (FloatingActionButton) rootView.findViewById(R.id.edit_picture);
         floatingActionButtonText = (FloatingActionButton) rootView.findViewById(R.id.edit_text);
+        floatingActionButtonCamera=(FloatingActionButton)rootView.findViewById(R.id.edit_camera);
 
 
         mRevealLayout.setContentShown(false);
@@ -235,7 +236,13 @@ public class HomeFragment extends Fragment {
             }
         });
 
-
+        floatingActionButtonCamera.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(getActivity(), CameraActivity.class);
+                getActivity().startActivityForResult(intent,2);
+            }
+        });
 
         View view2 = inflater.inflate(R.layout.text_line, null);
         mListView2 = (ListView) view2.findViewById(R.id.list_view);
@@ -276,13 +283,22 @@ public class HomeFragment extends Fragment {
         linearLayout3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                SharedPreferences sharedPreferences = getActivity().getSharedPreferences("com.db.tline", Context.MODE_PRIVATE); //私有数据
-                SharedPreferences.Editor editor = sharedPreferences.edit();//获取编辑器
-                editor.putString("password", "1234");
-                editor.putBoolean("FLAG", true);
-                editor.commit();//提交修改
+                Intent intent=new Intent(getActivity(), SetPasswordActivity.class);
+                startActivity(intent);
             }
         });
+
+        BadgeView badgeView = new BadgeView(getActivity(), linearLayout1);
+        badgeView.setBadgeBackgroundColor(getActivity().getResources().getColor(R.color.white));
+        badgeView.setBadgePosition(2);
+        badgeView.setBadgeMargin(32, 40);
+        if (AppConstant.LOGIN_STATUS){
+            badgeView.setText("已登陆");
+            badgeView.show();
+        }else {
+            badgeView.setText("未登录");
+            badgeView.show();
+        }
 
         BadgeView badge = new BadgeView(getActivity(), linearLayout2);
         badge.setText("0");
@@ -290,7 +306,6 @@ public class HomeFragment extends Fragment {
         badge.setBadgePosition(2);
         badge.setBadgeMargin(32,40);
         badge.show();
-
 
         mList.add(view1);
         mList.add(view2);
@@ -452,7 +467,7 @@ public class HomeFragment extends Fragment {
         ArrayList<TextLineInfo> textLineInfos=new ArrayList<TextLineInfo>();
         TLineSQLiDataBaseHelper tLineSQLiDataBaseHelper=new TLineSQLiDataBaseHelper(getActivity());
         SQLiteDatabase sqLiteDatabase=tLineSQLiDataBaseHelper.getWritableDatabase();
-        Cursor cursor=sqLiteDatabase.query("textline",new String[]{"title","content","date"},null,null,null,null,null);
+        Cursor cursor=sqLiteDatabase.query("textline",new String[]{"title","content","date","location"},null,null,null,null,null);
         if (cursor.getCount()!=0){
             for (int i=0;i<cursor.getCount();i++){
                 cursor.moveToPosition(i);
@@ -460,6 +475,7 @@ public class HomeFragment extends Fragment {
                 textLineInfo.setTitle(cursor.getString(cursor.getColumnIndex("title")));
                 textLineInfo.setContent(cursor.getString(cursor.getColumnIndex("content")));
                 textLineInfo.setDate(cursor.getString(cursor.getColumnIndex("date")));
+                textLineInfo.setLocation(cursor.getString(cursor.getColumnIndex("location")));
                 textLineInfos.add(textLineInfo);
             }
         }
@@ -471,7 +487,7 @@ public class HomeFragment extends Fragment {
         ArrayList<PictureLineInfo> pictureLineInfos=new ArrayList<PictureLineInfo>();
         PLineSQLiDataBaseHelper pLineSQLiDataBaseHelper=new PLineSQLiDataBaseHelper(getActivity());
         SQLiteDatabase sqLiteDatabase=pLineSQLiDataBaseHelper.getWritableDatabase();
-        Cursor cursor=sqLiteDatabase.query("pictureline",new String[]{"title","content","uri","date"},null,null,null,null,null);
+        Cursor cursor=sqLiteDatabase.query("pictureline",new String[]{"title","content","uri","date","location"},null,null,null,null,null);
         if (cursor.getCount()!=0){
             for (int i=0;i<cursor.getCount();i++){
                 cursor.moveToPosition(i);
@@ -480,6 +496,7 @@ public class HomeFragment extends Fragment {
                 pictureLineInfo.setContent(cursor.getString(cursor.getColumnIndex("content")));
                 pictureLineInfo.setUri(cursor.getString(cursor.getColumnIndex("uri")));
                 pictureLineInfo.setDate(cursor.getString(cursor.getColumnIndex("date")));
+                pictureLineInfo.setLocation(cursor.getString(cursor.getColumnIndex("location")));
                 pictureLineInfos.add(pictureLineInfo);
             }
         }

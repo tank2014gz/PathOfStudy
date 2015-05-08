@@ -1,6 +1,9 @@
 package com.example.db.tline.adapter;
 
 import android.content.Context;
+import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,8 +12,11 @@ import android.widget.BaseAdapter;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.example.db.tline.MainActivity;
 import com.example.db.tline.R;
+import com.example.db.tline.activity.TLineDetailsActivity;
 import com.example.db.tline.beans.TLineListInfo;
+import com.example.db.tline.database.TLineListSQLiDateBaseHelper;
 
 import java.util.ArrayList;
 
@@ -53,29 +59,37 @@ public class TextLineDetailsAdapter extends BaseAdapter {
             viewHolder.mTitle=(TextView)view.findViewById(R.id.title);
             viewHolder.mContent=(TextView)view.findViewById(R.id.content);
             viewHolder.mDate=(TextView)view.findViewById(R.id.date);
-            viewHolder.up=(LinearLayout)view.findViewById(R.id.up);
-            viewHolder.down=(LinearLayout)view.findViewById(R.id.down);
+            viewHolder.mDivider=(LinearLayout)view.findViewById(R.id.divide);
             view.setTag(viewHolder);
         }else {
             viewHolder=(ViewHolder)view.getTag();
         }
 
-        if (tLineListInfos.size()==1){
-            viewHolder.up.setVisibility(View.GONE);
-            viewHolder.down.setVisibility(View.GONE);
+        if (i==tLineListInfos.size()-1){
+            viewHolder.mDivider.setVisibility(View.GONE);
         }else {
-            viewHolder.up.setVisibility(View.VISIBLE);
-            viewHolder.down.setVisibility(View.VISIBLE);
+            viewHolder.mDivider.setVisibility(View.VISIBLE);
         }
+        final int temp=i;
+        viewHolder.mDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                TLineListSQLiDateBaseHelper tLineListSQLiDateBaseHelper=new TLineListSQLiDateBaseHelper(context);
+                SQLiteDatabase sqLiteDatabase=tLineListSQLiDateBaseHelper.getWritableDatabase();
+                sqLiteDatabase.delete("textlinelist","title like ?",new String[]{tLineListInfos.get(temp).getTitle()});
+                sqLiteDatabase.close();
+                notifyDataSetChanged();
 
-        if (i==0){
-            viewHolder.up.setVisibility(View.GONE);
-        }else if (i==tLineListInfos.size()-1){
-            viewHolder.down.setVisibility(View.GONE);
-        }else {
-            viewHolder.up.setVisibility(View.VISIBLE);
-            viewHolder.down.setVisibility(View.VISIBLE);
-        }
+                Intent intent=new Intent(context, TLineDetailsActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                Bundle bundle =new Bundle();
+                bundle.putString("title",tLineListInfos.get(temp).getRelationtitle());
+                bundle.putString("content",tLineListInfos.get(temp).getRelationcontent());
+                bundle.putString("date",tLineListInfos.get(temp).getRelationdate());
+                intent.putExtra("adapter",bundle);
+                context.startActivity(intent);
+            }
+        });
 
         TLineListInfo tLineListInfo=tLineListInfos.get(i);
         viewHolder.mTitle.setText(tLineListInfo.getTitle());
@@ -86,6 +100,6 @@ public class TextLineDetailsAdapter extends BaseAdapter {
 
     public static class ViewHolder{
         TextView mTitle,mContent,mDate;
-        LinearLayout up,down;
+        LinearLayout mDivider;
     }
 }

@@ -14,7 +14,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:divider="#f3f3f3"
-            android:dividerHeight="16dp"
+            android:dividerHeight="8dp"
             android:scrollbars="none">
 
         </ListView>

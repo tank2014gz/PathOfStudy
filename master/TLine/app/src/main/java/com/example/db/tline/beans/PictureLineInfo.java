@@ -8,6 +8,7 @@ public class PictureLineInfo {
     public String content;
     public String date;
     public String uri;
+    public String location;
     public void setTitle(String title){
         this.title=title;
     }
@@ -31,5 +32,11 @@ public class PictureLineInfo {
     }
     public String getUri(){
         return uri;
+    }
+    public void setLocation(String location){
+        this.location=location;
+    }
+    public String getLocation(){
+        return location;
     }
 }

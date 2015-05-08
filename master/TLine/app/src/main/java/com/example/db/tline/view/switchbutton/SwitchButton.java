@@ -35,7 +35,7 @@ import com.example.db.tline.R;
 public class SwitchButton extends CompoundButton {
 	private static boolean SHOW_RECT = false;
 
-	private boolean mIsChecked = false;
+	private boolean mIsChecked = true;
 
 	private Configuration mConf;
 

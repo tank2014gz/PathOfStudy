@@ -64,6 +64,7 @@ public class TextTimeLineAdapter extends BaseAdapter {
             viewHolder.mDescription=(TextView)view.findViewById(R.id.description);
             viewHolder.mShare=(Button)view.findViewById(R.id.btn_share);
             viewHolder.mEdit=(Button)view.findViewById(R.id.btn_edit);
+            viewHolder.mLocation=(TextView)view.findViewById(R.id.location);
             view.setTag(viewHolder);
         }else {
             viewHolder=(ViewHolder)view.getTag();
@@ -84,8 +85,9 @@ public class TextTimeLineAdapter extends BaseAdapter {
                 context.startActivity(intent);
             }
         });
-
-
+        if (textLineInfo.getLocation().length()!=0){
+            viewHolder.mLocation.setText(textLineInfo.getLocation().toString());
+        }
 
         viewHolder.mTitle.setText(textLineInfo.getTitle());
         viewHolder.mDescription.setText(textLineInfo.getContent());
@@ -94,7 +96,12 @@ public class TextTimeLineAdapter extends BaseAdapter {
         viewHolder.mShare.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                Intent intent=new Intent(Intent.ACTION_SEND);
+                intent.setType("text/plain");
+                intent.putExtra(Intent.EXTRA_SUBJECT, "share");
+                intent.putExtra(Intent.EXTRA_TEXT, "share");
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                context.startActivity(Intent.createChooser(intent,"share"));
             }
         });
         viewHolder.mEdit.setOnClickListener(new View.OnClickListener() {
@@ -114,7 +121,7 @@ public class TextTimeLineAdapter extends BaseAdapter {
         return view;
     }
     public static class ViewHolder{
-        TextView mTitle,mClock,mDescription;
+        TextView mTitle,mClock,mDescription,mLocation;
         Button mShare,mEdit,mMsg;
     }
 }

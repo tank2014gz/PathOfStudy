@@ -7,8 +7,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
         android:background="#fafafa">
         <LinearLayout
             android:layout_width="match_parent"
@@ -28,7 +28,6 @@
                 android:textColor="#24ba91"
                 android:textSize="14sp"
                 android:text="时光轴"
-                android:textStyle="bold"
                 android:paddingLeft="16dp"
                 android:layout_marginRight="16dp"/>
             <TextView
@@ -70,6 +69,33 @@
                 android:maxLines="1"
                 android:id="@+id/timeprint"/>
         </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="36dp"
+                android:layout_marginTop="8dp"
+                android:orientation="horizontal">
+                <Button
+                    android:layout_width="32dp"
+                    android:layout_height="36dp"
+                    android:layout_marginLeft="8dp"
+                    android:background="#fafafa"
+                    android:layout_gravity="bottom"
+                    android:paddingLeft="8dp"
+                    android:drawableLeft="@drawable/ic_event_location"/>
+                <TextView
+                    android:id="@+id/location"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:layout_gravity="center"
+                    android:gravity="center|left"
+                    android:maxLines="4"
+                    android:paddingTop="2dp"
+                    android:lineSpacingMultiplier="1.2"
+                    android:ellipsize="end"
+                    android:text="湖北省武汉市"
+                    android:textSize="13sp"/>
+            </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="48dp"
@@ -82,7 +108,7 @@
                 android:layout_gravity="center"
                 android:gravity="center"
                 android:layout_marginLeft="8dp"
-                android:background="@android:color/white"
+                android:background="#fafafa"
                 android:paddingLeft="12dp"
                 android:drawableLeft="@drawable/icon_more_gray"/>
             <LinearLayout
@@ -98,7 +124,7 @@
                 android:gravity="center"
                 android:layout_marginRight="8dp"
                 android:paddingLeft="4dp"
-                android:background="@android:color/white"
+                android:background="#fafafa"
                 android:drawableLeft="@drawable/ic_shared"/>
 
 

@@ -18,6 +18,7 @@ import android.widget.Toast;
 
 import com.example.db.tline.R;
 import com.example.db.tline.view.RevealLayout;
+import com.example.db.tline.view.materialedittext.MaterialEditText;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -45,9 +46,9 @@ public class AppLockFragment extends Fragment implements View.OnClickListener{
     public boolean mIsAnimationSlowDown = false;
     public boolean mIsBaseOnTouchLocation = false;
 
-    public Button btn_one,btn_two,btn_three,btn_four,btn_five,btn_six,btn_seven,btn_eight,btn_nine;
-    public TextView psd_one,psd_two,psd_three,psd_four;
-    public Button mTick;
+    public Button btn_zero,btn_one,btn_two,btn_three,btn_four,btn_five,btn_six,btn_seven,btn_eight,btn_nine;
+    public MaterialEditText materialEditText;
+    public Button mTick,mDelete;
 
     public String psd="";
 
@@ -87,7 +88,7 @@ public class AppLockFragment extends Fragment implements View.OnClickListener{
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View rootView=inflater.inflate(R.layout.fragment_app_lock, container, false);
+        View rootView=inflater.inflate(R.layout.fragment_lock, container, false);
 
         mRevealLayout = (RevealLayout) rootView.findViewById(R.id.reveal_layout);
 
@@ -140,165 +141,182 @@ public class AppLockFragment extends Fragment implements View.OnClickListener{
     @Override
     public void onClick(View view) {
         switch (view.getId()){
+            case R.id.btn_zero:
+                if (materialEditText.getText().length()==0){
+                    materialEditText.setText("*");
+                    psd=psd+"0";
+                }else if (materialEditText.length()!=0&&materialEditText.length()==1){
+                    materialEditText.setText("**");
+                    psd=psd+"0";
+                }else if (materialEditText.length()!=0&&materialEditText.length()==2){
+                    materialEditText.setText("***");
+                    psd=psd+'0';
+                }else if (materialEditText.length()!=0&&materialEditText.length()==3){
+                    materialEditText.setText("****");
+                    psd=psd+"0";
+                }else {
+                    Toast.makeText(getActivity(),"已经输入四位密码了!",Toast.LENGTH_SHORT).show();
+                }
+                break;
             case R.id.btn_one:
-                if (psd_one.getText().length()==0){
-                    psd_one.setText("*");
+                if (materialEditText.getText().length()==0){
+                    materialEditText.setText("*");
                     psd=psd+"1";
-                }else if (psd_one.length()!=0&&psd_two.length()==0){
-                    psd_two.setText("*");
+                }else if (materialEditText.length()!=0&&materialEditText.length()==1){
+                    materialEditText.setText("**");
                     psd=psd+"1";
-                }else if (psd_one.length()!=0&&psd_two.length()!=0&&psd_three.length()==0){
-                    psd_three.setText("*");
+                }else if (materialEditText.length()!=0&&materialEditText.length()==2){
+                    materialEditText.setText("***");
                     psd=psd+'1';
-                }else if (psd_one.length()!=0&&psd_two.length()!=0&&psd_three.length()!=0&&psd_four.length()==0){
-                    psd_four.setText("*");
+                }else if (materialEditText.length()!=0&&materialEditText.length()==3){
+                    materialEditText.setText("****");
                     psd=psd+"1";
                 }else {
                     Toast.makeText(getActivity(),"已经输入四位密码了!",Toast.LENGTH_SHORT).show();
                 }
                 break;
             case R.id.btn_two:
-                if (psd_one.getText().length()==0){
-                    psd_one.setText("*");
+                if (materialEditText.getText().length()==0){
+                    materialEditText.setText("*");
                     psd=psd+"2";
-                }else if (psd_one.length()!=0&&psd_two.length()==0){
-                    psd_two.setText("*");
+                }else if (materialEditText.length()!=0&&materialEditText.length()==1){
+                    materialEditText.setText("**");
                     psd=psd+"2";
-                }else if (psd_one.length()!=0&&psd_two.length()!=0&&psd_three.length()==0){
-                    psd_three.setText("*");
+                }else if (materialEditText.length()!=0&&materialEditText.length()==2){
+                    materialEditText.setText("***");
                     psd=psd+'2';
-                }else if (psd_one.length()!=0&&psd_two.length()!=0&&psd_three.length()!=0&&psd_four.length()==0){
-                    psd_four.setText("*");
+                }else if (materialEditText.length()!=0&&materialEditText.length()==3){
+                    materialEditText.setText("****");
                     psd=psd+"2";
                 }else {
                     Toast.makeText(getActivity(),"已经输入四位密码了!",Toast.LENGTH_SHORT).show();
                 }
                 break;
             case R.id.btn_three:
-                if (psd_one.getText().length()==0){
-                    psd_one.setText("*");
+                if (materialEditText.getText().length()==0){
+                    materialEditText.setText("*");
                     psd=psd+"3";
-                }else if (psd_one.length()!=0&&psd_two.length()==0){
-                    psd_two.setText("*");
+                }else if (materialEditText.length()!=0&&materialEditText.length()==1){
+                    materialEditText.setText("**");
                     psd=psd+"3";
-                }else if (psd_one.length()!=0&&psd_two.length()!=0&&psd_three.length()==0){
-                    psd_three.setText("*");
+                }else if (materialEditText.length()!=0&&materialEditText.length()==2){
+                    materialEditText.setText("***");
                     psd=psd+'3';
-                }else if (psd_one.length()!=0&&psd_two.length()!=0&&psd_three.length()!=0&&psd_four.length()==0){
-                    psd_four.setText("*");
+                }else if (materialEditText.length()!=0&&materialEditText.length()==3){
+                    materialEditText.setText("****");
                     psd=psd+"3";
                 }else {
                     Toast.makeText(getActivity(),"已经输入四位密码了!",Toast.LENGTH_SHORT).show();
                 }
                 break;
             case R.id.btn_four:
-                if (psd_one.getText().length()==0){
-                    psd_one.setText("*");
+                if (materialEditText.getText().length()==0){
+                    materialEditText.setText("*");
                     psd=psd+"4";
-                }else if (psd_one.length()!=0&&psd_two.length()==0){
-                    psd_two.setText("*");
+                }else if (materialEditText.length()!=0&&materialEditText.length()==1){
+                    materialEditText.setText("**");
                     psd=psd+"4";
-                }else if (psd_one.length()!=0&&psd_two.length()!=0&&psd_three.length()==0){
-                    psd_three.setText("*");
+                }else if (materialEditText.length()!=0&&materialEditText.length()==2){
+                    materialEditText.setText("***");
                     psd=psd+'4';
-                }else if (psd_one.length()!=0&&psd_two.length()!=0&&psd_three.length()!=0&&psd_four.length()==0){
-                    psd_four.setText("*");
+                }else if (materialEditText.length()!=0&&materialEditText.length()==3){
+                    materialEditText.setText("****");
                     psd=psd+"4";
                 }else {
                     Toast.makeText(getActivity(),"已经输入四位密码了!",Toast.LENGTH_SHORT).show();
                 }
                 break;
             case R.id.btn_five:
-                if (psd_one.getText().length()==0){
-                    psd_one.setText("*");
+                if (materialEditText.getText().length()==0){
+                    materialEditText.setText("*");
                     psd=psd+"5";
-                }else if (psd_one.length()!=0&&psd_two.length()==0){
-                    psd_two.setText("*");
+                }else if (materialEditText.length()!=0&&materialEditText.length()==1){
+                    materialEditText.setText("**");
                     psd=psd+"5";
-                }else if (psd_one.length()!=0&&psd_two.length()!=0&&psd_three.length()==0){
-                    psd_three.setText("*");
+                }else if (materialEditText.length()!=0&&materialEditText.length()==2){
+                    materialEditText.setText("***");
                     psd=psd+'5';
-                }else if (psd_one.length()!=0&&psd_two.length()!=0&&psd_three.length()!=0&&psd_four.length()==0){
-                    psd_four.setText("*");
+                }else if (materialEditText.length()!=0&&materialEditText.length()==3){
+                    materialEditText.setText("****");
                     psd=psd+"5";
                 }else {
                     Toast.makeText(getActivity(),"已经输入四位密码了!",Toast.LENGTH_SHORT).show();
                 }
                 break;
             case R.id.btn_six:
-                if (psd_one.getText().length()==0){
-                    psd_one.setText("*");
+                if (materialEditText.getText().length()==0){
+                    materialEditText.setText("*");
                     psd=psd+"6";
-                }else if (psd_one.length()!=0&&psd_two.length()==0){
-                    psd_two.setText("*");
+                }else if (materialEditText.length()!=0&&materialEditText.length()==1){
+                    materialEditText.setText("**");
                     psd=psd+"6";
-                }else if (psd_one.length()!=0&&psd_two.length()!=0&&psd_three.length()==0){
-                    psd_three.setText("*");
+                }else if (materialEditText.length()!=0&&materialEditText.length()==2){
+                    materialEditText.setText("***");
                     psd=psd+'6';
-                }else if (psd_one.length()!=0&&psd_two.length()!=0&&psd_three.length()!=0&&psd_four.length()==0){
-                    psd_four.setText("*");
+                }else if (materialEditText.length()!=0&&materialEditText.length()==3){
+                    materialEditText.setText("****");
                     psd=psd+"6";
                 }else {
                     Toast.makeText(getActivity(),"已经输入四位密码了!",Toast.LENGTH_SHORT).show();
                 }
                 break;
             case R.id.btn_seven:
-                if (psd_one.getText().length()==0){
-                    psd_one.setText("*");
+                if (materialEditText.getText().length()==0){
+                    materialEditText.setText("*");
                     psd=psd+"7";
-                }else if (psd_one.length()!=0&&psd_two.length()==0){
-                    psd_two.setText("*");
+                }else if (materialEditText.length()!=0&&materialEditText.length()==1){
+                    materialEditText.setText("**");
                     psd=psd+"7";
-                }else if (psd_one.length()!=0&&psd_two.length()!=0&&psd_three.length()==0){
-                    psd_three.setText("*");
+                }else if (materialEditText.length()!=0&&materialEditText.length()==2){
+                    materialEditText.setText("***");
                     psd=psd+'7';
-                }else if (psd_one.length()!=0&&psd_two.length()!=0&&psd_three.length()!=0&&psd_four.length()==0){
-                    psd_four.setText("*");
+                }else if (materialEditText.length()!=0&&materialEditText.length()==3){
+                    materialEditText.setText("****");
                     psd=psd+"7";
                 }else {
                     Toast.makeText(getActivity(),"已经输入四位密码了!",Toast.LENGTH_SHORT).show();
                 }
                 break;
             case R.id.btn_eight:
-                if (psd_one.getText().length()==0){
-                    psd_one.setText("*");
+                if (materialEditText.getText().length()==0){
+                    materialEditText.setText("*");
                     psd=psd+"8";
-                }else if (psd_one.length()!=0&&psd_two.length()==0){
-                    psd_two.setText("*");
+                }else if (materialEditText.length()!=0&&materialEditText.length()==1){
+                    materialEditText.setText("**");
                     psd=psd+"8";
-                }else if (psd_one.length()!=0&&psd_two.length()!=0&&psd_three.length()==0){
-                    psd_three.setText("*");
+                }else if (materialEditText.length()!=0&&materialEditText.length()==2){
+                    materialEditText.setText("***");
                     psd=psd+'8';
-                }else if (psd_one.length()!=0&&psd_two.length()!=0&&psd_three.length()!=0&&psd_four.length()==0){
-                    psd_four.setText("*");
+                }else if (materialEditText.length()!=0&&materialEditText.length()==3){
+                    materialEditText.setText("****");
                     psd=psd+"8";
                 }else {
                     Toast.makeText(getActivity(),"已经输入四位密码了!",Toast.LENGTH_SHORT).show();
                 }
                 break;
             case R.id.btn_nine:
-                if (psd_one.getText().length()==0){
-                    psd_one.setText("*");
+                if (materialEditText.getText().length()==0){
+                    materialEditText.setText("*");
                     psd=psd+"9";
-                }else if (psd_one.length()!=0&&psd_two.length()==0){
-                    psd_two.setText("*");
+                }else if (materialEditText.length()!=0&&materialEditText.length()==1){
+                    materialEditText.setText("**");
                     psd=psd+"9";
-                }else if (psd_one.length()!=0&&psd_two.length()!=0&&psd_three.length()==0){
-                    psd_three.setText("*");
+                }else if (materialEditText.length()!=0&&materialEditText.length()==2){
+                    materialEditText.setText("***");
                     psd=psd+'9';
-                }else if (psd_one.length()!=0&&psd_two.length()!=0&&psd_three.length()!=0&&psd_four.length()==0){
-                    psd_four.setText("*");
+                }else if (materialEditText.length()!=0&&materialEditText.length()==3){
+                    materialEditText.setText("****");
                     psd=psd+"9";
                 }else {
                     Toast.makeText(getActivity(),"已经输入四位密码了!",Toast.LENGTH_SHORT).show();
                 }
                 break;
             case R.id.btn_ok:
-                if (psd_one.length()!=0&&psd_two.length()!=0&&psd_three.length()!=0&&psd_four.length()!=0){
+                if (materialEditText.length()!=0&&materialEditText.length()==4){
                     SharedPreferences sharedPreferences = getActivity().getSharedPreferences("com.db.tline", Context.MODE_PRIVATE); //私有数据
                     Log.v("jb",psd);
-                    Log.v("mb",sharedPreferences.getString("password","1234"));
-                    if (sharedPreferences.getString("password","1234").equals(psd)){
+                    Log.v("mb",sharedPreferences.getString("password",""));
+                    if (sharedPreferences.getString("password","").equals(psd)){
                         fragmentTransaction.replace(R.id.container, new HomeFragment()).commit();
                         SharedPreferences.Editor editor = sharedPreferences.edit();//获取编辑器
                         editor.putBoolean("FLAG", false);
@@ -308,6 +326,10 @@ public class AppLockFragment extends Fragment implements View.OnClickListener{
                     }
 
                 }
+                break;
+            case R.id.btn_delete:
+                materialEditText.setText("");
+                psd="";
                 break;
         }
     }
@@ -329,6 +351,7 @@ public class AppLockFragment extends Fragment implements View.OnClickListener{
 
     public void initWidget(View view){
 
+        btn_zero=(Button)view.findViewById(R.id.btn_zero);
         btn_one=(Button)view.findViewById(R.id.btn_one);
         btn_two=(Button)view.findViewById(R.id.btn_two);
         btn_three=(Button)view.findViewById(R.id.btn_three);
@@ -340,12 +363,11 @@ public class AppLockFragment extends Fragment implements View.OnClickListener{
         btn_nine=(Button)view.findViewById(R.id.btn_nine);
 
         mTick=(Button)view.findViewById(R.id.btn_ok);
+        mDelete=(Button)view.findViewById(R.id.btn_delete);
 
-        psd_one=(TextView)view.findViewById(R.id.psd_one);
-        psd_two=(TextView)view.findViewById(R.id.psd_two);
-        psd_three=(TextView)view.findViewById(R.id.psd_three);
-        psd_four=(TextView)view.findViewById(R.id.psd_four);
+        materialEditText=(MaterialEditText)view.findViewById(R.id.psd);
 
+        btn_zero.setOnClickListener(this);
         btn_one.setOnClickListener(this);
         btn_two.setOnClickListener(this);
         btn_three.setOnClickListener(this);
@@ -357,6 +379,7 @@ public class AppLockFragment extends Fragment implements View.OnClickListener{
         btn_nine.setOnClickListener(this);
 
         mTick.setOnClickListener(this);
+        mDelete.setOnClickListener(this);
     }
 
 }

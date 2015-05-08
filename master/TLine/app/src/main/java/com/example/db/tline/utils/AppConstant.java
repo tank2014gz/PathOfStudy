@@ -20,6 +20,10 @@ import java.util.Date;
  */
 public class AppConstant {
 
+    public static String USER_NAME="";
+    public static String NICHEN="";
+    public static boolean LOGIN_STATUS=false;
+
     /*
     生成沉浸式状态栏
      */

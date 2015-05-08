@@ -3,11 +3,16 @@ package com.example.db.tline.fragment;
 import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.Loader;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.location.Location;
+import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
@@ -21,6 +26,14 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.amap.api.location.AMapLocation;
+import com.amap.api.location.AMapLocationListener;
+import com.amap.api.location.LocationManagerProxy;
+import com.amap.api.location.LocationProviderProxy;
+import com.baidu.location.BDLocation;
+import com.baidu.location.BDLocationListener;
+import com.baidu.location.LocationClient;
+import com.baidu.location.LocationClientOption;
 import com.example.db.tline.R;
 import com.example.db.tline.beans.TextLineInfo;
 import com.example.db.tline.database.TLineSQLiDataBaseHelper;
@@ -58,6 +71,17 @@ public class FabTextFragment extends Fragment {
     private RevealLayout mRevealLayout;
     private boolean mIsAnimationSlowDown = false;
     private boolean mIsBaseOnTouchLocation = false;
+
+    /*
+    定位
+     */
+    public LocationClient mLocationClient = null;
+    public BDLocationListener myListener = new MyLocationListener();
+    public LocationClientOption option =null;
+
+    public String locationInfo=null;
+
+    public Handler handler;
 
     /**
      * Use this factory method to create a new instance of
@@ -99,6 +123,18 @@ public class FabTextFragment extends Fragment {
         mRevealLayout = (RevealLayout) rootView.findViewById(R.id.reveal_layout);
 
 
+        mLocationClient = new LocationClient(getActivity());
+        option= new LocationClientOption();
+        option.setLocationMode(LocationClientOption.LocationMode.Hight_Accuracy);//设置定位模式
+        option.setCoorType("bd09ll");//返回的定位结果是百度经纬度,默认值gcj02
+        option.setScanSpan(5000);//设置发起定位请求的间隔时间为5000ms
+        option.setIsNeedAddress(true);//返回的定位结果包含地址信息
+        option.setNeedDeviceDirect(true);//返回的定位结果包含手机机头的方向
+        mLocationClient.setLocOption(option);
+        //声明LocationClient类
+        mLocationClient.registerLocationListener(myListener);
+        //注册监听函数
+
 
         fragmentTransaction=getActivity().getSupportFragmentManager().beginTransaction();
         fragmentTransaction.setCustomAnimations(R.anim.activity_up_move_in,R.anim.abc_fade_out);
@@ -128,29 +164,50 @@ public class FabTextFragment extends Fragment {
                 mTitle=mTextTitle.getText().toString().trim();
                 mCOntent=mTextContent.getText().toString().trim();
 
-                if (mTitle.length()!=0&&mCOntent.length()!=0){
-
-                    TLineSQLiDataBaseHelper tLineSQLiDataBaseHelper=new TLineSQLiDataBaseHelper(getActivity());
-                    SQLiteDatabase sqLiteDatabase=tLineSQLiDataBaseHelper.getWritableDatabase();
-                    ContentValues contentValues=new ContentValues();
-
-                        contentValues.put("title",mTitle);
-                        contentValues.put("content",mCOntent);
-                        contentValues.put("date", AppConstant.getCurrentTime());
-                        sqLiteDatabase.insert("textline",null,contentValues);
-                        sqLiteDatabase.close();
-
-                        HomeFragment homeFragment = new HomeFragment();
-                        Bundle bundle = new Bundle();
-                        bundle.putString("command", "text");
-                        bundle.putString("tText", mTitle);
-                        bundle.putString("tContent", mCOntent);
-                        bundle.putString("tItem", String.valueOf(1));
-                        homeFragment.setArguments(bundle);
-                        fragmentTransaction.replace(R.id.container, homeFragment).commit();
-
-
+                mLocationClient.start();
+                if (mLocationClient != null && mLocationClient.isStarted())
+                {
+                    mLocationClient.requestLocation();
+                }else{
+                    Log.d("LocSDK5", "locClient is null or not started");
                 }
+
+                handler=new Handler(){
+                    @Override
+                    public void handleMessage(Message msg) {
+                        if (msg.what==0x123){
+                            locationInfo=(String)msg.obj;
+                            Log.v("ssssssss",locationInfo);
+
+                            if (mTitle.length()!=0&&mCOntent.length()!=0){
+
+                                TLineSQLiDataBaseHelper tLineSQLiDataBaseHelper=new TLineSQLiDataBaseHelper(getActivity());
+                                SQLiteDatabase sqLiteDatabase=tLineSQLiDataBaseHelper.getWritableDatabase();
+                                ContentValues contentValues=new ContentValues();
+
+                                contentValues.put("title",mTitle);
+                                contentValues.put("content",mCOntent);
+                                contentValues.put("date", AppConstant.getCurrentTime());
+                                contentValues.put("location",locationInfo);
+                                sqLiteDatabase.insert("textline",null,contentValues);
+                                sqLiteDatabase.close();
+
+                                HomeFragment homeFragment = new HomeFragment();
+                                Bundle bundle = new Bundle();
+                                bundle.putString("command", "text");
+                                bundle.putString("tText", mTitle);
+                                bundle.putString("tContent", mCOntent);
+                                bundle.putString("tItem", String.valueOf(1));
+                                homeFragment.setArguments(bundle);
+                                fragmentTransaction.replace(R.id.container, homeFragment).commit();
+
+
+                            }
+                            mLocationClient.stop();
+                        }
+                    }
+                };
+
             }
         });
 
@@ -189,6 +246,7 @@ public class FabTextFragment extends Fragment {
         super.onDetach();
         mListener = null;
     }
+
 
     /**
      * This interface must be implemented by activities that contain this
@@ -252,4 +310,42 @@ public class FabTextFragment extends Fragment {
             });
         }
     }
+
+    public class MyLocationListener implements BDLocationListener {
+        @Override
+        public void onReceiveLocation(BDLocation location) {
+            if (location == null)
+                return;
+            StringBuffer sb = new StringBuffer(256);
+            sb.append("time : ");
+            sb.append(location.getTime());
+            sb.append("\nerror code : ");
+            sb.append(location.getLocType());
+            sb.append("\nlatitude : ");
+            sb.append(location.getLatitude());
+            sb.append("\nlontitude : ");
+            sb.append(location.getLongitude());
+            sb.append("\nradius : ");
+            sb.append(location.getRadius());
+            if (location.getLocType() == BDLocation.TypeGpsLocation) {
+                sb.append("\nspeed : ");
+                sb.append(location.getSpeed());
+                sb.append("\nsatellite : ");
+                sb.append(location.getSatelliteNumber());
+            } else if (location.getLocType() == BDLocation.TypeNetWorkLocation) {
+                sb.append("\naddr : ");
+                sb.append(location.getAddrStr());
+            }
+
+            locationInfo=location.getAddrStr().toString().trim();
+
+            Message message=Message.obtain();
+            message.obj=locationInfo;
+            message.what=0x123;
+            handler.sendMessage(message);
+
+            Log.v("dingwei",locationInfo);
+        }
+    }
+
 }

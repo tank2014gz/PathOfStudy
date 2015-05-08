@@ -83,6 +83,7 @@ public class PictureLineAdapter extends BaseAdapter{
             viewHolder.mImageView=(ImageView)view.findViewById(R.id.description);
             viewHolder.mShare=(Button)view.findViewById(R.id.btn_share);
             viewHolder.mEdit=(Button)view.findViewById(R.id.btn_edit);
+            viewHolder.mLocation=(TextView)view.findViewById(R.id.location);
             view.setTag(viewHolder);
         }else {
             viewHolder=(ViewHolder)view.getTag();
@@ -90,10 +91,23 @@ public class PictureLineAdapter extends BaseAdapter{
 
         final PictureLineInfo pictureLineInfo=pictureLineInfos.get(i);
 
-        viewHolder.mTitle.setText(pictureLineInfo.getTitle());
-        viewHolder.mTimePrint.setText("在平静的日子里,我安然无恙...");
+        if (pictureLineInfo.getTitle().length()!=0){
+            viewHolder.mTitle.setText(pictureLineInfo.getTitle());
+        }else {
+            viewHolder.mTitle.setText("TLine");
+        }
+        if (pictureLineInfo.getTitle().length()!=0){
+            viewHolder.mTimePrint.setText(pictureLineInfo.getContent());
+        }else {
+            viewHolder.mTimePrint.setText("在平静的日子里我安然无恙...");
+        }
+
         if (pictureLineInfo.getUri().length()!=0){
             imageLoader.displayImage(pictureLineInfo.getUri(), viewHolder.mImageView, options);
+        }
+
+        if (pictureLineInfo.getLocation().length()!=0){
+            viewHolder.mLocation.setText(pictureLineInfo.getLocation().toString());
         }
 
         view.setOnClickListener(new View.OnClickListener() {
@@ -105,7 +119,12 @@ public class PictureLineAdapter extends BaseAdapter{
         viewHolder.mShare.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                Intent intent=new Intent(Intent.ACTION_SEND);
+                intent.setType("image/png");
+                intent.putExtra(Intent.EXTRA_SUBJECT, "share");
+                intent.putExtra(Intent.EXTRA_TEXT, "share");
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                context.startActivity(Intent.createChooser(intent,"share"));
             }
         });
         viewHolder.mEdit.setOnClickListener(new View.OnClickListener() {
@@ -139,7 +158,7 @@ public class PictureLineAdapter extends BaseAdapter{
         return view;
     }
     public static class ViewHolder{
-        TextView mTitle,mClock,mTimePrint;
+        TextView mTitle,mClock,mTimePrint,mLocation;
         ImageView mImageView;
         Button mShare,mEdit,mMsg;
     }

@@ -1,7 +1,10 @@
 package com.example.db.tline.adapter;
 
 import android.content.Context;
+import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,8 +14,11 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.db.tline.R;
+import com.example.db.tline.activity.TLineDetailsActivity;
 import com.example.db.tline.beans.PLineListInfo;
 import com.example.db.tline.beans.TLineListInfo;
+import com.example.db.tline.database.PLineListSQLIDataBaseHelper;
+import com.example.db.tline.database.TLineListSQLiDateBaseHelper;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
@@ -74,28 +80,16 @@ public class PictureLineDetailsAdapter extends BaseAdapter{
             viewHolder.mContent=(TextView)view.findViewById(R.id.content);
             viewHolder.mDate=(TextView)view.findViewById(R.id.date);
             viewHolder.mPicture=(ImageView)view.findViewById(R.id.picture);
-            viewHolder.up=(LinearLayout)view.findViewById(R.id.up);
-            viewHolder.down=(LinearLayout)view.findViewById(R.id.down);
+            viewHolder.mDivider=(LinearLayout)view.findViewById(R.id.divide);
             view.setTag(viewHolder);
         }else {
             viewHolder=(ViewHolder)view.getTag();
         }
 
-        if (pLineListInfos.size()==1){
-            viewHolder.up.setVisibility(View.GONE);
-            viewHolder.down.setVisibility(View.GONE);
+        if (i==pLineListInfos.size()-1){
+            viewHolder.mDivider.setVisibility(View.GONE);
         }else {
-            viewHolder.up.setVisibility(View.VISIBLE);
-            viewHolder.down.setVisibility(View.VISIBLE);
-        }
-
-        if (i==0){
-            viewHolder.up.setVisibility(View.GONE);
-        }else if (i==pLineListInfos.size()-1){
-            viewHolder.down.setVisibility(View.GONE);
-        }else {
-            viewHolder.up.setVisibility(View.VISIBLE);
-            viewHolder.down.setVisibility(View.VISIBLE);
+            viewHolder.mDivider.setVisibility(View.VISIBLE);
         }
 
         PLineListInfo pLineListInfo=pLineListInfos.get(i);
@@ -103,16 +97,36 @@ public class PictureLineDetailsAdapter extends BaseAdapter{
         viewHolder.mContent.setText(pLineListInfo.getContent());
 
         if (pLineListInfo.getUrl().length()!=0){
-
                 imageLoader.displayImage(pLineListInfo.getUrl(),viewHolder.mPicture, options);
-
         }
+
+        final int temp=i;
+
+        viewHolder.mDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                PLineListSQLIDataBaseHelper pLineListSQLIDataBaseHelper=new PLineListSQLIDataBaseHelper(context);
+                SQLiteDatabase sqLiteDatabase=pLineListSQLIDataBaseHelper.getWritableDatabase();
+                sqLiteDatabase.delete("picturelinelist","title like ?",new String[]{pLineListInfos.get(temp).getTitle()});
+                sqLiteDatabase.close();
+                notifyDataSetChanged();
+
+                Intent intent=new Intent(context, TLineDetailsActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                Bundle bundle =new Bundle();
+                bundle.putString("title", pLineListInfos.get(temp).getRelationtitle());
+                bundle.putString("content", pLineListInfos.get(temp).getRelationcontent());
+                bundle.putString("date",pLineListInfos.get(temp).getRelationdate());
+                intent.putExtra("adapter",bundle);
+                context.startActivity(intent);
+            }
+        });
 
         return view;
     }
     public static class ViewHolder{
         TextView mTitle,mContent,mDate;
-        LinearLayout up,down;
+        LinearLayout mDivider;
         ImageView mPicture;
     }
 }

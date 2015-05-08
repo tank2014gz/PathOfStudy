@@ -36,7 +36,7 @@
             android:layout_gravity="center"
             android:gravity="center"
             android:layout_marginRight="16dp"
-            android:background="@drawable/ic_invited_answer"/>
+            android:background="@drawable/ic_event_attendee"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
@@ -60,7 +60,7 @@
             android:layout_gravity="center"
             android:gravity="center"
             android:layout_marginRight="16dp"
-            android:background="@drawable/ic_editor_recommend_star"/>
+            android:background="@drawable/ic_todo_detail_duetime"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
@@ -91,13 +91,13 @@
         android:background="@drawable/card_item"
         android:orientation="horizontal">
         <Button
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:layout_marginLeft="12dp"
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:layout_marginLeft="18dp"
             android:layout_gravity="center"
             android:gravity="center"
             android:layout_marginRight="10dp"
-            android:background="@drawable/ic_privacy"/>
+            android:background="@drawable/ic_event_note"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
@@ -120,7 +120,7 @@
             android:layout_gravity="center"
             android:gravity="center"
             android:layout_marginRight="16dp"
-            android:background="@drawable/ic_nohelp0"/>
+            android:background="@drawable/ic_event_repeat"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"

@@ -6,13 +6,13 @@
     android:background="#f3f3f3">
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="16dp"></LinearLayout>
+            android:layout_height="8dp"></LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="42dp"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
             android:orientation="horizontal">
             <AutoCompleteTextView
                 android:layout_width="match_parent"
@@ -23,9 +23,10 @@
                 android:cursorVisible="false"
                 android:paddingLeft="16dp"
                 android:textColor="@android:color/darker_gray"
-                android:textSize="13sp"
+                android:textSize="14sp"
                 android:gravity="center"
-                android:text="搜索"/>
+                android:hint="搜索"
+                android:textColorHint="@android:color/darker_gray"/>
 
             </LinearLayout>
 </LinearLayout>

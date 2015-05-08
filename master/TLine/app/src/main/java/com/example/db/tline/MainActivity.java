@@ -13,6 +13,9 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.amap.api.location.AMapLocationListener;
+import com.amap.api.location.LocationManagerProxy;
+import com.amap.api.location.LocationProviderProxy;
 import com.example.db.tline.fragment.AppLockFragment;
 import com.example.db.tline.fragment.FabPictureFragment;
 import com.example.db.tline.fragment.FabTextFragment;
@@ -25,10 +28,13 @@ import com.example.db.tline.view.switchbutton.SwitchButton;
 public class MainActivity extends ActionBarActivity implements FabTextFragment.OnFragmentInteractionListener,HomeFragment.OnFragmentInteractionListener
                                                                 ,FabPictureFragment.OnFragmentInteractionListener
                                                                 ,PersonalFragment.OnFragmentInteractionListener
-                                                                ,AppLockFragment.OnFragmentInteractionListener{
+                                                                ,AppLockFragment.OnFragmentInteractionListener
+                                                                 {
     public FragmentTransaction fragmentTransaction;
 
     public boolean FLAG=false;
+    public boolean STATUS=false;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +44,7 @@ public class MainActivity extends ActionBarActivity implements FabTextFragment.O
 
         SharedPreferences sharedPreferences=getSharedPreferences("com.db.tline", Context.MODE_PRIVATE);
         FLAG=sharedPreferences.getBoolean("FLAG",false);
+        STATUS=sharedPreferences.getBoolean("status",false);
 
         fragmentTransaction=this.getSupportFragmentManager().beginTransaction();
         fragmentTransaction.setCustomAnimations(R.anim.activity_up_move_in,R.anim.abc_fade_out);
@@ -45,7 +52,7 @@ public class MainActivity extends ActionBarActivity implements FabTextFragment.O
         if (savedInstanceState == null) {
 
 
-            if (FLAG){
+            if (STATUS){
                 getSupportFragmentManager().beginTransaction()
                         .add(R.id.container, new AppLockFragment())
                         .commit();
@@ -97,6 +104,18 @@ public class MainActivity extends ActionBarActivity implements FabTextFragment.O
             fragmentTransaction.replace(R.id.container,fabPictureFragment).commit();
 
 
+        }else if (requestCode==2&&resultCode==6){
+            Bundle bundle=data.getBundleExtra("camerabundle");
+            String path=bundle.getString("camera");
+
+
+            FabPictureFragment fabPictureFragment=new FabPictureFragment();
+            Bundle bundle0=new Bundle();
+            bundle0.putString("uri",path);
+            fabPictureFragment.setArguments(bundle0);
+            fragmentTransaction.replace(R.id.container,fabPictureFragment).commit();
+
         }
     }
+
 }
