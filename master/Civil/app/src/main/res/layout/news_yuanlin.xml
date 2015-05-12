@@ -1,0 +1,44 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.example.db.civil.activity.RuleDetailActivity">
+
+    <FrameLayout
+        android:id="@+id/container0"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        xmlns:fab="http://schemas.android.com/apk/res-auto">
+        <android.support.v4.widget.SwipeRefreshLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/article_refreshlayout">
+            <com.twotoasters.jazzylistview.JazzyListView
+                android:id="@+id/article_listview"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scrollbars="none"
+                android:dividerHeight="16dip"
+                android:divider="#f3f3f3"
+                android:listSelector="@android:color/transparent"
+                android:headerDividersEnabled="false"
+                android:footerDividersEnabled="false">
+            </com.twotoasters.jazzylistview.JazzyListView>
+        </android.support.v4.widget.SwipeRefreshLayout>
+        <com.melnykov.fab.FloatingActionButton
+            android:id="@+id/fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|right"
+            android:layout_margin="16dp"
+            android:src="@drawable/action_bar_refresh"
+            fab:fab_colorNormal="#03a9f4"
+            fab:fab_colorPressed="@color/primary_pressed"
+            fab:fab_colorRipple="@color/ripple" />
+    </FrameLayout>
+
+
+</LinearLayout>
+
+

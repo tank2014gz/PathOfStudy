@@ -6,5 +6,17 @@
     <string name="action_settings">Settings</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_welcome">WelcomeActivity</string>
+    <string name="title_activity_article_detail">ArticleDetailActivity</string>
+    <string name="title_activity_subscribe">SubscribeActivity</string>
+    <string name="title_activity_rule_detail">RuleDetailActivity</string>
+    <string name="title_activity_rule_item">RuleItemActivity</string>
+    <string name="title_activity_soft_details">SoftDetailsActivity</string>
+    <string name="title_activity_soft_ware_item">SoftWareItemActivity</string>
+    <string name="title_activity_login">LoginActivity</string>
+    <string name="title_activity_register">RegisterActivity</string>
+    <string name="title_activity_aboutactivity">Aboutactivity</string>
+    <string name="title_activity_feed_back">FeedBackActivity</string>
+    <string name="title_activity_comment">CommentActivity</string>
+    <string name="title_activity_news_details_cativity">NewsDetailsCAtivity</string>
 
 </resources>

@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <LinearLayout
+        android:id="@+id/header"
+        android:layout_width="match_parent"
+        android:layout_height="180dp"
+        android:orientation="vertical">
+        <android.support.v4.view.ViewPager
+            android:id="@+id/guide_viewPager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+    </LinearLayout>
+    <com.example.db.civil.view.views.indicator.FixedIndicatorView
+        android:id="@+id/guide_indicator"
+        android:layout_width="100dp"
+        android:layout_height="20dp"
+        android:layout_above="@+id/body"
+        android:layout_marginTop="-20dp"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center_horizontal|bottom"
+        />
+    <LinearLayout android:id="@+id/body"
+        android:layout_width="match_parent"
+        android:layout_height="108dp"
+        android:orientation="vertical"
+        android:layout_below="@id/header">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:orientation="horizontal"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="11dp">
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:layout_marginRight="16dp"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_gravity="center"
+                    android:gravity="center|left"
+                    android:textColor="@android:color/darker_gray"
+                    android:textSize="10sp"
+                    android:text="我的关注:24"/>
+                <TextView
+                    android:id="@+id/collection"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_gravity="center"
+                    android:gravity="center|left"
+                    android:textColor="@android:color/darker_gray"
+                    android:textSize="10sp"
+                    android:text="我的收藏:0"/>
+                </LinearLayout>
+            <LinearLayout
+                android:layout_width="80dp"
+                android:layout_height="32dp"
+                android:layout_gravity="center"
+                android:layout_marginRight="10dp">
+
+                </LinearLayout>
+            </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@drawable/bkg"></LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="32dp"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="16dp"
+                android:layout_gravity="center"
+                android:gravity="center|left"
+                android:text="TA推荐的文章"
+                android:textSize="14sp"
+                android:textColor="@android:color/darker_gray"/>
+            </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="16dp"
+            android:background="#f3f3f3"></LinearLayout>
+
+        </LinearLayout>
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/subscribute"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignBottom="@id/header"
+        android:layout_marginBottom="-30dp"
+        android:layout_marginRight="32dp"
+        android:src="@drawable/ic_current_attendee_add"/>
+</RelativeLayout>

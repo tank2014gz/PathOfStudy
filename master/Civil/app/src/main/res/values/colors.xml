@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <color name="textcolor">#ffffff</color>
     <color name="primary">#24bd91</color>
     <color name="primary_pressed">#24ba99</color>
     <color name="ripple">#ff80ab</color>

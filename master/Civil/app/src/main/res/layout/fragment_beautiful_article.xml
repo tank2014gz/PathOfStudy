@@ -3,6 +3,7 @@
     xmlns:fab="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#f3f3f3"
     tools:context="com.example.db.civil.fragment.BeautifulArticleFragment">
 
     <!-- TODO: Update blank fragment layout -->
@@ -16,7 +17,7 @@
             android:layout_height="match_parent"
             android:scrollbars="none"
             android:dividerHeight="16dip"
-            android:divider="@drawable/bkg"
+            android:divider="#f3f3f3"
             android:listSelector="@android:color/transparent"
             android:headerDividersEnabled="false"
             android:footerDividersEnabled="false">
@@ -28,8 +29,8 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|right"
         android:layout_margin="16dp"
-        android:src="@drawable/ic_action_edit_dark"
-        fab:fab_colorNormal="@color/primary"
+        android:src="@drawable/fab_new_post"
+        fab:fab_colorNormal="#03a9f4"
         fab:fab_colorPressed="@color/primary_pressed"
         fab:fab_colorRipple="@color/ripple" />
 </FrameLayout>

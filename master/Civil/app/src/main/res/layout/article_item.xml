@@ -3,6 +3,17 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="180dp"
@@ -23,7 +34,7 @@
         <TextView
             android:id="@+id/description"
             android:layout_gravity="center"
-            android:gravity="center|left"
+            android:gravity="bottom|left"
             android:layout_marginLeft="16dp"
             android:textSize="14sp"
             android:textColor="@android:color/darker_gray"
@@ -44,29 +55,16 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="@drawable/bkg"></LinearLayout>
+        android:orientation="horizontal"
+        android:background="@drawable/bkg">
+
+        </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:orientation="horizontal"
         android:background="@android:color/white">
-        <Button
-            android:id="@+id/collection"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:text="收藏"
-            android:padding="16dp"
-            android:textColor="@android:color/darker_gray"
-            android:textSize="12sp"
-            android:background="@android:color/white"
-            android:drawableLeft="@drawable/toolbar_favorite"/>
-        <LinearLayout
-            android:layout_width="1dp"
-            android:layout_height="match_parent"
-            android:layout_marginTop="14dp"
-            android:layout_marginBottom="14dp"
-            android:background="@drawable/bkg"></LinearLayout>
+
         <Button
             android:id="@+id/comment"
             android:layout_width="wrap_content"
@@ -106,11 +104,15 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:text="更多"
+            android:text="删除"
             android:padding="16dp"
             android:textColor="@android:color/darker_gray"
             android:textSize="12sp"
             android:background="@android:color/white"
             android:drawableLeft="@drawable/toolbar_more"/>
         </LinearLayout>
+        </LinearLayout>
+
+    </android.support.v7.widget.CardView>
+
 </LinearLayout>

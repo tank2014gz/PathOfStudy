@@ -130,7 +130,7 @@ public abstract class MaterialNavigationDrawer<Fragment> extends ActionBarActivi
     private boolean accountSwitcher = false;
     private boolean isCurrentFragmentChild = false;
     private boolean kitkatTraslucentStatusbar = false;
-    private static boolean learningPattern = true;
+    private static boolean learningPattern = false;
     private int backPattern = BACKPATTERN_BACK_ANYWHERE;
     private int drawerHeaderType;
 
