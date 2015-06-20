@@ -1,7 +1,6 @@
 package adapter;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,25 +12,23 @@ import com.example.db.xiaoshiji.R;
 
 import java.util.ArrayList;
 
-import beans.CommitInfo;
+import beans.LostInfo;
 
 /**
- * Created by Jay on 15-6-5.
+ * Created by Jay on 15-6-17.
  */
-public class DishCommentAdapter extends BaseAdapter {
+public class PersonalDishesListAdpter extends BaseAdapter{
 
     public Context context;
-    public ArrayList<CommitInfo> commitInfos;
 
-    public DishCommentAdapter(Context context,ArrayList<CommitInfo> commitInfos){
+    public PersonalDishesListAdpter(Context context){
         super();
         this.context = context;
-        this.commitInfos = commitInfos;
     }
 
     @Override
     public int getCount() {
-        return commitInfos.size();
+      return 10;
     }
 
     @Override
@@ -41,7 +38,7 @@ public class DishCommentAdapter extends BaseAdapter {
 
     @Override
     public long getItemId(int position) {
-        return 0;
+        return position;
     }
 
     @Override
@@ -50,23 +47,30 @@ public class DishCommentAdapter extends BaseAdapter {
         ViewHolder viewHolder;
         View view=convertView;
         if (view==null){
-            view= LayoutInflater.from(parent.getContext()).inflate(R.layout.dish_comment_item,null);
+            view= LayoutInflater.from(context).inflate(R.layout.diningroom_list_item,null);
             viewHolder = new ViewHolder(view);
             view.setTag(viewHolder);
         }else {
             viewHolder=(ViewHolder)view.getTag();
         }
-        Log.v("nmnm",commitInfos.get(position).getContent());
-        viewHolder.tv_dishComment.setText(commitInfos.get(position).getContent());
-        viewHolder.tv_Date.setText(commitInfos.get(position).getDate());
+        viewHolder.logo.setImageResource(R.drawable._6);
+        viewHolder.details.setText("查看详情");
+        viewHolder.name.setText("糖醋里脊");
+        viewHolder.address.setText("西一食堂");
+        viewHolder.cost.setText("￥3.5/份");
+
 
         return view;
     }
     public static class ViewHolder{
-        TextView tv_dishComment,tv_Date;
-        public ViewHolder(View view){
-            tv_dishComment = (TextView) view.findViewById(R.id.tv_dishComment);
-            tv_Date = (TextView) view.findViewById(R.id.tv_dishDate);
+        ImageView logo;
+        TextView name,cost,details,address;
+        ViewHolder(View view){
+            logo= (ImageView)view.findViewById(R.id.diningroom_logo);
+            address = (TextView)view.findViewById(R.id.address);
+            name= (TextView)view.findViewById(R.id.textview_name);
+            cost= (TextView)view.findViewById(R.id.textview_rank);
+            details = (TextView)view.findViewById(R.id.diningroom_details);
         }
     }
 }
