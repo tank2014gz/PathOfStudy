@@ -2,9 +2,12 @@ package com.example.db.alife.fragment;
 
 import android.app.Activity;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.SearchView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -12,9 +15,20 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.Toast;
 
 import com.example.db.alife.R;
+import com.example.db.alife.adapter.ArtLifeAdapter;
+import com.example.db.alife.adapter.ShootWorldAdapter;
+import com.example.db.alife.beans.ArtLifeInfo;
+import com.example.db.alife.beans.ShootWorldInfo;
+
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.select.Elements;
+
+import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -29,6 +43,8 @@ public class ArtLife extends Fragment {
     private boolean mSearchCheck;
     private static final String TEXT_FRAGMENT = "TEXT_FRAGMENT";
 
+    public ListView mListView;
+    public SwipeRefreshLayout mSwipeRefreshLayout;
 
     public ArtLife newInstance(String text){
         ArtLife mFragment = new ArtLife();
@@ -43,6 +59,29 @@ public class ArtLife extends Fragment {
                              Bundle savedInstanceState) {
         // TODO Auto-generated method stub
         View rootView = inflater.inflate(R.layout.fragment_art_life, container, false);
+
+        mListView = (ListView)rootView.findViewById(R.id.listview);
+        View mHeadView = LayoutInflater.from(getActivity()).inflate(R.layout.head_view,null);
+        View mFooterView = LayoutInflater.from(getActivity()).inflate(R.layout.footer_view,null);
+        mListView.addHeaderView(mHeadView);
+        mListView.addFooterView(mFooterView);
+
+        mSwipeRefreshLayout=(SwipeRefreshLayout)rootView.findViewById(R.id.refreshlayout);
+
+        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                new RemoteDataTask0().execute();
+                mSwipeRefreshLayout.setRefreshing(false);
+            }
+        });
+
+        new RemoteDataTask0().execute();
+
+        mSwipeRefreshLayout.setColorScheme(android.R.color.holo_blue_bright,
+                android.R.color.holo_green_light,
+                android.R.color.holo_orange_light,
+                android.R.color.holo_red_light);
 
         return rootView;
     }
@@ -105,5 +144,56 @@ public class ArtLife extends Fragment {
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         public void onFragmentInteraction(Uri uri);
+    }
+    private class RemoteDataTask0 extends AsyncTask<Void, Integer, ArrayList<ArtLifeInfo>> {
+
+        public ArrayList<ArtLifeInfo> artLifeInfos = new ArrayList<ArtLifeInfo>();
+
+        @Override
+        protected ArrayList<ArtLifeInfo> doInBackground(Void... params) {
+
+            try {
+                Document document = Jsoup.connect("http://www.egouz.com/pics/pattern/").get();
+                Elements root = document.getElementsByClass("kboxgrid");
+                for (int i=0;i<root.size()-1;i++){
+                    String url = root.get(i).select("img").attr("src");
+                    Elements a = root.get(i).getElementsByTag("a");
+                    String link = a.get(0).attr("href");
+                    String title = a.get(0).text();
+                    Elements elements = root.get(i).getElementsByClass("likecount");
+                    ArtLifeInfo artLifeInfo = new ArtLifeInfo();
+                    artLifeInfo.setTag("摄影");
+                    artLifeInfo.setDate(elements.get(0).text());
+                    artLifeInfo.setTitle(title);
+                    artLifeInfo.setPicture(url);
+                    artLifeInfo.setUrl(link);
+                    artLifeInfos.add(artLifeInfo);
+                }
+
+            }catch (Exception e){
+                Log.v("error0", e.getMessage());
+            }
+
+            return artLifeInfos;
+        }
+        @Override
+        protected void onPreExecute() {
+
+            super.onPreExecute();
+        }
+        @Override
+        protected void onProgressUpdate(Integer... values) {
+            super.onProgressUpdate(values);
+
+
+        }
+        @Override
+        protected void onPostExecute(ArrayList<ArtLifeInfo> result) {
+            if (result!=null){
+                ArtLifeAdapter artLifeAdapter = new ArtLifeAdapter(getActivity(),result);
+                mListView.setAdapter(artLifeAdapter);
+            }
+
+        }
     }
 }

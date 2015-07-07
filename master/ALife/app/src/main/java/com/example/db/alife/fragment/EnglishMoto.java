@@ -6,6 +6,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.renderscript.Element;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.SearchView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -43,6 +44,7 @@ public class EnglishMoto extends Fragment {
     private static final String TEXT_FRAGMENT = "TEXT_FRAGMENT";
 
     public ListView mListView;
+    public SwipeRefreshLayout mSwipeRefreshLayout;
 
     public EnglishMoto newInstance(String text){
         EnglishMoto mFragment = new EnglishMoto();
@@ -64,7 +66,22 @@ public class EnglishMoto extends Fragment {
         mListView.addHeaderView(mHeadView);
         mListView.addFooterView(mFooterView);
 
+        mSwipeRefreshLayout=(SwipeRefreshLayout)rootView.findViewById(R.id.refreshlayout);
+
+        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                new RemoteDataTask0().execute();
+                mSwipeRefreshLayout.setRefreshing(false);
+            }
+        });
+
         new RemoteDataTask0().execute();
+
+        mSwipeRefreshLayout.setColorScheme(android.R.color.holo_blue_bright,
+                android.R.color.holo_green_light,
+                android.R.color.holo_orange_light,
+                android.R.color.holo_red_light);
 
         return rootView;
     }

@@ -148,26 +148,24 @@ public class MainActivity extends NavigationLiveo implements NavigationLiveoList
                 }
                 break;
             case 4:
-
-                break;
-            case 5:
                 mFragment = new ShootWorld().newInstance(mListNameItem.get(position));
                 if (mFragment != null){
                     mFragmentManager.beginTransaction().replace(layoutContainerId, mFragment).commit();
                 }
                 break;
-            case 6:
+            case 5:
                 mFragment = new ArtLife().newInstance(mListNameItem.get(position));
                 if (mFragment != null){
                     mFragmentManager.beginTransaction().replace(layoutContainerId, mFragment).commit();
                 }
                 break;
-            case 7:
+            case 6:
                 mFragment = new Collection().newInstance(mListNameItem.get(position));
                 if (mFragment != null){
                     mFragmentManager.beginTransaction().replace(layoutContainerId, mFragment).commit();
                 }
                 break;
+
         }
 
     }

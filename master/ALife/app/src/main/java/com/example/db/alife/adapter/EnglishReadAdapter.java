@@ -12,7 +12,7 @@ import android.widget.TextView;
 
 import com.example.db.alife.R;
 import com.example.db.alife.beans.EnglishMotoInfo;
-import com.example.db.alife.fragment.EnglishMoto;
+import com.example.db.alife.beans.EnglishReadInfo;
 import com.example.db.alife.view.ExpandableTextView;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -21,22 +21,22 @@ import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import java.util.ArrayList;
 
 /**
- * Created by db on 7/6/15.
+ * Created by db on 7/7/15.
  */
-public class EnglishMotoAdapter extends BaseAdapter{
+public class EnglishReadAdapter extends BaseAdapter{
 
     public Context context;
-    public ArrayList<EnglishMotoInfo> englishMotoInfos;
+    public ArrayList<EnglishReadInfo> englishReadInfos;
 
     public DisplayImageOptions options;
     public ImageLoader imageLoader;
 
     public final SparseBooleanArray mCollapsedStatus;
 
-    public EnglishMotoAdapter(Context context,ArrayList<EnglishMotoInfo> englishMotoInfos){
+    public EnglishReadAdapter(Context context,ArrayList<EnglishReadInfo> englishReadInfos){
         super();
         this.context = context;
-        this.englishMotoInfos = englishMotoInfos;
+        this.englishReadInfos = englishReadInfos;
 
         mCollapsedStatus = new SparseBooleanArray();
 
@@ -58,7 +58,7 @@ public class EnglishMotoAdapter extends BaseAdapter{
 
     @Override
     public int getCount() {
-        return englishMotoInfos.size();
+        return englishReadInfos.size();
     }
 
     @Override
@@ -76,7 +76,7 @@ public class EnglishMotoAdapter extends BaseAdapter{
 
         ViewHolder viewHolder;
         if (convertView==null){
-            convertView = LayoutInflater.from(context).inflate(R.layout.moto_item,null);
+            convertView = LayoutInflater.from(context).inflate(R.layout.read_item,null);
             viewHolder = new ViewHolder();
             viewHolder.title = (TextView)convertView.findViewById(R.id.title);
             viewHolder.description = (ExpandableTextView)convertView.findViewById(R.id.expand_text_view);
@@ -87,12 +87,12 @@ public class EnglishMotoAdapter extends BaseAdapter{
             viewHolder = (ViewHolder)convertView.getTag();
         }
 
-        EnglishMotoInfo englishMotoInfo = englishMotoInfos.get(position);
-        viewHolder.title.setText(englishMotoInfo.getTitle());
-        viewHolder.description.setText("    "+englishMotoInfo.getDescription(),mCollapsedStatus,position);
-        viewHolder.tag.setText(englishMotoInfo.getTag());
+        EnglishReadInfo englishReadInfo = englishReadInfos.get(position);
+        viewHolder.title.setText(englishReadInfo.getTitle());
+        viewHolder.description.setText("    "+englishReadInfo.getDescription(),mCollapsedStatus,position);
+        viewHolder.tag.setText(englishReadInfo.getTag());
 
-        imageLoader.displayImage(englishMotoInfo.getPicture(),viewHolder.picture,options);
+        imageLoader.displayImage(englishReadInfo.getPicture(),viewHolder.picture,options);
 
         return convertView;
     }

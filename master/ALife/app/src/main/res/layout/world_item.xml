@@ -61,45 +61,6 @@
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_marginLeft="8dp"
-                android:layout_marginRight="8dp">
-
-                <com.example.db.alife.view.ExpandableTextView
-                    android:id="@+id/expand_text_view"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    expandableTextView:maxCollapsedLines="2"
-                    expandableTextView:animAlphaStart="1">
-
-                    <TextView
-                        android:id="@id/expandable_text"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:layout_marginLeft="8dp"
-                        android:layout_marginRight="8dp"
-                        android:fontFamily="sans-serif-light"
-                        android:textSize="16sp"
-                        android:layout_gravity="center"
-                        android:gravity="center|left"
-                        android:ellipsize="end"
-                        android:lineSpacingMultiplier="1.2"
-                        android:textColor="@color/content" />
-
-                    <ImageButton
-                        android:id="@id/expand_collapse"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="16dp"
-                        android:layout_gravity="right|bottom"
-                        android:background="@android:color/transparent"/>
-                </com.example.db.alife.view.ExpandableTextView>
-
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:orientation="horizontal"
                 android:background="@drawable/bkg">
@@ -119,8 +80,9 @@
                     android:background="@drawable/page_indicator_on"
                     android:layout_marginRight="8dp"/>
                 <TextView
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="match_parent"
+                    android:layout_weight="1"
                     android:textColor="@color/actionbar0"
                     android:textSize="16sp"
                     android:text="Tag"
@@ -129,6 +91,26 @@
                     android:maxLines="1"
                     android:ellipsize="end"
                     android:id="@+id/tag"/>
+                <LinearLayout
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:background="@drawable/clear_day_with_background">
+
+                </LinearLayout>
+                <TextView
+                    android:layout_width="80dp"
+                    android:layout_height="match_parent"
+                    android:id="@+id/date"
+                    android:layout_gravity="center"
+                    android:gravity="center|right"
+                    android:text="2015.07.02"
+                    android:textStyle="normal"
+                    android:textColor="@color/actionbar0"
+                    android:textSize="13sp"
+                    android:maxLines="1"
+                    android:ellipsize="end"/>
             </LinearLayout>
 
 

@@ -11,9 +11,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.db.alife.R;
-import com.example.db.alife.beans.EnglishMotoInfo;
-import com.example.db.alife.fragment.EnglishMoto;
-import com.example.db.alife.view.ExpandableTextView;
+import com.example.db.alife.beans.ArtLifeInfo;
+import com.example.db.alife.beans.ShootWorldInfo;
+import com.example.db.alife.fragment.ArtLife;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
@@ -21,22 +21,22 @@ import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import java.util.ArrayList;
 
 /**
- * Created by db on 7/6/15.
+ * Created by db on 7/7/15.
  */
-public class EnglishMotoAdapter extends BaseAdapter{
+public class ArtLifeAdapter extends BaseAdapter {
 
     public Context context;
-    public ArrayList<EnglishMotoInfo> englishMotoInfos;
+    public ArrayList<ArtLifeInfo> artLifeInfos;
 
     public DisplayImageOptions options;
     public ImageLoader imageLoader;
 
     public final SparseBooleanArray mCollapsedStatus;
 
-    public EnglishMotoAdapter(Context context,ArrayList<EnglishMotoInfo> englishMotoInfos){
+    public ArtLifeAdapter(Context context,ArrayList<ArtLifeInfo> artLifeInfos){
         super();
         this.context = context;
-        this.englishMotoInfos = englishMotoInfos;
+        this.artLifeInfos = artLifeInfos;
 
         mCollapsedStatus = new SparseBooleanArray();
 
@@ -58,7 +58,7 @@ public class EnglishMotoAdapter extends BaseAdapter{
 
     @Override
     public int getCount() {
-        return englishMotoInfos.size();
+        return artLifeInfos.size();
     }
 
     @Override
@@ -76,29 +76,27 @@ public class EnglishMotoAdapter extends BaseAdapter{
 
         ViewHolder viewHolder;
         if (convertView==null){
-            convertView = LayoutInflater.from(context).inflate(R.layout.moto_item,null);
+            convertView = LayoutInflater.from(context).inflate(R.layout.world_item,null);
             viewHolder = new ViewHolder();
             viewHolder.title = (TextView)convertView.findViewById(R.id.title);
-            viewHolder.description = (ExpandableTextView)convertView.findViewById(R.id.expand_text_view);
             viewHolder.picture = (ImageView)convertView.findViewById(R.id.picture);
             viewHolder.tag = (TextView)convertView.findViewById(R.id.tag);
+            viewHolder.date = (TextView)convertView.findViewById(R.id.date);
             convertView.setTag(viewHolder);
         }else {
             viewHolder = (ViewHolder)convertView.getTag();
         }
 
-        EnglishMotoInfo englishMotoInfo = englishMotoInfos.get(position);
-        viewHolder.title.setText(englishMotoInfo.getTitle());
-        viewHolder.description.setText("    "+englishMotoInfo.getDescription(),mCollapsedStatus,position);
-        viewHolder.tag.setText(englishMotoInfo.getTag());
-
-        imageLoader.displayImage(englishMotoInfo.getPicture(),viewHolder.picture,options);
+        ArtLifeInfo artLifeInfo = artLifeInfos.get(position);
+        viewHolder.title.setText(artLifeInfo.getTitle());
+        viewHolder.tag.setText(artLifeInfo.getTag());
+        viewHolder.date.setText(artLifeInfo.getDate());
+        imageLoader.displayImage(artLifeInfo.getPicture(),viewHolder.picture,options);
 
         return convertView;
     }
     public static class ViewHolder{
-        TextView title,tag;
-        ExpandableTextView description;
+        TextView title,tag,date;
         ImageView picture;
     }
 }
