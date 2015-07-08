@@ -1,6 +1,7 @@
 package com.example.db.alife.fragment;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -23,6 +24,7 @@ import com.example.db.alife.adapter.EnglishMotoAdapter;
 import com.example.db.alife.adapter.EnglishReadAdapter;
 import com.example.db.alife.beans.EnglishMotoInfo;
 import com.example.db.alife.beans.EnglishReadInfo;
+import com.example.db.alife.view.ALifeToast;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -45,6 +47,8 @@ public class EnglishRead extends Fragment {
 
     public ListView mListView;
     public SwipeRefreshLayout mSwipeRefreshLayout;
+
+    public ProgressDialog progressDialog;
 
     public EnglishRead newInstance(String text){
         EnglishRead mFragment = new EnglishRead();
@@ -190,6 +194,8 @@ public class EnglishRead extends Fragment {
         protected void onPreExecute() {
 
             super.onPreExecute();
+            progressDialog =
+                    ProgressDialog.show(getActivity(), "", "Loading...", true);
         }
         @Override
         protected void onProgressUpdate(Integer... values) {
@@ -202,6 +208,8 @@ public class EnglishRead extends Fragment {
             if (result!=null){
                 EnglishReadAdapter englishReadAdapter = new EnglishReadAdapter(getActivity(),result);
                 mListView.setAdapter(englishReadAdapter);
+                progressDialog.dismiss();
+                ALifeToast.makeText(getActivity(), "加载了" + String.valueOf(result.size()) + "消息！", ALifeToast.ToastType.SUCCESS, ALifeToast.LENGTH_SHORT).show();
             }
 
         }

@@ -82,7 +82,7 @@ public class WorldDetailsAdapter extends BaseAdapter {
         }
 
         final WorldDetailsInfo worldDetailsInfo =worldDetailsInfos.get(position);
-        viewHolder.title.setText(worldDetailsInfo.getTitle());
+        viewHolder.title.setText("    "+worldDetailsInfo.getTitle());
 
         imageLoader.displayImage(worldDetailsInfo.getPicture(),viewHolder.picture,options);
 

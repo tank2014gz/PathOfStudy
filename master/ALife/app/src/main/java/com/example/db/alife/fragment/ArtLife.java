@@ -1,6 +1,7 @@
 package com.example.db.alife.fragment;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -23,6 +24,7 @@ import com.example.db.alife.adapter.ArtLifeAdapter;
 import com.example.db.alife.adapter.ShootWorldAdapter;
 import com.example.db.alife.beans.ArtLifeInfo;
 import com.example.db.alife.beans.ShootWorldInfo;
+import com.example.db.alife.view.ALifeToast;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -45,6 +47,8 @@ public class ArtLife extends Fragment {
 
     public ListView mListView;
     public SwipeRefreshLayout mSwipeRefreshLayout;
+
+    public ProgressDialog progressDialog;
 
     public ArtLife newInstance(String text){
         ArtLife mFragment = new ArtLife();
@@ -180,6 +184,8 @@ public class ArtLife extends Fragment {
         protected void onPreExecute() {
 
             super.onPreExecute();
+            progressDialog =
+                    ProgressDialog.show(getActivity(), "", "Loading...", true);
         }
         @Override
         protected void onProgressUpdate(Integer... values) {
@@ -192,6 +198,8 @@ public class ArtLife extends Fragment {
             if (result!=null){
                 ArtLifeAdapter artLifeAdapter = new ArtLifeAdapter(getActivity(),result);
                 mListView.setAdapter(artLifeAdapter);
+                progressDialog.dismiss();
+                ALifeToast.makeText(getActivity(), "加载了" + String.valueOf(result.size()) + "消息！", ALifeToast.ToastType.SUCCESS, ALifeToast.LENGTH_SHORT).show();
             }
 
         }

@@ -1,5 +1,6 @@
 package com.example.db.alife.activity;
 
+import android.app.ProgressDialog;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -23,6 +24,7 @@ import com.example.db.alife.adapter.WorldDetailsAdapter;
 import com.example.db.alife.beans.SentenceDetailsInfo;
 import com.example.db.alife.beans.WorldDetailsInfo;
 import com.example.db.alife.utils.AppConstant;
+import com.example.db.alife.view.ALifeToast;
 import com.example.db.alife.view.ExpandableTextView;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -45,6 +47,8 @@ public class WorldDetailsActivity extends AppCompatActivity {
     public ListView mListView;
     public ExpandableTextView mExpandableTextView;
     public SwipeRefreshLayout mSwipeRefreshLayout;
+
+    public ProgressDialog progressDialog;
 
     public DisplayImageOptions options;
     public ImageLoader imageLoader;
@@ -196,6 +200,7 @@ public class WorldDetailsActivity extends AppCompatActivity {
         protected void onPreExecute() {
 
             super.onPreExecute();
+
         }
         @Override
         protected void onProgressUpdate(Integer... values) {
@@ -208,6 +213,7 @@ public class WorldDetailsActivity extends AppCompatActivity {
             if (result!=null){
                 WorldDetailsAdapter worldDetailsAdapter = new WorldDetailsAdapter(getApplicationContext(),result);
                 mListView.setAdapter(worldDetailsAdapter);
+                ALifeToast.makeText(WorldDetailsActivity.this, "加载完毕！", ALifeToast.ToastType.SUCCESS, ALifeToast.LENGTH_SHORT).show();
             }
 
         }

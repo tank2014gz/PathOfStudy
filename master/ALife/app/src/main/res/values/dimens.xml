@@ -5,6 +5,12 @@
     <dimen name="rippleStrokeWidth">2dp</dimen>
     <dimen name="rippleRadius">64dp</dimen>
 
+    <dimen name="alifetoast_translationX">-64dp</dimen>
+    <dimen name="alifetoast_height">36dp</dimen>
+    <dimen name="alifetoast_paddingLeft">4dp</dimen>
+    <dimen name="alifetoast_paddingTop">0dp</dimen>
+    <dimen name="actionbar_height">160dp</dimen>
+
     //floatactionbutton
     <dimen name="fab_size_normal">56dp</dimen>
     <dimen name="fab_size_mini">40dp</dimen>
