@@ -1,7 +1,9 @@
 package com.example.db.alife.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
+import android.os.Bundle;
 import android.util.SparseBooleanArray;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +13,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.db.alife.R;
+import com.example.db.alife.activity.MotoDetailsActivity;
+import com.example.db.alife.activity.ReadDetailsActivity;
+import com.example.db.alife.activity.SentenceDetailsActivity;
 import com.example.db.alife.beans.EnglishMotoInfo;
 import com.example.db.alife.beans.EnglishReadInfo;
 import com.example.db.alife.view.ExpandableTextView;
@@ -87,12 +92,29 @@ public class EnglishReadAdapter extends BaseAdapter{
             viewHolder = (ViewHolder)convertView.getTag();
         }
 
-        EnglishReadInfo englishReadInfo = englishReadInfos.get(position);
+        final EnglishReadInfo englishReadInfo = englishReadInfos.get(position);
         viewHolder.title.setText(englishReadInfo.getTitle());
         viewHolder.description.setText("    "+englishReadInfo.getDescription(),mCollapsedStatus,position);
         viewHolder.tag.setText(englishReadInfo.getTag());
 
         imageLoader.displayImage(englishReadInfo.getPicture(),viewHolder.picture,options);
+
+        convertView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent intent = new Intent();
+                intent.setClass(context, ReadDetailsActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putString("url",englishReadInfo.getUrl());
+                bundle.putString("picture", englishReadInfo.getPicture());
+                bundle.putString("description", englishReadInfo.getDescription());
+                bundle.putString("title", englishReadInfo.getTitle());
+                intent.putExtras(bundle);
+                context.startActivity(intent);
+
+            }
+        });
 
         return convertView;
     }

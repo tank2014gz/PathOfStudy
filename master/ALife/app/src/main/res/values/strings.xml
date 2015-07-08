@@ -46,4 +46,8 @@
     <string name="title_activity_activity_item_dining_room_info">ActivityItemDiningRoomInfo</string>
     <string name="title_activity_activity_my_notice">ActivityMyNotice</string>
     <string name="title_activity_dining_room_comment">DiningRoomCommentActivity</string>
+    <string name="title_activity_moto_details">MotoDetailsActivity</string>
+    <string name="title_activity_read_details">ReadDetailsActivity</string>
+    <string name="title_activity_sentence_details">SentenceDetailsActivity</string>
+    <string name="title_activity_world_details">WorldDetailsActivity</string>
 </resources>

@@ -92,5 +92,16 @@ public class AppConstant {
         b = m.matches();
         return b;
     }
-
+    /**
+     * 验证网址Url
+     *
+     * @param
+     * @return 如果是符合格式的字符串,返回 <b>true </b>,否则为 <b>false </b>
+     */
+    public static boolean isUrl(String str) {
+        String regex = "\"^(http|www|ftp|)?(://)?(\\\\w+(-\\\\w+)*)(\\\\.(\\\\w+(-\\\\w+)*))*((:\\\\d+)?)(/(\\\\w+(-\\\\w+)*))*(\\\\.?(\\\\w)*)(\\\\?)?(((\\\\w*%)*(\\\\w*\\\\?)*(\\\\w*:)*(\\\\w*\\\\+)*(\\\\w*\\\\.)*(\\\\w*&)*(\\\\w*-)*(\\\\w*=)*(\\\\w*%)*(\\\\w*\\\\?)*(\\\\w*:)*(\\\\w*\\\\+)*(\\\\w*\\\\.)*(\\\\w*&)*(\\\\w*-)*(\\\\w*=)*)*(\\\\w*)*)$\"";
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(str);
+        return matcher.matches();
+    }
 }

@@ -1,7 +1,9 @@
 package com.example.db.alife.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
+import android.os.Bundle;
 import android.util.SparseBooleanArray;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.db.alife.R;
+import com.example.db.alife.activity.MotoDetailsActivity;
 import com.example.db.alife.beans.EnglishMotoInfo;
 import com.example.db.alife.fragment.EnglishMoto;
 import com.example.db.alife.view.ExpandableTextView;
@@ -87,12 +90,29 @@ public class EnglishMotoAdapter extends BaseAdapter{
             viewHolder = (ViewHolder)convertView.getTag();
         }
 
-        EnglishMotoInfo englishMotoInfo = englishMotoInfos.get(position);
+        final EnglishMotoInfo englishMotoInfo = englishMotoInfos.get(position);
         viewHolder.title.setText(englishMotoInfo.getTitle());
         viewHolder.description.setText("    "+englishMotoInfo.getDescription(),mCollapsedStatus,position);
         viewHolder.tag.setText(englishMotoInfo.getTag());
 
         imageLoader.displayImage(englishMotoInfo.getPicture(),viewHolder.picture,options);
+
+        convertView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent intent = new Intent();
+                intent.setClass(context, MotoDetailsActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putString("url",englishMotoInfo.getUrl());
+                bundle.putString("picture",englishMotoInfo.getPicture());
+                bundle.putString("description",englishMotoInfo.getDescription());
+                bundle.putString("title",englishMotoInfo.getTitle());
+                intent.putExtras(bundle);
+                context.startActivity(intent);
+
+            }
+        });
 
         return convertView;
     }

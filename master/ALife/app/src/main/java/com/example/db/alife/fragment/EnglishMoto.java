@@ -1,6 +1,7 @@
 package com.example.db.alife.fragment;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -15,11 +16,13 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
 import com.example.db.alife.R;
+import com.example.db.alife.activity.MotoDetailsActivity;
 import com.example.db.alife.adapter.EnglishMotoAdapter;
 import com.example.db.alife.beans.EnglishMotoInfo;
 
@@ -200,7 +203,7 @@ public class EnglishMoto extends Fragment {
 
         }
         @Override
-        protected void onPostExecute(ArrayList<EnglishMotoInfo> result) {
+        protected void onPostExecute(final ArrayList<EnglishMotoInfo> result) {
             if (result!=null){
                 EnglishMotoAdapter englishMotoAdapter = new EnglishMotoAdapter(getActivity(),result);
                 mListView.setAdapter(englishMotoAdapter);

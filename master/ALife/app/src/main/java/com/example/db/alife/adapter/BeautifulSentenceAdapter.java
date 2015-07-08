@@ -1,7 +1,9 @@
 package com.example.db.alife.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
+import android.os.Bundle;
 import android.util.SparseBooleanArray;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +13,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.db.alife.R;
+import com.example.db.alife.activity.ReadDetailsActivity;
+import com.example.db.alife.activity.SentenceDetailsActivity;
 import com.example.db.alife.beans.BeautifulSentenceInfo;
 import com.example.db.alife.view.ExpandableTextView;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
@@ -86,12 +90,29 @@ public class BeautifulSentenceAdapter extends BaseAdapter {
             viewHolder = (ViewHolder)convertView.getTag();
         }
 
-        BeautifulSentenceInfo beautifulSentenceInfo = beautifulSentenceInfos.get(position);
+        final BeautifulSentenceInfo beautifulSentenceInfo = beautifulSentenceInfos.get(position);
         viewHolder.title.setText(beautifulSentenceInfo.getTitle());
         viewHolder.description.setText("    "+beautifulSentenceInfo.getDescription(),mCollapsedStatus,position);
         viewHolder.tag.setText(beautifulSentenceInfo.getTag());
 
         imageLoader.displayImage(beautifulSentenceInfo.getPicture(),viewHolder.picture,options);
+
+        convertView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent intent = new Intent();
+                intent.setClass(context, SentenceDetailsActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putString("url",beautifulSentenceInfo.getUrl());
+                bundle.putString("picture", beautifulSentenceInfo.getPicture());
+                bundle.putString("description", beautifulSentenceInfo.getDescription());
+                bundle.putString("title", beautifulSentenceInfo.getTitle());
+                intent.putExtras(bundle);
+                context.startActivity(intent);
+
+            }
+        });
 
         return convertView;
     }
