@@ -3,4 +3,7 @@
 
     <item type="id" name="expandable_text"/>
     <item type="id" name="expand_collapse"/>
+
+    <item name="indicators_title" type="id"/>
+    <item name="indicators_switcher" type="id"/>
 </resources>

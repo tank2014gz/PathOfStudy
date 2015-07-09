@@ -201,8 +201,8 @@ public abstract class NavigationLiveo extends AppCompatActivity {
             super(
                     activity,
                     drawerLayout, toolbar,
-                    R.string.drawer_open,
-                    R.string.drawer_close);
+                    R.string.drawer_open0,
+                    R.string.drawer_close0);
         }
 
 		@Override

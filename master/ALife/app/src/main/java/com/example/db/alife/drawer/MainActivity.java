@@ -22,6 +22,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.util.Log;
 import android.util.SparseIntArray;
 import android.view.Menu;
 import android.view.View;
@@ -38,6 +39,8 @@ import com.example.db.alife.fragment.ShootWorld;
 import com.example.db.alife.liveo.interfaces.NavigationLiveoListener;
 import com.example.db.alife.liveo.navigationliveo.NavigationLiveo;
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.umeng.message.PushAgent;
+import com.umeng.update.UmengUpdateAgent;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -75,6 +78,16 @@ public class MainActivity extends NavigationLiveo implements NavigationLiveoList
     public void onInt(Bundle savedInstanceState) {
         //Creation of the list items is here
 
+
+        UmengUpdateAgent.setUpdateOnlyWifi(false);
+        UmengUpdateAgent.update(this);
+        UmengUpdateAgent.setUpdateCheckConfig(true);
+
+        PushAgent mPushAgent = PushAgent.getInstance(getApplicationContext());
+        mPushAgent.enable();
+
+        PushAgent.getInstance(getApplicationContext()).onAppStart();
+
         // set listener {required}
         this.setNavigationListener(this);
         if (savedInstanceState == null) {
@@ -110,8 +123,8 @@ public class MainActivity extends NavigationLiveo implements NavigationLiveoList
         //{optional} - Among the names there is any item counter, you must indicate it (position) and the value here
         SparseIntArray mSparseCounterItem = new SparseIntArray(); //indicate all items that have a counter
         mSparseCounterItem.put(0, 0);
-        mSparseCounterItem.put(1, 1);
-        mSparseCounterItem.put(2, 1);
+        mSparseCounterItem.put(1, 0);
+        mSparseCounterItem.put(2, 0);
         mSparseCounterItem.put(5, 0);
 
         //If not please use the FooterDrawer use the setFooterVisible(boolean visible) method with value false
@@ -174,7 +187,7 @@ public class MainActivity extends NavigationLiveo implements NavigationLiveoList
     public void onPrepareOptionsMenuNavigation(Menu menu, int position, boolean visible) {
 
         //hide the menu when the navigation is opens
-        menu.findItem(R.id.menu_search).setVisible(!visible);
+//        menu.findItem(R.id.menu_search).setVisible(!visible);
 
     }
 

@@ -31,4 +31,6 @@
         <attr name="expandDrawable" format="reference"/>
         <attr name="collapseDrawable" format="reference"/>
     </declare-styleable>
+
+    <declare-styleable name="ActionBar"><attr name="title" format="string" localization="suggested"/></declare-styleable>
 </resources>

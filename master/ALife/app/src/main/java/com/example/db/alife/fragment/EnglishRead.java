@@ -185,7 +185,7 @@ public class EnglishRead extends Fragment {
                 }
 
             }catch (Exception e){
-                Log.v("error0", e.getMessage());
+                Log.v("error0", e.getMessage()+".");
             }
 
             return englishReadInfos;
