@@ -113,7 +113,7 @@ public class EnglishMoto extends Fragment {
         SearchView searchView = (SearchView) menuItem.getActionView();
         searchView.setQueryHint(this.getString(R.string.search));
 
-        ((EditText) searchView.findViewById(R.id.search_src_text))
+                ((EditText) searchView.findViewById(R.id.search_src_text))
                 .setHintTextColor(getResources().getColor(R.color.nliveo_white));
         searchView.setOnQueryTextListener(onQuerySearchView);
 

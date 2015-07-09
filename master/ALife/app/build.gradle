@@ -31,4 +31,5 @@ dependencies {
     compile files('libs/com.umeng.message.lib1.4.1.jar')
     compile files('libs/umeng-update-v2.6.0.1.jar')
     compile files('libs/com.umeng.message.lib_v2.3.0.jar')
+
 }

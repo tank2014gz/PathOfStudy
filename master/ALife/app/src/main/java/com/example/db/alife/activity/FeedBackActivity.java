@@ -1,6 +1,7 @@
 package com.example.db.alife.activity;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -13,16 +14,23 @@ import android.widget.EditText;
 
 import com.example.db.alife.R;
 import com.example.db.alife.utils.AppConstant;
+import com.example.db.alife.view.ALifeToast;
+import com.example.db.alife.view.materialedittext.MaterialEditText;
 import com.umeng.fb.ConversationActivity;
 import com.umeng.fb.FeedbackAgent;
 import com.umeng.message.PushAgent;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class FeedBackActivity extends AppCompatActivity {
 
     public Toolbar toolbar;
 
+    public MaterialEditText mMaterialEditText;
     public EditText mEditText;
-    public Button mSend;
+    public CircleImageView mCircleImageView;
+
+    public String contacttype,feedcontent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,16 +42,29 @@ public class FeedBackActivity extends AppCompatActivity {
 
         initToolBar();
 
-        mEditText = (EditText)findViewById(R.id.feedback);
-        mSend = (Button)findViewById(R.id.send);
+        mMaterialEditText = (MaterialEditText)findViewById(R.id.edit_title);
+        mEditText = (EditText)findViewById(R.id.edit_content);
+        mCircleImageView = (CircleImageView)findViewById(R.id.send);
 
-
-        mSend.setOnClickListener(new View.OnClickListener() {
+        mCircleImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
+                feedcontent = mEditText.getText().toString();
+
+                if (feedcontent!=null){
+                    Uri smsToUri = Uri.parse("smsto:" + "18627804616");
+                    Intent intent = new Intent(Intent.ACTION_SENDTO, smsToUri);
+                    intent.putExtra("sms_body", feedcontent);
+                    startActivity(intent);
+                    FeedBackActivity.this.finish();
+                }else {
+                    ALifeToast.makeText(FeedBackActivity.this, "意见不能为空！", ALifeToast.ToastType.SUCCESS, ALifeToast.LENGTH_SHORT).show();
+
+                }
             }
         });
+
 
     }
 

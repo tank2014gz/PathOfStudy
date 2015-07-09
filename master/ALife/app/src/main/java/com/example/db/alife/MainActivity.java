@@ -6,6 +6,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.example.db.alife.view.ExpandableTextView;
+import com.example.db.alife.view.materialedittext.MaterialEditText;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class MainActivity extends AppCompatActivity {
 

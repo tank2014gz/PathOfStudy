@@ -17,10 +17,10 @@
 <resources>
 
     <style name="AppTheme.Ligth" parent="Theme.AppCompat.Light.NoActionBar">
-        <item name="colorPrimary">@color/nliveo_cyan_colorPrimary</item>
-        <item name="colorPrimaryDark">@color/nliveo_cyan_alpha_colorPrimaryDark</item>
-        <item name="colorAccent">@color/nliveo_cyan_colorPrimary</item>
-        <item name="colorControlHighlight">@color/nliveo_cyan_colorPrimary</item>
+        <item name="colorPrimary">@color/white_pressed</item>
+        <item name="colorPrimaryDark">@color/white_pressed</item>
+        <item name="colorAccent">@color/white_pressed</item>
+        <item name="colorControlHighlight">@color/white_pressed</item>
         <item name="windowActionModeOverlay">true</item>
 
         <item name="popupTheme">@style/ThemeOverlay.AppCompat.Light</item>
@@ -28,10 +28,10 @@
     </style>
 
     <style name="AppTheme.DarkActionBar" parent="Theme.AppCompat.Light.NoActionBar">
-        <item name="colorPrimary">@color/nliveo_cyan_colorPrimary</item>
-        <item name="colorPrimaryDark">@color/nliveo_cyan_alpha_colorPrimaryDark</item>
-        <item name="colorAccent">@color/nliveo_cyan_colorPrimary</item>
-        <item name="colorControlHighlight">@color/nliveo_cyan_colorPrimary</item>
+        <item name="colorPrimary">@color/nliveo_blue_colorPrimary</item>
+        <item name="colorPrimaryDark">@color/nliveo_blue_colorPrimary</item>
+        <item name="colorAccent">@color/nliveo_blue_colorPrimary</item>
+        <item name="colorControlHighlight">@color/white_pressed</item>
         <item name="windowActionModeOverlay">true</item>
 
         <item name="popupTheme">@style/ThemeOverlay.AppCompat.Light</item>
@@ -40,4 +40,8 @@
 
     <style name="nLiveo.Theme.Light" parent="AppTheme.Ligth" />
     <style name="nLiveo.Theme.DarkActionBar" parent="AppTheme.DarkActionBar" />
+    <!-- fab-->
+    <style name="Theme" parent="@android:style/Theme.Holo.Light">
+        <item name="android:textViewStyle">@style/theme_textview_style</item>
+    </style><style name="theme_textview_style" parent="@android:style/Widget.Holo.Light.TextView"><item name="android:textColor">@color/pink</item></style>
 </resources>
