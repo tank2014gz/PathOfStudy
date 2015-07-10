@@ -108,6 +108,7 @@ public class EnglishMotoAdapter extends BaseAdapter{
                 bundle.putString("picture",englishMotoInfo.getPicture());
                 bundle.putString("description",englishMotoInfo.getDescription());
                 bundle.putString("title",englishMotoInfo.getTitle());
+                bundle.putString("tag",englishMotoInfo.getTag());
                 intent.putExtras(bundle);
                 context.startActivity(intent);
 

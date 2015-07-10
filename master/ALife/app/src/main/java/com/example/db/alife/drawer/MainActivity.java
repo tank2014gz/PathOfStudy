@@ -30,9 +30,13 @@ import android.widget.Toast;
 
 
 import com.example.db.alife.R;
+import com.example.db.alife.activity.SignUpActivity;
 import com.example.db.alife.fragment.ArtLife;
 import com.example.db.alife.fragment.BeautifulSentence;
 import com.example.db.alife.fragment.Collection;
+import com.example.db.alife.fragment.CollectionMoto;
+import com.example.db.alife.fragment.CollectionRead;
+import com.example.db.alife.fragment.CollectionSentence;
 import com.example.db.alife.fragment.EnglishMoto;
 import com.example.db.alife.fragment.EnglishRead;
 import com.example.db.alife.fragment.ShootWorld;
@@ -53,7 +57,9 @@ public class MainActivity extends NavigationLiveo implements NavigationLiveoList
                                                                                     ,ShootWorld.OnFragmentInteractionListener
                                                                                     ,ArtLife.OnFragmentInteractionListener
                                                                                     ,com.example.db.alife.fragment.Collection.OnFragmentInteractionListener
-                                                                                    {
+                                                                                    ,CollectionMoto.OnFragmentInteractionListener
+                                                                                    ,CollectionRead.OnFragmentInteractionListener
+                                                                                    ,CollectionSentence.OnFragmentInteractionListener{
 
     public List<String> mListNameItem;
 
@@ -66,7 +72,7 @@ public class MainActivity extends NavigationLiveo implements NavigationLiveoList
         this.mUserPhoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                startActivity(new Intent(MainActivity.this, SignUpActivity.class));
             }
         });
         SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("com.uniBoys.Xiaoshiji", Context.MODE_PRIVATE);

@@ -3,6 +3,7 @@ package com.example.db.alife.utils;
 import android.app.Activity;
 import android.content.Context;
 import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
@@ -12,6 +13,7 @@ import android.view.WindowManager;
 
 
 import com.example.db.alife.R;
+import com.example.db.alife.database.MotoDatabaseHelper;
 import com.example.db.alife.drawer.SystemBarTintManager;
 
 import java.text.SimpleDateFormat;
@@ -104,4 +106,50 @@ public class AppConstant {
         Matcher matcher = pattern.matcher(str);
         return matcher.matches();
     }
+    /*
+    检查重复
+     */
+    public static boolean isMotoAgain(SQLiteDatabase sqLiteDatabase,String title){
+
+        Cursor cursor = sqLiteDatabase.query("alife_moto",new String[]{"title","tag","description","picture","url"},null,null,null,null,null);
+        boolean flag = false;
+        for (int i=0;i<cursor.getCount()-1;i++){
+            cursor.moveToPosition(i);
+            if (title.equals(cursor.getString(cursor.getColumnIndex("title")))){
+                flag = true;
+            }else {
+                flag = false;
+            }
+        }
+        return flag;
+    }
+    public static boolean isReadAgain(SQLiteDatabase sqLiteDatabase,String title){
+
+        Cursor cursor = sqLiteDatabase.query("alife_read",new String[]{"title","tag","description","picture","url"},null,null,null,null,null);
+        boolean flag = false;
+        for (int i=0;i<cursor.getCount()-1;i++){
+            cursor.moveToPosition(i);
+            if (title.equals(cursor.getString(cursor.getColumnIndex("title")))){
+                flag = true;
+            }else {
+                flag = false;
+            }
+        }
+        return flag;
+    }
+    public static boolean isSentenceAgain(SQLiteDatabase sqLiteDatabase,String title){
+
+        Cursor cursor = sqLiteDatabase.query("alife_sentence",new String[]{"title","tag","description","picture","url"},null,null,null,null,null);
+        boolean flag = false;
+        for (int i=0;i<cursor.getCount()-1;i++){
+            cursor.moveToPosition(i);
+            if (title.equals(cursor.getString(cursor.getColumnIndex("title")))){
+                flag = true;
+            }else {
+                flag = false;
+            }
+        }
+        return flag;
+    }
+
 }

@@ -110,6 +110,7 @@ public class EnglishReadAdapter extends BaseAdapter{
                 bundle.putString("picture", englishReadInfo.getPicture());
                 bundle.putString("description", englishReadInfo.getDescription());
                 bundle.putString("title", englishReadInfo.getTitle());
+                bundle.putString("tag",englishReadInfo.getTag());
                 intent.putExtras(bundle);
                 context.startActivity(intent);
 

@@ -1,7 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    tools:context="com.example.db.alife.activity.ReadDetailsActivity">
-    <item android:id="@+id/action_settings" android:title="@string/action_settings"
-        android:orderInCategory="100" app:showAsAction="never" />
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+    <item
+        android:id="@+id/menu_share"
+        android:icon="@drawable/abc_ic_menu_share_mtrl_alpha"
+        app:showAsAction="ifRoom|collapseActionView"
+        android:title="@string/search"/>
+
+    <item
+        android:id="@+id/menu_collection"
+        android:icon="@drawable/visibility_light"
+        app:showAsAction="ifRoom|collapseActionView"
+        android:title="@string/search"/>
+
 </menu>

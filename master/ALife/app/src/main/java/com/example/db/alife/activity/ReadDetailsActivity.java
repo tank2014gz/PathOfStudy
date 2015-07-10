@@ -1,6 +1,9 @@
 package com.example.db.alife.activity;
 
 import android.app.ProgressDialog;
+import android.content.ContentValues;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -23,6 +26,8 @@ import com.example.db.alife.adapter.MotoDetailsAdapter;
 import com.example.db.alife.adapter.ReadDetailsAdapter;
 import com.example.db.alife.beans.MotodetailsInfo;
 import com.example.db.alife.beans.ReadDetailsInfo;
+import com.example.db.alife.database.MotoDatabaseHelper;
+import com.example.db.alife.database.ReadDataBaseHelper;
 import com.example.db.alife.utils.AppConstant;
 import com.example.db.alife.view.ALifeToast;
 import com.example.db.alife.view.ExpandableTextView;
@@ -39,7 +44,7 @@ import java.util.ArrayList;
 public class ReadDetailsActivity extends AppCompatActivity {
 
     public Toolbar toolbar;
-    public String title,picture,url,description;
+    public String title,picture,url,description,tag;
     public Bundle bundle;
 
     public ImageView imageView;
@@ -69,6 +74,7 @@ public class ReadDetailsActivity extends AppCompatActivity {
             description = bundle.getString("description");
             picture = bundle.getString("picture");
             url = bundle.getString("url");
+            tag = bundle.getString("tag");
         }
 
         initToolBar();
@@ -160,12 +166,35 @@ public class ReadDetailsActivity extends AppCompatActivity {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
+        switch (item.getItemId()){
+            case R.id.menu_collection:
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+                ReadDataBaseHelper readDataBaseHelper = new ReadDataBaseHelper(getApplicationContext());
+                SQLiteDatabase sqLiteDatabase = readDataBaseHelper.getWritableDatabase();
+                Cursor cursor = sqLiteDatabase.query("alife_read",new String[]{"title","tag","description","picture","url"},null,null,null,null,null);
+
+                if (AppConstant.isReadAgain(sqLiteDatabase, title)){
+                    ALifeToast.makeText(ReadDetailsActivity.this, "已经收藏过了！", ALifeToast.ToastType.SUCCESS, ALifeToast.LENGTH_SHORT).show();
+                }else {
+                    ContentValues contentValues = new ContentValues();
+                    contentValues.put("title",title);
+                    contentValues.put("tag",tag);
+                    contentValues.put("description",description);
+                    contentValues.put("picture",picture);
+                    contentValues.put("url",url);
+
+                    sqLiteDatabase.insert("alife_read",null,contentValues);
+                    sqLiteDatabase.close();
+                    ALifeToast.makeText(ReadDetailsActivity.this, "收藏成功！", ALifeToast.ToastType.SUCCESS, ALifeToast.LENGTH_SHORT).show();
+                }
+
+                break;
+            case R.id.menu_share:
+
+                break;
+
         }
+
 
         return super.onOptionsItemSelected(item);
     }

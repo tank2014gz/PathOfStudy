@@ -108,6 +108,7 @@ public class BeautifulSentenceAdapter extends BaseAdapter {
                 bundle.putString("picture", beautifulSentenceInfo.getPicture());
                 bundle.putString("description", beautifulSentenceInfo.getDescription());
                 bundle.putString("title", beautifulSentenceInfo.getTitle());
+                bundle.putString("tag",beautifulSentenceInfo.getTag());
                 intent.putExtras(bundle);
                 context.startActivity(intent);
 
