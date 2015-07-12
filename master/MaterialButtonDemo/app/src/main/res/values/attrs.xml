@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="CircleButton">
+        <attr name="color1" format="color" />
+        <attr name="transitionTime1" format="integer" />
+    </declare-styleable>
+
+    <declare-styleable name="MaterialButton">
+        <attr name="color0" format="color"/>
+        <attr name="transitionTime0" format="integer"/>
+    </declare-styleable>
+</resources>

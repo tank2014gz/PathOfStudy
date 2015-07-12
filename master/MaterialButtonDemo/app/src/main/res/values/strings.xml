@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">CircularButtonDemo</string>
+    <string name="header">Material Circular Button</string>
+</resources>
