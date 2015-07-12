@@ -1,19 +1,35 @@
 package com.example.db.alife.activity;
 
+import android.content.Intent;
 import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.Toast;
 
+import com.avos.avoscloud.AVException;
+import com.avos.avoscloud.AVMobilePhoneVerifyCallback;
+import com.avos.avoscloud.AVUser;
+import com.avos.avoscloud.SignUpCallback;
 import com.example.db.alife.R;
 import com.example.db.alife.utils.AppConstant;
+import com.example.db.alife.view.ALifeToast;
 
 public class SignUpActivity extends AppCompatActivity {
 
     public Toolbar toolbar;
+
+    public Button mSignUp;
+    public TextView mSignIn,mSendCheckCode;
+    public EditText mUserName,mUserPsd,mCheckCode;
+    public String username,userpsd,usercheckcode;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,6 +40,85 @@ public class SignUpActivity extends AppCompatActivity {
         setContentView(R.layout.activity_sign_up);
 
         initToolBar();
+
+        mSignUp = (Button)findViewById(R.id.btn_signup);
+        mSignIn = (TextView)findViewById(R.id.tv_signin);
+        mSendCheckCode = (TextView)findViewById(R.id.acquire_key);
+
+        mUserName = (EditText)findViewById(R.id.user_name);
+        mUserPsd = (EditText)findViewById(R.id.user_psd);
+        mCheckCode = (EditText)findViewById(R.id.user_check);
+
+        mSendCheckCode.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                username = mUserName.getText().toString();
+                userpsd = mUserPsd.getText().toString();
+                if (username.length()!=0&&userpsd.length()!=0){
+                    AVUser avUser = new AVUser();
+                    avUser.setUsername(username);
+                    avUser.setPassword(userpsd);
+                    avUser.setMobilePhoneNumber(username);
+                    ALifeToast.makeText(SignUpActivity.this, "发送验证码ing", ALifeToast.ToastType.SUCCESS, ALifeToast.LENGTH_SHORT).show();
+                    avUser.signUpInBackground(new SignUpCallback() {
+                        @Override
+                        public void done(AVException e) {
+                            if (e == null) {
+//                                mSendCheckCode.setText("");
+                            } else {
+                                Log.v("db.error2", e.getMessage());
+                            }
+                        }
+                    });
+                }else {
+                    ALifeToast.makeText(SignUpActivity.this, "输入不能为空！", ALifeToast.ToastType.SUCCESS, ALifeToast.LENGTH_SHORT).show();
+
+                }
+            }
+        });
+
+        mSignIn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(SignUpActivity.this,SignInActivity.class));
+                SignUpActivity.this.finish();
+            }
+        });
+
+        mSignUp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                username = mUserName.getText().toString();
+                userpsd = mUserPsd.getText().toString();
+                if (username.length()!=0&&userpsd.length()!=0){
+                    AVUser avUser = new AVUser();
+                    avUser.setUsername(username);
+                    avUser.setPassword(userpsd);
+                    avUser.setMobilePhoneNumber(username);
+                    usercheckcode = mCheckCode.getText().toString();
+                    if (usercheckcode.length()!=0){
+                        avUser.verifyMobilePhoneInBackground(usercheckcode, new AVMobilePhoneVerifyCallback() {
+                            @Override
+                            public void done(AVException e) {
+                                // TODO Auto-generated method stub
+                                if (e==null){
+                                    startActivity(new Intent(SignUpActivity.this,SignInActivity.class));
+                                    SignUpActivity.this.finish();
+                                }else {
+                                    ALifeToast.makeText(SignUpActivity.this, "注册失败惹！", ALifeToast.ToastType.SUCCESS, ALifeToast.LENGTH_SHORT).show();
+                                }
+                            }
+                        });
+                    }else {
+                        ALifeToast.makeText(SignUpActivity.this, "请输入验证码！", ALifeToast.ToastType.SUCCESS, ALifeToast.LENGTH_SHORT).show();
+
+                    }
+
+                }else {
+                    ALifeToast.makeText(SignUpActivity.this, "输入不能为空！", ALifeToast.ToastType.SUCCESS, ALifeToast.LENGTH_SHORT).show();
+                }
+            }
+        });
     }
 
     private void initToolBar() {
@@ -64,9 +159,6 @@ public class SignUpActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
 
         return super.onOptionsItemSelected(item);
     }

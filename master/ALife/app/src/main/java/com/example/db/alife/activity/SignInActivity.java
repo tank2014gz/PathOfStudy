@@ -1,19 +1,36 @@
 package com.example.db.alife.activity;
 
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
 
+import com.avos.avoscloud.AVException;
+import com.avos.avoscloud.AVUser;
+import com.avos.avoscloud.LogInCallback;
 import com.example.db.alife.R;
+import com.example.db.alife.drawer.MainActivity;
 import com.example.db.alife.utils.AppConstant;
+import com.example.db.alife.view.ALifeToast;
 
 public class SignInActivity extends AppCompatActivity {
 
     public Toolbar toolbar;
+
+    public TextView mSignUp;
+    public Button mSignIn;
+    public EditText mUserName,mUserPsd;
+    public String username,userpsd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,6 +41,55 @@ public class SignInActivity extends AppCompatActivity {
         setContentView(R.layout.activity_sign_in);
 
         initToolBar();
+
+        mSignUp = (TextView)findViewById(R.id.tv_signup);
+        mSignIn = (Button)findViewById(R.id.btn_signin);
+
+        mUserName = (EditText)findViewById(R.id.user_name);
+        mUserPsd = (EditText)findViewById(R.id.user_psd);
+
+        mSignUp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(SignInActivity.this,SignUpActivity.class));
+                SignInActivity.this.finish();
+            }
+        });
+
+        mSignIn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                username = mUserName.getText().toString();
+                userpsd = mUserPsd.getText().toString();
+                if (username.length()!=0&&userpsd.length()!=0){
+                    AVUser.logInInBackground(username, userpsd, new LogInCallback<AVUser>() {
+                        @Override
+                        public void done(AVUser avUser, AVException e) {
+                            if (e==null){
+                                /*
+                                存储本地账户的相关信息
+                                包括姓名、登陆状态
+                                在初始的时候显示
+                                 */
+                                SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("com.example.db.alife_account", Context.MODE_PRIVATE);
+                                SharedPreferences.Editor editor = sharedPreferences.edit();
+                                editor.putString("NAME",avUser.getUsername());
+                                editor.putBoolean("STATUS", true);
+                                editor.commit();
+
+                                startActivity(new Intent(SignInActivity.this, MainActivity.class));
+                                SignInActivity.this.finish();
+                            }else {
+                                Log.v("db.error1", e.getMessage());
+                            }
+                        }
+                    });
+                }else {
+                    ALifeToast.makeText(SignInActivity.this, "输入不能为空！", ALifeToast.ToastType.SUCCESS, ALifeToast.LENGTH_SHORT).show();
+
+                }
+            }
+        });
     }
 
     private void initToolBar() {
@@ -62,11 +128,6 @@ public class SignInActivity extends AppCompatActivity {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
 
         return super.onOptionsItemSelected(item);
     }

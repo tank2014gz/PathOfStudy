@@ -66,8 +66,9 @@ public class MainActivity extends NavigationLiveo implements NavigationLiveoList
     @Override
     public void onUserInformation() {
         //User information here
+
         this.mUserName.setText("db");
-        this.mUserEmail.setText("3025673709@qq.com");
+        this.mUserEmail.setText("......");
         this.mUserPhoto.setImageResource(R.drawable.ic_rudsonlive);
         this.mUserPhoto.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -75,8 +76,8 @@ public class MainActivity extends NavigationLiveo implements NavigationLiveoList
                 startActivity(new Intent(MainActivity.this, SignUpActivity.class));
             }
         });
-        SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("com.uniBoys.Xiaoshiji", Context.MODE_PRIVATE);
-        this.mUserName.setText(sharedPreferences.getString("NAME","db"));
+        SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("com.example.db.alife_account", Context.MODE_PRIVATE);
+        this.mUserName.setText(sharedPreferences.getString("NAME","alfe"));
 
     }
 

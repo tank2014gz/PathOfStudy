@@ -29,6 +29,16 @@ import com.example.db.alife.view.ExpandableTextView;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
+import com.umeng.socialize.bean.SHARE_MEDIA;
+import com.umeng.socialize.controller.UMServiceFactory;
+import com.umeng.socialize.controller.UMSocialService;
+import com.umeng.socialize.media.SmsShareContent;
+import com.umeng.socialize.media.TencentWbShareContent;
+import com.umeng.socialize.sso.EmailHandler;
+import com.umeng.socialize.sso.QZoneSsoHandler;
+import com.umeng.socialize.sso.SmsHandler;
+import com.umeng.socialize.sso.TencentWBSsoHandler;
+import com.umeng.socialize.sso.UMQQSsoHandler;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -55,6 +65,7 @@ public class LifeDetailsActivity extends AppCompatActivity {
 
     public SparseBooleanArray mCollapsedStatus;
 
+    public UMSocialService mController;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,6 +74,8 @@ public class LifeDetailsActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_life_details);
+
+        mController = UMServiceFactory.getUMSocialService("com.umeng.share");
 
         bundle = this.getIntent().getExtras();
         if (bundle!=null){
@@ -74,6 +87,30 @@ public class LifeDetailsActivity extends AppCompatActivity {
 
         initToolBar();
         initView();
+
+        mController.setShareContent("我在ALife上看到不错的东西,快来看看吧!");
+        mController.getConfig().removePlatform( SHARE_MEDIA.RENREN, SHARE_MEDIA.DOUBAN);
+
+        UMQQSsoHandler qqSsoHandler = new UMQQSsoHandler(LifeDetailsActivity.this, "1104688317",
+                "XFVHbm4rU4SOsOw3");
+        qqSsoHandler.addToSocialSDK();
+
+        QZoneSsoHandler qZoneSsoHandler = new QZoneSsoHandler(LifeDetailsActivity.this, "1104688317",
+                "XFVHbm4rU4SOsOw3");
+        qZoneSsoHandler.addToSocialSDK();
+
+        SmsHandler smsHandler = new SmsHandler();
+        smsHandler.addToSocialSDK();
+
+        EmailHandler emailHandler = new EmailHandler();
+        smsHandler.addToSocialSDK();
+
+        mController.getConfig().setSsoHandler(qqSsoHandler);
+        mController.getConfig().setSsoHandler(qZoneSsoHandler);
+        mController.getConfig().setSsoHandler(new TencentWBSsoHandler());
+        mController.getConfig().removePlatform(SHARE_MEDIA.WEIXIN);
+        mController.getConfig().removePlatform(SHARE_MEDIA.WEIXIN_CIRCLE);
+
     }
 
     public void initView(){
@@ -162,6 +199,17 @@ public class LifeDetailsActivity extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.menu_share) {
+
+            mController.openShare(LifeDetailsActivity.this, false);
+
+            SmsShareContent sms = new SmsShareContent();
+            sms.setShareContent("我在ALife上发现了好的内容!");
+            mController.setShareMedia(sms);
+
+            TencentWbShareContent tencent = new TencentWbShareContent();
+            tencent.setShareContent("我在ALife上发现了好的内容!");
+            // 设置tencent分享内容
+            mController.setShareMedia(tencent);
 
             return true;
         }

@@ -26,12 +26,13 @@
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.USE_CREDENTIALS" />
     <uses-permission android:name="android.permission.MANAGE_ACCOUNTS" />
-
+    <uses-permission android:name="android.permission.WRITE_APN_SETTINGS"/>
     <application
         android:allowBackup="true"
         android:icon="@drawable/fog_material"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme" >
+        android:theme="@style/AppTheme"
+        android:name=".api.MyApplication">
         <meta-data
             android:name="UMENG_APPKEY"
             android:value="559e240e67e58e57c3001571" />

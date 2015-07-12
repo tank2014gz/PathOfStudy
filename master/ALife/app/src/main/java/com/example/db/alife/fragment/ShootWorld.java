@@ -125,7 +125,7 @@ public class ShootWorld extends Fragment {
 
             case R.id.menu_search:
                 mSearchCheck = true;
-                Toast.makeText(getActivity(), R.string.search, Toast.LENGTH_SHORT).show();
+
                 break;
         }
         return true;

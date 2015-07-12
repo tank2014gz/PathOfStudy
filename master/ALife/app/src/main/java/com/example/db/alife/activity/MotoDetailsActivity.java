@@ -44,6 +44,7 @@ import com.umeng.socialize.sso.SinaSsoHandler;
 import com.umeng.socialize.sso.SmsHandler;
 import com.umeng.socialize.sso.TencentWBSsoHandler;
 import com.umeng.socialize.sso.UMQQSsoHandler;
+import com.umeng.socialize.ynote.controller.UMYNoteHandler;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -95,7 +96,7 @@ public class MotoDetailsActivity extends AppCompatActivity {
         initToolBar();
         initView();
 
-        mController.setShareContent("先试试看可不可行!");
+        mController.setShareContent("我在ALife上看到不错的东西,快来看看吧!");
         mController.getConfig().removePlatform( SHARE_MEDIA.RENREN, SHARE_MEDIA.DOUBAN);
 
         UMQQSsoHandler qqSsoHandler = new UMQQSsoHandler(MotoDetailsActivity.this, "1104688317",
@@ -106,10 +107,18 @@ public class MotoDetailsActivity extends AppCompatActivity {
                 "XFVHbm4rU4SOsOw3");
         qZoneSsoHandler.addToSocialSDK();
 
+        SmsHandler smsHandler = new SmsHandler();
+        smsHandler.addToSocialSDK();
+
+        EmailHandler emailHandler = new EmailHandler();
+        smsHandler.addToSocialSDK();
+
         mController.getConfig().setSsoHandler(qqSsoHandler);
         mController.getConfig().setSsoHandler(qZoneSsoHandler);
-        mController.getConfig().setSsoHandler(new SinaSsoHandler());
         mController.getConfig().setSsoHandler(new TencentWBSsoHandler());
+        mController.getConfig().removePlatform(SHARE_MEDIA.WEIXIN);
+        mController.getConfig().removePlatform(SHARE_MEDIA.WEIXIN_CIRCLE);
+
 
 
 
