@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/card_margin"
+        android:layout_marginLeft="@dimen/card_margin"
+        android:layout_marginRight="@dimen/card_margin">
+
+        <LinearLayout
+            style="@style/Widget.CardContent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="32dp"
+                android:id="@+id/date"
+                android:text="2015.07.14"
+                android:layout_gravity="center"
+                android:gravity="left|center"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:textColor="@color/actionbar0"
+                android:maxLines="1"
+                android:ellipsize="middle"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/content"
+                android:text="      宁静的夜晚，远处的高楼矗立在漆黑的夜幕中，夜深了，楼窗的灯光渐渐的稀少，等待着下一个熄灭灯的楼窗，我在想，你是否也已经熄灯入睡了，很不希望你也和我一样在此受尽相思之苦。"
+                android:layout_gravity="center"
+                android:gravity="left|center"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:textColor="@android:color/darker_gray"
+                android:maxLines="6"
+                android:ellipsize="middle"
+                android:lineSpacingMultiplier="1.2"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"></LinearLayout>
+                <TextView
+                    android:layout_width="160dp"
+                    android:layout_height="32dp"
+                    android:id="@+id/from"
+                    android:text="----妈咪"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:textColor="@android:color/darker_gray"
+                    android:maxLines="1"
+                    android:ellipsize="middle"/>
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+    </android.support.v7.widget.CardView>
+</LinearLayout>

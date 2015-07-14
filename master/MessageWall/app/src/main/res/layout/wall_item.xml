@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_marginRight="8dp"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:layout_marginLeft="8dp"
+                android:id="@+id/circle"
+                android:background="@drawable/circle_gray">
+                <com.example.db.messagewall.view.CircleImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:id="@+id/img"
+                    android:background="@drawable/cam_doc"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="64dp"
+                android:layout_weight="1"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="32dp"
+                    android:textSize="16sp"
+                    android:textColor="@color/actionbar0"
+                    android:text="UniqueStudio"
+                    android:layout_gravity="center"
+                    android:gravity="left|center"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:textStyle="bold"
+                    android:id="@+id/wall_name"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="24dp"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="32dp"
+                        android:layout_weight="1"
+                        android:textSize="13sp"
+                        android:textStyle="bold"
+                        android:text="是个温暖有爱的地方"
+                        android:layout_gravity="center"
+                        android:gravity="left|center"
+                        android:ellipsize="middle"
+                        android:maxLines="1"
+                        android:id="@+id/wall_description"
+                        android:textColor="@android:color/darker_gray"/>
+                    <TextView
+                        android:layout_width="64dp"
+                        android:layout_height="32dp"
+                        android:textSize="13sp"
+                        android:text="6人"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:ellipsize="middle"
+                        android:maxLines="1"
+                        android:textStyle="bold"
+                        android:id="@+id/wall_count"
+                        android:textColor="@android:color/darker_gray"/>
+                </LinearLayout>
+
+            </LinearLayout>
+        </LinearLayout>
+
+</LinearLayout>
