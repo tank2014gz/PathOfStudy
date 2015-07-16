@@ -34,6 +34,6 @@
         app:menu="@menu/drawer_view"
         app:itemTextColor="@color/actionbar0"
         app:itemIconTint="@color/actionbar0"
-        />
+        android:background="#f5f5f5"/>
 
 </android.support.v4.widget.DrawerLayout>

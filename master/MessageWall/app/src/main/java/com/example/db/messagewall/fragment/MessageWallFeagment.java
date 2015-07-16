@@ -3,14 +3,27 @@ package com.example.db.messagewall.fragment;
 import android.app.Activity;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ListView;
+import android.widget.GridView;
 
+import com.avos.avoscloud.AVException;
+import com.avos.avoscloud.im.v2.AVIMConversation;
+import com.avos.avoscloud.im.v2.AVIMMessage;
+import com.avos.avoscloud.im.v2.callback.AVIMMessagesQueryCallback;
+import com.example.db.messagewall.adapter.MessageGridAdapter;
+import com.example.db.messagewall.api.AppData;
+import com.example.db.messagewall.api.MessageHandler;
 import com.support.android.designlibdemo.R;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -21,16 +34,23 @@ import com.support.android.designlibdemo.R;
  * create an instance of this fragment.
  */
 public class MessageWallFeagment extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
+
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
-    // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
 
+    public Bundle bundle;
+    public static String CONVERSATION_ID;
+
     public SwipeRefreshLayout mSwipeRefreshLayout;
+    public GridView mGridView;
+    public FloatingActionButton floatingActionButton;
+
+    public AVIMConversation avimConversation;
+    public NoteHandler noteHandler;
+    public MessageGridAdapter messageGridAdapter;
 
     private OnFragmentInteractionListener mListener;
 
@@ -42,40 +62,49 @@ public class MessageWallFeagment extends Fragment {
      * @param param2 Parameter 2.
      * @return A new instance of fragment MessageWallFeagment.
      */
-    // TODO: Rename and change types and number of parameters
     public static MessageWallFeagment newInstance(String param1, String param2) {
+
         MessageWallFeagment fragment = new MessageWallFeagment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
         fragment.setArguments(args);
+
         return fragment;
     }
 
     public MessageWallFeagment() {
-        // Required empty public constructor
+
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
+
         if (getArguments() != null) {
+
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
+
+            bundle = this.getArguments();
+            CONVERSATION_ID = bundle.getString("_ID");
         }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+
         View rootView = inflater.inflate(R.layout.fragment_message_wall_feagment, container, false);
 
+        mGridView = (GridView)rootView.findViewById(R.id.gridview);
         mSwipeRefreshLayout=(SwipeRefreshLayout)rootView.findViewById(R.id.refreshlayout);
-
+        floatingActionButton = (FloatingActionButton)rootView.findViewById(R.id.add);
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
+                convertMsgToList();
                 mSwipeRefreshLayout.setRefreshing(false);
             }
         });
@@ -85,11 +114,26 @@ public class MessageWallFeagment extends Fragment {
                 android.R.color.holo_orange_light,
                 android.R.color.holo_red_light);
 
+        convertMsgToList();
+
+        floatingActionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                FragmentTransaction fragmentTransaction = getActivity()
+                                                                    .getSupportFragmentManager()
+                                                                    .beginTransaction();
+                AddMessageItemFragment addMessageItemFragment = new AddMessageItemFragment();
+                addMessageItemFragment.setArguments(bundle);
+                fragmentTransaction.replace(R.id.container,addMessageItemFragment).commit();
+            }
+        });
+
         return rootView;
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
+
         if (mListener != null) {
             mListener.onFragmentInteraction(uri);
         }
@@ -97,6 +141,7 @@ public class MessageWallFeagment extends Fragment {
 
     @Override
     public void onAttach(Activity activity) {
+
         super.onAttach(activity);
         try {
             mListener = (OnFragmentInteractionListener) activity;
@@ -123,8 +168,50 @@ public class MessageWallFeagment extends Fragment {
      * >Communicating with Other Fragments</a> for more information.
      */
     public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
+
         public void onFragmentInteraction(Uri uri);
     }
 
+    /*
+    处理消息的
+     */
+    public void convertMsgToList(){
+
+        /*
+        获取群组里面的所有人的clientId
+         */
+        avimConversation = AppData.getIMClient().getConversation(CONVERSATION_ID);
+        List<String> clientId = new ArrayList<String>();
+        clientId = avimConversation.getMembers();
+
+        /*
+        处理消息
+         */
+        messageGridAdapter = new MessageGridAdapter(getActivity());
+        avimConversation.queryMessages(new AVIMMessagesQueryCallback() {
+            @Override
+            public void done(List<AVIMMessage> list, AVException e) {
+                if (e==null){
+                    if (list!=null){
+                        messageGridAdapter.setAvimMessages(list);
+                        messageGridAdapter.notifyDataSetChanged();
+                        mGridView.setAdapter(messageGridAdapter);
+                    }else {
+
+                    }
+                }else {
+                    Log.v("db.error6",e.getMessage());
+                }
+            }
+        });
+
+
+    }
+
+    /*
+    外部消息处理类
+     */
+    public static class NoteHandler{
+
+    }
 }

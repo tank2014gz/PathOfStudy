@@ -60,17 +60,18 @@
                         android:ellipsize="middle"
                         android:maxLines="1"
                         android:id="@+id/wall_description"
-                        android:textColor="@android:color/darker_gray"/>
+                        android:textColor="@android:color/darker_gray"
+                        />
                     <TextView
                         android:layout_width="64dp"
                         android:layout_height="32dp"
                         android:textSize="13sp"
                         android:text="6人"
+                        android:textStyle="bold"
                         android:layout_gravity="center"
                         android:gravity="center"
                         android:ellipsize="middle"
                         android:maxLines="1"
-                        android:textStyle="bold"
                         android:id="@+id/wall_count"
                         android:textColor="@android:color/darker_gray"/>
                 </LinearLayout>

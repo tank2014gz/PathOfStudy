@@ -1,0 +1,14 @@
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle" >
+    <solid
+        android:color="@color/actionbar0"/>
+    <stroke
+        android:width="1dip"
+        android:color="@color/actionbar0" />
+    <padding
+        android:top="8dp"
+        android:bottom="8dp"
+        android:left="16dp"
+        android:right="8dp"/>
+    <corners android:radius="20dp" />
+</shape>
