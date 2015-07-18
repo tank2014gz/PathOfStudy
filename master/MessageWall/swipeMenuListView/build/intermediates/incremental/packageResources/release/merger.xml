@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merger version="3"><dataSet config="main"><source path="/home/db/AndroidStudioProjects/MessageWall/swipeMenuListView/src/main/res"><file path="/home/db/AndroidStudioProjects/MessageWall/swipeMenuListView/src/main/res/values/colors.xml" qualifiers=""><color name="content">#4c4c4c</color><color name="messagewall_bkg">#989282</color><color name="actionbar0">#598d9a</color><color name="window_background">#FFF5F5F5</color><color name="actionbar">#009edf</color><color name="error">#a2316c</color><color name="actionbar_title_color">#ffffff</color><color name="messagewall_ganlan">#8b6f1c</color><color name="messagewall_anshihui">#335c4c</color><color name="messagewall_wuyelan">#002f7d</color><color name="message_gray">#798397</color></file><file path="/home/db/AndroidStudioProjects/MessageWall/swipeMenuListView/src/main/res/values/strings.xml" qualifiers=""><string name="app_name">SwipeMenuListView</string></file><file path="/home/db/AndroidStudioProjects/MessageWall/swipeMenuListView/src/main/res/values/styles.xml" qualifiers=""><style name="Theme.DesignDemo" parent="Base.Theme.DesignDemo">
+    </style><style name="nLiveoDrawer" parent="nLiveo.Theme.DarkActionBar">
+        <!-- Customize your theme here. --></style><style name="Base.Theme.DesignDemo" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">#009edf</item>
+        <item name="colorPrimaryDark">#009edf</item>
+        <item name="colorAccent">#598d9a</item>
+        <item name="android:windowBackground">@color/window_background</item>
+    </style><style name="Widget.CardContent" parent="android:Widget">
+        <item name="android:paddingLeft">8dp</item>
+        <item name="android:paddingRight">8dp</item>
+        <item name="android:paddingTop">8dp</item>
+        <item name="android:paddingBottom">8dp</item>
+        <item name="android:orientation">vertical</item>
+    </style></file><file path="/home/db/AndroidStudioProjects/MessageWall/swipeMenuListView/src/main/res/values/themes.xml" qualifiers=""><style name="theme_textview_style" parent="@android:style/Widget.Holo.Light.TextView">
+    <item name="android:textColor">@color/actionbar0</item>
+</style><style name="nLiveo.Theme.DarkActionBar" parent="AppTheme.DarkActionBar"/><style name="Theme" parent="@android:style/Theme.Holo.Light">
+        <item name="android:textViewStyle">@style/theme_textview_style</item>
+    </style><style name="AppTheme.DarkActionBar" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">@color/actionbar</item>
+        <item name="colorPrimaryDark">@color/actionbar</item>
+        <item name="colorAccent">@color/actionbar0</item>
+        <item name="colorControlHighlight">@color/actionbar_title_color</item>
+        <item name="windowActionModeOverlay">true</item>
+
+        <item name="popupTheme">@style/ThemeOverlay.AppCompat.Light</item>
+        <item name="theme">@style/ThemeOverlay.AppCompat.Dark.ActionBar</item>
+    </style></file><file name="ic_launcher" path="/home/db/AndroidStudioProjects/MessageWall/swipeMenuListView/src/main/res/drawable-xhdpi/ic_launcher.png" qualifiers="xhdpi" type="drawable"/><file name="ic_launcher" path="/home/db/AndroidStudioProjects/MessageWall/swipeMenuListView/src/main/res/drawable-mdpi/ic_launcher.png" qualifiers="mdpi" type="drawable"/><file path="/home/db/AndroidStudioProjects/MessageWall/swipeMenuListView/src/main/res/values-v14/styles.xml" qualifiers="v14"><style name="AppBaseTheme" parent="android:Theme.Holo.Light.DarkActionBar">
+        <!-- API 14 theme customizations can go here. -->
+    </style></file><file name="ic_launcher" path="/home/db/AndroidStudioProjects/MessageWall/swipeMenuListView/src/main/res/drawable-hdpi/ic_launcher.png" qualifiers="hdpi" type="drawable"/><file path="/home/db/AndroidStudioProjects/MessageWall/swipeMenuListView/src/main/res/values-v11/styles.xml" qualifiers="v11"><style name="AppBaseTheme" parent="android:Theme.Holo.Light">
+        <!-- API 11 theme customizations can go here. -->
+    </style></file></source><source path="/home/db/AndroidStudioProjects/MessageWall/swipeMenuListView/build/generated/res/rs/release"/><source path="/home/db/AndroidStudioProjects/MessageWall/swipeMenuListView/build/generated/res/generated/release"/></dataSet><dataSet config="release"><source path="/home/db/AndroidStudioProjects/MessageWall/swipeMenuListView/src/release/res"/></dataSet><mergedItems/></merger>

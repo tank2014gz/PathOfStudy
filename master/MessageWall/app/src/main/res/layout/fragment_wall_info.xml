@@ -2,7 +2,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="com.example.db.messagewall.fragment.WallInfoFragment">
 
     <!-- TODO: Update blank fragment layout -->
@@ -47,7 +46,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="32dp"
-                    android:text="2015.07.14"
+                    android:text="创建时间"
                     android:layout_gravity="center"
                     android:gravity="left|center"
                     android:textSize="16sp"
@@ -66,6 +65,25 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="32dp"
+                    android:text="成员个数"
+                    android:layout_gravity="center"
+                    android:gravity="left|center"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/actionbar0"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="36dp"
+                    android:layout_gravity="center"
+                    android:gravity="left|center"
+                    android:text="1个"
+                    android:textColor="@android:color/darker_gray"
+                    android:ellipsize="middle"
+                    android:maxLines="1"
+                    android:id="@+id/wall_count"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="32dp"
                     android:text="二维码"
                     android:layout_gravity="center"
                     android:gravity="left|center"
@@ -80,7 +98,9 @@
                        android:layout_width="160dp"
                        android:layout_height="160dp"
                        android:layout_gravity="center"
-                       android:src="@drawable/code"/>
+                       android:scaleType="fitXY"
+                       android:src="@drawable/code"
+                       android:id="@+id/wall_code"/>
                </LinearLayout>
 
             </LinearLayout>

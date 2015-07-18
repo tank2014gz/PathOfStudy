@@ -17,6 +17,7 @@ import com.avos.avoscloud.im.v2.callback.AVIMConversationCreatedCallback;
 import com.avos.avoscloud.im.v2.callback.AVIMConversationQueryCallback;
 import com.example.db.messagewall.adapter.WallAdapter;
 import com.example.db.messagewall.bean.WallInfo;
+import com.umeng.fb.push.FeedbackPush;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,6 +34,8 @@ public class AppData extends Application {
     public void onCreate(){
 
         super.onCreate();
+
+        FeedbackPush.getInstance(this).init(false);
 
         /*
         注册APPID和APPKEY　
@@ -63,31 +66,6 @@ public class AppData extends Application {
 
     public static AVIMClient getIMClient() {
         return AVIMClient.getInstance(getClientIdFromPre());
-    }
-
-    public static List<AVIMConversation> fetchOwnMessagesWallsWithClientIds(final  List<String> clientIds, int type){
-
-        final AVIMClient avimClient0 = AppData.getIMClient();
-
-        final List<AVIMConversation> result = new ArrayList<AVIMConversation>();
-        final List<String> queryClientIds = new ArrayList<String>();
-        queryClientIds.addAll(clientIds);
-
-        AVIMConversationQuery query = avimClient0.getQuery();
-        query.containsMembers(queryClientIds);
-        query.findInBackground(new AVIMConversationQueryCallback() {
-            @Override
-            public void done(List<AVIMConversation> list, AVException e) {
-                if (null!=e){
-                    Log.v("db.error4",e.getMessage());
-                }else {
-                    result.addAll(list);
-                    Log.v("db.cnm2", String.valueOf(list.size()));
-                }
-            }
-        });
-        Log.v("db.cnm3",String.valueOf(result.size()));
-        return result;
     }
 
 }

@@ -1,6 +1,8 @@
 package com.example.db.messagewall.activity;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.AsyncTask;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
@@ -11,6 +13,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -21,10 +24,17 @@ import com.avos.avoscloud.AVUser;
 import com.avos.avoscloud.im.v2.AVIMClient;
 import com.avos.avoscloud.im.v2.AVIMConversation;
 import com.avos.avoscloud.im.v2.AVIMConversationQuery;
+import com.avos.avoscloud.im.v2.callback.AVIMClientCallback;
 import com.avos.avoscloud.im.v2.callback.AVIMConversationQueryCallback;
+import com.baoyz.swipemenulistview.SwipeMenu;
+import com.baoyz.swipemenulistview.SwipeMenuCreator;
+import com.baoyz.swipemenulistview.SwipeMenuItem;
+import com.baoyz.swipemenulistview.SwipeMenuListView;
 import com.example.db.messagewall.adapter.WallAdapter;
+import com.example.db.messagewall.adapter.WallSwipeAdapter;
 import com.example.db.messagewall.api.AppData;
 import com.example.db.messagewall.utils.AppConstant;
+import com.example.db.messagewall.view.ALifeToast;
 import com.support.android.designlibdemo.R;
 
 import java.util.ArrayList;
@@ -34,10 +44,10 @@ public class SelectActivity extends AppCompatActivity {
 
     public static final String EXTRA_NAME = "cheese_name";
 
-    public RecyclerView recyclerView;
     public FloatingActionButton floatingActionButton;
 
     public SwipeRefreshLayout mSwipeRefreshLayout;
+    public RecyclerView recyclerView;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -58,6 +68,7 @@ public class SelectActivity extends AppCompatActivity {
         mSwipeRefreshLayout=(SwipeRefreshLayout)findViewById(R.id.refreshlayout);
         recyclerView = (RecyclerView)findViewById(R.id.listview);
         recyclerView.setLayoutManager(new LinearLayoutManager(recyclerView.getContext()));
+
         floatingActionButton = (FloatingActionButton)findViewById(R.id.add);
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -65,26 +76,45 @@ public class SelectActivity extends AppCompatActivity {
                 /*
                 刷新加载
                  */
-                List<String> list = new ArrayList<String>();
-                list.add(AVUser.getCurrentUser().getUsername());
+                if (AVUser.getCurrentUser()!=null){
+                    List<String> list = new ArrayList<String>();
+                    list.add(AVUser.getCurrentUser().getUsername());
 
-                final AVIMClient avimClient0 = AppData.getIMClient();
-                final List<String> queryClientIds = new ArrayList<String>();
-                queryClientIds.addAll(list);
+                    AppData.setClientIdToPre(AVUser.getCurrentUser().getUsername());
 
-                AVIMConversationQuery query = avimClient0.getQuery();
-                query.containsMembers(queryClientIds);
-                query.findInBackground(new AVIMConversationQueryCallback() {
-                    @Override
-                    public void done(List<AVIMConversation> list, AVException e) {
-                        if (null!=e){
-                            Log.v("db.error4",e.getMessage());
-                        }else {
-                            recyclerView.setAdapter(new WallAdapter(getApplicationContext(),list));
-                            Log.v("db.cnm2", String.valueOf(list.size()));
+                    final AVIMClient avimClient0 = AppData.getIMClient();
+                    final List<String> queryClientIds = new ArrayList<String>();
+                    queryClientIds.addAll(list);
+
+                    avimClient0.open(new AVIMClientCallback() {
+                        @Override
+                        public void done(AVIMClient avimClient, AVException e) {
+                            if (e==null){
+                                AVIMConversationQuery query = avimClient.getQuery();
+                                query.containsMembers(queryClientIds);
+                                query.findInBackground(new AVIMConversationQueryCallback() {
+                                    @Override
+                                    public void done(List<AVIMConversation> list, AVException e) {
+                                        if (null != e) {
+                                            Log.v("db.error4", e.getMessage());
+                                        } else {
+                                            recyclerView.setAdapter(new WallAdapter(getApplicationContext(), list));
+                                            Log.v("db.cnm2", String.valueOf(list.size()));
+                                        }
+                                    }
+                                });
+                            }else {
+                                Log.v("db.error11",e.getMessage());
+                            }
                         }
-                    }
-                });
+                    });
+                }else {
+                    ALifeToast.makeText(SelectActivity.this
+                            , "请先登陆或注册！"
+                            , ALifeToast.ToastType.SUCCESS
+                            , ALifeToast.LENGTH_SHORT)
+                            .show();
+                }
                 mSwipeRefreshLayout.setRefreshing(false);
             }
         });
@@ -111,26 +141,45 @@ public class SelectActivity extends AppCompatActivity {
         /*
         刷新加载
          */
-        List<String> list = new ArrayList<String>();
-        list.add(AVUser.getCurrentUser().getUsername());
+        if (AVUser.getCurrentUser()!=null){
+            List<String> list = new ArrayList<String>();
+            list.add(AVUser.getCurrentUser().getUsername());
 
-        final AVIMClient avimClient0 = AppData.getIMClient();
-        final List<String> queryClientIds = new ArrayList<String>();
-        queryClientIds.addAll(list);
+            AppData.setClientIdToPre(AVUser.getCurrentUser().getUsername());
 
-        AVIMConversationQuery query = avimClient0.getQuery();
-        query.containsMembers(queryClientIds);
-        query.findInBackground(new AVIMConversationQueryCallback() {
-            @Override
-            public void done(List<AVIMConversation> list, AVException e) {
-                if (null!=e){
-                    Log.v("db.error4",e.getMessage());
-                }else {
-                    recyclerView.setAdapter(new WallAdapter(getApplicationContext(),list));
-                    Log.v("db.cnm2", String.valueOf(list.size()));
+            final AVIMClient avimClient0 = AppData.getIMClient();
+            final List<String> queryClientIds = new ArrayList<String>();
+            queryClientIds.addAll(list);
+
+            avimClient0.open(new AVIMClientCallback() {
+                @Override
+                public void done(AVIMClient avimClient, AVException e) {
+                    if (e == null) {
+                        AVIMConversationQuery query = avimClient.getQuery();
+                        query.containsMembers(queryClientIds);
+                        query.findInBackground(new AVIMConversationQueryCallback() {
+                            @Override
+                            public void done(List<AVIMConversation> list, AVException e) {
+                                if (null != e) {
+                                    Log.v("db.error4", e.getMessage());
+                                } else {
+                                    recyclerView.setAdapter(new WallAdapter(getApplicationContext(), list));
+                                    Log.v("db.cnm2", String.valueOf(list.size()));
+                                }
+                            }
+                        });
+                    } else {
+                        Log.v("db.error11", e.getMessage());
+                    }
                 }
-            }
-        });
+            });
+        }else {
+            ALifeToast.makeText(SelectActivity.this
+                    , "请先登陆或注册！"
+                    , ALifeToast.ToastType.SUCCESS
+                    , ALifeToast.LENGTH_SHORT)
+                    .show();
+        }
 
     }
 
@@ -200,11 +249,15 @@ public class SelectActivity extends AppCompatActivity {
         protected void onPostExecute(List<AVIMConversation> result) {
             if (result!=null){
                 Log.v("db.cnm0",String.valueOf(result.size()));
-                recyclerView.setAdapter(new WallAdapter(getApplicationContext(),result));
+                recyclerView.setAdapter(new WallAdapter(getApplicationContext(), result));
             }else {
                 Log.v("db.cnm1","null");
             }
 
         }
+    }
+    private int dp2px(int dp) {
+        return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp,
+                getResources().getDisplayMetrics());
     }
 }

@@ -7,8 +7,11 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import com.example.db.messagewall.bean.MemberInfo;
 import com.example.db.messagewall.view.CircleImageView;
 import com.support.android.designlibdemo.R;
+
+import java.util.List;
 
 
 /**
@@ -17,25 +20,27 @@ import com.support.android.designlibdemo.R;
 public class MembersAdapter extends BaseAdapter{
 
     public Context context;
+    public List<MemberInfo> memberInfos;
 
-    public MembersAdapter(Context context){
+    public MembersAdapter(Context context,List<MemberInfo> memberInfos){
         super();
         this.context = context;
+        this.memberInfos = memberInfos;
     }
 
     @Override
     public int getCount() {
-        return 3;
+        return memberInfos.size();
     }
 
     @Override
     public Object getItem(int position) {
-        return null;
+        return memberInfos.get(position);
     }
 
     @Override
     public long getItemId(int position) {
-        return 0;
+        return position;
     }
 
     @Override
@@ -53,23 +58,10 @@ public class MembersAdapter extends BaseAdapter{
             viewHolder = (ViewHolder)convertView.getTag();
         }
 
-        switch (position){
-            case 0:
-                viewHolder.circleImageView.setImageResource(R.drawable.photo3);
-                viewHolder.name.setText("KG@Hust");
-                viewHolder.description.setText("Android Coder  大二党");
-                break;
-            case 1:
-                viewHolder.circleImageView.setImageResource(R.drawable.photo3);
-                viewHolder.name.setText("第n陌");
-                viewHolder.description.setText("Android Coder  大二党");
-                break;
-            case 2:
-                viewHolder.circleImageView.setImageResource(R.drawable.photo3);
-                viewHolder.name.setText("小暖");
-                viewHolder.description.setText("Designer  大二党");
-                break;
-        }
+        MemberInfo memberInfo = memberInfos.get(position);
+
+        viewHolder.name.setText(memberInfo.getName());
+        viewHolder.description.setText("来源于:"+memberInfo.getDate());
 
         return convertView;
     }

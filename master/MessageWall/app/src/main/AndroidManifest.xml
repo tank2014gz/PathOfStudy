@@ -17,41 +17,99 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.support.android.designlibdemo" >
 
-    <!-- 权限-->
+    <!-- 权限 -->
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
 
     <application
+        android:name="com.example.db.messagewall.api.AppData"
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/Theme.DesignDemo"
-        android:name="com.example.db.messagewall.api.AppData">
+        android:theme="@style/Theme.DesignDemo" >
 
-        <!-- 配置leancloud的群组环境-->
-        <service android:name="com.avos.avoscloud.PushService"
+        <!-- 配置leancloud的群组环境 -->
+        <service
+            android:name="com.avos.avoscloud.PushService"
             android:exported="true" />
 
-        <receiver android:name="com.avos.avoscloud.AVBroadcastReceiver">
+        <receiver android:name="com.avos.avoscloud.AVBroadcastReceiver" >
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
                 <action android:name="android.intent.action.USER_PRESENT" />
             </intent-filter>
         </receiver>
 
+        <!-- 配置友盟的反馈环境 -->
+        <activity android:name="com.umeng.fb.ConversationActivity"
+            android:launchMode="singleTop"/>
 
-        <activity android:name="com.example.db.messagewall.activity.MainActivity"
-            android:theme="@style/nLiveoDrawer">
+        <meta-data
+            android:name="UMENG_APPKEY"
+            android:value="55a9e26c67e58e8b8100098f" />
+
+        <service android:name="org.android.agoo.service.ElectionService"
+            android:exported="true"
+            android:process=":umengService_v1">
+            <intent-filter>
+                <action android:name="org.agoo.android.intent.action.ELECTION_V2"/>
+            </intent-filter>
+        </service>
+        <service android:name="com.umeng.message.UmengIntentService"/>
+        <service android:name="com.umeng.message.UmengService"
+            android:exported="true"
+            android:process=":umengService_v1">
+            <intent-filter>
+                <action android:name="com.umeng.fb.example.intent.action.START"/>
+            </intent-filter>
+            <intent-filter>
+            <action android:name="com.umeng.fb.example.intent.action.COCKROACH"/>
+            </intent-filter>
+            <intent-filter>
+                <action android:name="org.agoo.android.intent.action.PING"/>
+            </intent-filter>
+        </service>
+
+        <receiver android:name="com.umeng.message.NotificationProxyBroadcastReceiver"
+            android:exported="false">
+        </receiver>
+        <receiver android:name="com.umeng.message.RegistrationReceiver">
+            <intent-filter>
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE"/>
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.PACKAGE_REMOVED"/>
+                <data android:scheme="package"/>
+            </intent-filter>
+        </receiver>
+        <receiver android:name="com.umeng.message.UmengBroadcastReceiver">
+            <intent-filter>
+                <action android:name="org.agoo.android.intent.action.RECEIVE"/>
+            </intent-filter>
+            <intent-filter>
+            <action android:name="com.umeng.fb.example.intent.action.COMMAND"/>
+            </intent-filter>
+            <intent-filter>
+                <action android:name="org.agoo.android.intent.action.RE_ELECTION_V2"/>
+            </intent-filter>
+    </receiver>
+
+
+
+        <activity
+            android:name="com.example.db.messagewall.activity.MainActivity"
+            android:theme="@style/nLiveoDrawer" >
         </activity>
         <activity android:name="com.example.db.messagewall.activity.CheeseDetailActivity" />
         <activity
             android:name="com.example.db.messagewall.activity.SelectActivity"
             android:label="@string/app_name"
-            android:theme="@style/nLiveoDrawer">
+            android:theme="@style/nLiveoDrawer" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -62,12 +120,20 @@
         <activity
             android:name="com.example.db.messagewall.activity.AddMessageWallActivity"
             android:label="@string/title_activity_add_message_wall"
-            android:theme="@style/nLiveoDrawer">
+            android:theme="@style/nLiveoDrawer" >
         </activity>
-        <activity android:name="com.example.db.messagewall.activity.SignInActivity"
-            android:theme="@style/nLiveoDrawer"></activity>
-        <activity android:name="com.example.db.messagewall.activity.SignUpActivity"
-            android:theme="@style/nLiveoDrawer"></activity>
+        <activity
+            android:name="com.example.db.messagewall.activity.SignInActivity"
+            android:theme="@style/nLiveoDrawer" >
+        </activity>
+        <activity
+            android:name="com.example.db.messagewall.activity.SignUpActivity"
+            android:theme="@style/nLiveoDrawer" >
+        </activity>
+        <activity android:name="com.example.db.messagewall.activity.CustomActivity"
+            android:theme="@style/nLiveoDrawer">
+
+        </activity>
     </application>
 
 </manifest>

@@ -1,13 +1,23 @@
 package com.example.db.messagewall.fragment;
 
 import android.app.Activity;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 
+import com.avos.avoscloud.AVException;
+import com.avos.avoscloud.im.v2.AVIMConversation;
+import com.avos.avoscloud.im.v2.callback.AVIMConversationMemberCountCallback;
+import com.example.db.messagewall.api.AppData;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.support.android.designlibdemo.R;
 
 /**
@@ -19,14 +29,21 @@ import com.support.android.designlibdemo.R;
  * create an instance of this fragment.
  */
 public class WallInfoFragment extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
+
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
-    // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
+    public DisplayImageOptions options;
+    public ImageLoader imageLoader;
+
+    public Bundle bundle;
+    public static String CONVERSATION_ID;
+
+    public TextView mWallName,mWallDate,mWallCount;
+    public ImageView mImageView;
 
     private OnFragmentInteractionListener mListener;
 
@@ -38,38 +55,89 @@ public class WallInfoFragment extends Fragment {
      * @param param2 Parameter 2.
      * @return A new instance of fragment WallInfoFragment.
      */
-    // TODO: Rename and change types and number of parameters
+
     public static WallInfoFragment newInstance(String param1, String param2) {
+
         WallInfoFragment fragment = new WallInfoFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
         fragment.setArguments(args);
+
         return fragment;
     }
 
     public WallInfoFragment() {
-        // Required empty public constructor
+
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
+
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
+
+            bundle = this.getArguments();
+            CONVERSATION_ID = bundle.getString("_ID");
         }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_wall_info, container, false);
+
+        View rootView = inflater.inflate(R.layout.fragment_wall_info, container, false);
+
+        imageLoader=ImageLoader.getInstance();
+
+        imageLoader.init(ImageLoaderConfiguration.createDefault(getActivity()));
+
+        options = new DisplayImageOptions.Builder()
+                .showImageOnLoading(R.drawable.photo3)
+                .showImageForEmptyUri(R.drawable.photo3)
+                .showImageOnFail(R.drawable.photo3)
+                .cacheInMemory(true)
+                .cacheOnDisk(true)
+                .considerExifParams(true)
+                .bitmapConfig(Bitmap.Config.RGB_565)
+                .build();
+
+        mWallName = (TextView)rootView.findViewById(R.id.wall_name);
+        mWallDate = (TextView)rootView.findViewById(R.id.wall_date);
+        mWallCount = (TextView)rootView.findViewById(R.id.wall_count);
+        mImageView = (ImageView)rootView.findViewById(R.id.wall_code);
+
+        final AVIMConversation avimConversation = AppData.getIMClient().getConversation(CONVERSATION_ID);
+        mWallName.setText(avimConversation.getAttribute("name").toString());
+        mWallDate.setText(avimConversation.getAttribute("date").toString());
+        avimConversation.getMemberCount(new AVIMConversationMemberCountCallback() {
+            @Override
+            public void done(Integer integer, AVException e) {
+                if (e==null){
+                    mWallCount.setText(String.valueOf(integer)+"人");
+                }else {
+
+                }
+            }
+        });
+
+        imageLoader.displayImage(avimConversation.getAttribute("link_url").toString(),mImageView,options);
+
+        mImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
+        return rootView;
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
+
         if (mListener != null) {
             mListener.onFragmentInteraction(uri);
         }
@@ -103,7 +171,7 @@ public class WallInfoFragment extends Fragment {
      * >Communicating with Other Fragments</a> for more information.
      */
     public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
+
         public void onFragmentInteraction(Uri uri);
     }
 

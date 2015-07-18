@@ -24,7 +24,6 @@
                 android:layout_gravity="center"
                 android:gravity="left|center"
                 android:textSize="16sp"
-                android:textStyle="bold"
                 android:textColor="@color/actionbar0"
                 android:maxLines="1"
                 android:ellipsize="middle"/>

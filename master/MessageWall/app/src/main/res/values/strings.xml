@@ -33,5 +33,17 @@
 
 <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_self_define_feedback">SelfDefineFeedback</string>
+
+  <!-- 反馈-->
+  <string name="action_feedback">Feedback</string>
+  <string name="action_new_conversation">新建会话</string>
+  <string name="feedback_title">用户反馈</string>
+  <string name="fb_fragment_activity">使用 SDK Fragment</string>
+  <string name="sdk_fb_activity">使用 SDK Activity</string>
+  <string name="custom_activity">自定义UI</string>
+  <string name="multi_conversation_activity">多会话模式</string>
+  <string name="title_item_list">反馈列表</string>
+  <string name="message_image_desc">Message Image</string>
 
 </resources>

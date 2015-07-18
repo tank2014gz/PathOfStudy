@@ -17,19 +17,14 @@
 package com.example.db.messagewall.activity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
+
 import android.support.design.widget.NavigationView;
-import android.support.design.widget.Snackbar;
-import android.support.design.widget.TabLayout;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
-import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -48,6 +43,9 @@ import com.example.db.messagewall.fragment.MessageWallFeagment;
 import com.example.db.messagewall.fragment.WallInfoFragment;
 import com.example.db.messagewall.utils.AppConstant;
 import com.support.android.designlibdemo.R;
+import com.umeng.fb.FeedbackAgent;
+import com.umeng.message.PushAgent;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -71,6 +69,12 @@ public class MainActivity extends AppCompatActivity implements MessageWallFeagme
     public static String CONVERSATION_ID;
     public Bundle bundle;
 
+    /*
+    友盟的反馈
+     */
+    FeedbackAgent fb;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -92,6 +96,11 @@ public class MainActivity extends AppCompatActivity implements MessageWallFeagme
         bundle = this.getIntent().getExtras();
         CONVERSATION_ID = bundle.getString("_ID");
         Log.v("db.test0",CONVERSATION_ID);
+
+        fb = new FeedbackAgent(this);
+        fb.sync();
+        fb.openFeedbackPush();
+        PushAgent.getInstance(this).enable();
 
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
 
@@ -204,8 +213,8 @@ public class MainActivity extends AppCompatActivity implements MessageWallFeagme
                     case R.id.nav_setting_feedback:
 
                         toolbar.setTitle(menuItem.getTitle());
-                        fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                        fragmentTransaction.replace(R.id.container, new MessageWallFeagment()).commit();
+                        Intent intent = new Intent(MainActivity.this,CustomActivity.class);
+                        startActivity(intent);
                         menuItem.setChecked(true);
                         mDrawerLayout.closeDrawers();
 

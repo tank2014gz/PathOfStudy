@@ -1,14 +1,31 @@
 package com.example.db.messagewall.fragment;
 
 import android.app.Activity;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 
+import com.avos.avoscloud.AVException;
+import com.avos.avoscloud.im.v2.AVIMConversation;
+import com.avos.avoscloud.im.v2.callback.AVIMConversationCallback;
+import com.example.db.messagewall.api.AppData;
+import com.example.db.messagewall.view.ALifeToast;
+import com.example.db.messagewall.view.materialedittext.MaterialEditText;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.support.android.designlibdemo.R;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -19,14 +36,25 @@ import com.support.android.designlibdemo.R;
  * create an instance of this fragment.
  */
 public class AskMembersFragment extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
+
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
-    // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
+    public DisplayImageOptions options;
+    public ImageLoader imageLoader;
+
+    public MaterialEditText mAskName;
+    public ImageView mAskCode;
+    public LinearLayout mShare;
+    public FloatingActionButton floatingActionButton;
+
+    public String askphone;
+
+    public Bundle bundle;
+    public static String CONVERSATION_ID;
 
     private OnFragmentInteractionListener mListener;
 
@@ -38,38 +66,121 @@ public class AskMembersFragment extends Fragment {
      * @param param2 Parameter 2.
      * @return A new instance of fragment AskMembersFragment.
      */
-    // TODO: Rename and change types and number of parameters
+
     public static AskMembersFragment newInstance(String param1, String param2) {
+
         AskMembersFragment fragment = new AskMembersFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
         fragment.setArguments(args);
+
         return fragment;
     }
 
     public AskMembersFragment() {
-        // Required empty public constructor
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
+
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
+
+            bundle = this.getArguments();
+            CONVERSATION_ID = bundle.getString("_ID");
+
         }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_ask_members, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_ask_members, container, false);
+
+        imageLoader=ImageLoader.getInstance();
+
+        imageLoader.init(ImageLoaderConfiguration.createDefault(getActivity()));
+
+        options = new DisplayImageOptions.Builder()
+                .showImageOnLoading(R.drawable.photo3)
+                .showImageForEmptyUri(R.drawable.photo3)
+                .showImageOnFail(R.drawable.photo3)
+                .cacheInMemory(true)
+                .cacheOnDisk(true)
+                .considerExifParams(true)
+                .bitmapConfig(Bitmap.Config.RGB_565)
+                .build();
+
+        mAskName = (MaterialEditText)rootView.findViewById(R.id.edit_ask_phone);
+        mAskCode = (ImageView)rootView.findViewById(R.id.edit_ask_code);
+        mShare = (LinearLayout)rootView.findViewById(R.id.btn_share);
+        floatingActionButton = (FloatingActionButton)rootView.findViewById(R.id.fab);
+
+        imageLoader.displayImage(AppData.getIMClient()
+                .getConversation(CONVERSATION_ID)
+                .getAttribute("link_url")
+                .toString(),mAskCode,options);
+
+        floatingActionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                askphone = mAskName.getText().toString();
+                if (askphone!=null){
+                    List<String> list = new ArrayList<String>();
+                    list.add(askphone);
+                    AVIMConversation avimConversation = AppData.getIMClient().getConversation(CONVERSATION_ID);
+                    avimConversation.addMembers(list, new AVIMConversationCallback() {
+                        @Override
+                        public void done(AVException e) {
+                            if (e==null){
+
+                                FragmentTransaction fragmentTransaction = getActivity()
+                                                                            .getSupportFragmentManager()
+                                                                            .beginTransaction();
+                                MessageWallFeagment messageWallFeagment = new MessageWallFeagment();
+                                messageWallFeagment.setArguments(bundle);
+                                fragmentTransaction.replace(R.id.container,messageWallFeagment).commit();
+
+                                ALifeToast.makeText(getActivity()
+                                        , "添加成功！"
+                                        , ALifeToast.ToastType.SUCCESS
+                                        , ALifeToast.LENGTH_SHORT)
+                                        .show();
+                            }else {
+
+                                FragmentTransaction fragmentTransaction = getActivity()
+                                                                            .getSupportFragmentManager()
+                                                                            .beginTransaction();
+                                MessageWallFeagment messageWallFeagment = new MessageWallFeagment();
+                                messageWallFeagment.setArguments(bundle);
+                                fragmentTransaction.replace(R.id.container,messageWallFeagment).commit();
+
+                                ALifeToast.makeText(getActivity()
+                                        , "添加失败！"
+                                        , ALifeToast.ToastType.SUCCESS
+                                        , ALifeToast.LENGTH_SHORT)
+                                        .show();
+                            }
+                        }
+                    });
+                }else {
+                    ALifeToast.makeText(getActivity()
+                            , "输入不能为空！"
+                            , ALifeToast.ToastType.SUCCESS
+                            , ALifeToast.LENGTH_SHORT)
+                            .show();
+                }
+            }
+        });
+
+        return rootView;
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
+
         if (mListener != null) {
             mListener.onFragmentInteraction(uri);
         }
@@ -78,6 +189,7 @@ public class AskMembersFragment extends Fragment {
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
+
         try {
             mListener = (OnFragmentInteractionListener) activity;
         } catch (ClassCastException e) {
@@ -102,8 +214,8 @@ public class AskMembersFragment extends Fragment {
      * "http://developer.android.com/training/basics/fragments/communicating.html"
      * >Communicating with Other Fragments</a> for more information.
      */
+
     public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
         public void onFragmentInteraction(Uri uri);
     }
 

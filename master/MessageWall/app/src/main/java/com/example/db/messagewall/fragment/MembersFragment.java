@@ -1,17 +1,34 @@
 package com.example.db.messagewall.fragment;
 
 import android.app.Activity;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 
+import com.avos.avoscloud.AVException;
+import com.avos.avoscloud.im.v2.AVIMConversation;
+import com.avos.avoscloud.im.v2.Conversation;
+import com.avos.avoscloud.im.v2.callback.AVIMConversationCallback;
+import com.baoyz.swipemenulistview.SwipeMenu;
+import com.baoyz.swipemenulistview.SwipeMenuCreator;
+import com.baoyz.swipemenulistview.SwipeMenuItem;
+import com.baoyz.swipemenulistview.SwipeMenuListView;
 import com.example.db.messagewall.adapter.MembersAdapter;
+import com.example.db.messagewall.api.AppData;
+import com.example.db.messagewall.bean.MemberInfo;
 import com.example.db.messagewall.view.CircleImageView;
 import com.support.android.designlibdemo.R;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -22,16 +39,19 @@ import com.support.android.designlibdemo.R;
  * create an instance of this fragment.
  */
 public class MembersFragment extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
+
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
-    // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
 
-    public ListView mlistView;
+    public SwipeMenuListView mlistView;
+    public List<MemberInfo> memberInfos;
+    public MembersAdapter membersAdapter;
+
+    public Bundle bundle;
+    public static String CONVERSATION_ID;
 
     private OnFragmentInteractionListener mListener;
 
@@ -43,44 +63,123 @@ public class MembersFragment extends Fragment {
      * @param param2 Parameter 2.
      * @return A new instance of fragment MembersFragment.
      */
-    // TODO: Rename and change types and number of parameters
+
     public static MembersFragment newInstance(String param1, String param2) {
+
         MembersFragment fragment = new MembersFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
         fragment.setArguments(args);
+
         return fragment;
     }
 
     public MembersFragment() {
-        // Required empty public constructor
+
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         if (getArguments() != null) {
+
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
+
+            bundle = this.getArguments();
+            CONVERSATION_ID = bundle.getString("_ID");
         }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+
         View rootView = inflater.inflate(R.layout.fragment_members, container, false);
 
-        mlistView = (ListView)rootView.findViewById(R.id.listview);
+        mlistView = (SwipeMenuListView)rootView.findViewById(R.id.listview);
 
-        MembersAdapter membersAdapter = new MembersAdapter(getActivity());
+        SwipeMenuCreator swipeMenuCreator = new SwipeMenuCreator() {
+            @Override
+            public void create(SwipeMenu menu) {
+
+                SwipeMenuItem item1 = new SwipeMenuItem(
+                        getActivity());
+                item1.setBackground(R.drawable.rect_bkg);
+                item1.setWidth(dp2px(90));
+                item1.setHeight(dp2px(65));
+                item1.setIcon(R.drawable.ic_home_white_24dp);
+                menu.addMenuItem(item1);
+
+                SwipeMenuItem item2 = new SwipeMenuItem(
+                        getActivity());
+                item2.setBackground(R.drawable.rect_bkg0);
+                item2.setWidth(dp2px(90));
+                item2.setIcon(R.drawable.ic_delete_white_24dp);
+                menu.addMenuItem(item2);
+            }
+        };
+
+        mlistView.setMenuCreator(swipeMenuCreator);
+        mlistView.setOnMenuItemClickListener(new SwipeMenuListView.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(int position, SwipeMenu menu, int index) {
+                switch (index){
+                    case 0:
+                        /*
+                        置顶
+                         */
+
+                        break;
+                    case 1:
+                        /*
+                        删除
+                         */
+                        AVIMConversation avimConversation = AppData.getIMClient().getConversation(CONVERSATION_ID);
+                        List<String> list = new ArrayList<String>();
+                        final MemberInfo memberInfo = (MemberInfo)membersAdapter.getItem(position);
+                        list.add(memberInfo.getName());
+                        avimConversation.kickMembers(list, new AVIMConversationCallback() {
+                            @Override
+                            public void done(AVException e) {
+                                if (e==null){
+                                    membersAdapter.memberInfos.remove(memberInfo);
+                                    membersAdapter.notifyDataSetChanged();
+                                }else {
+                                    Log.v("db.error7",e.getMessage());
+                                }
+                            }
+                        });
+                        break;
+                }
+                return false;
+            }
+        });
+
+        memberInfos = new ArrayList<MemberInfo>();
+
+        AVIMConversation avimConversation = AppData.getIMClient().getConversation(CONVERSATION_ID);
+        List<String> list = new ArrayList<String>();
+        list = avimConversation.getMembers();
+        for (int i=0;i<list.size();i++){
+            MemberInfo memberInfo = new MemberInfo();
+            memberInfo.setName(list.get(i));
+            memberInfo.setDate(avimConversation.getAttribute("name").toString());
+            memberInfos.add(memberInfo);
+        }
+        membersAdapter = new MembersAdapter(getActivity(),memberInfos);
+
+
+
         mlistView.setAdapter(membersAdapter);
+
 
         return rootView;
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
+
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
             mListener.onFragmentInteraction(uri);
@@ -115,8 +214,11 @@ public class MembersFragment extends Fragment {
      * >Communicating with Other Fragments</a> for more information.
      */
     public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
+
         public void onFragmentInteraction(Uri uri);
     }
-
+    private int dp2px(int dp) {
+        return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp,
+                getResources().getDisplayMetrics());
+    }
 }
