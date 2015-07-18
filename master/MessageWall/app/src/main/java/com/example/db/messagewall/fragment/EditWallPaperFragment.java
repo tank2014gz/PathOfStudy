@@ -1,34 +1,27 @@
 package com.example.db.messagewall.fragment;
 
 import android.app.Activity;
-import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
+import android.widget.GridView;
 
-import com.avos.avoscloud.AVException;
-import com.avos.avoscloud.im.v2.AVIMConversation;
-import com.avos.avoscloud.im.v2.callback.AVIMConversationMemberCountCallback;
-import com.example.db.messagewall.api.AppData;
-import com.nostra13.universalimageloader.core.DisplayImageOptions;
-import com.nostra13.universalimageloader.core.ImageLoader;
-import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
+import com.example.db.messagewall.adapter.WallPaperGridAdapter;
 import com.support.android.designlibdemo.R;
 
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link WallInfoFragment.OnFragmentInteractionListener} interface
+ * {@link EditWallPaperFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link WallInfoFragment#newInstance} factory method to
+ * Use the {@link EditWallPaperFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class WallInfoFragment extends Fragment {
+public class EditWallPaperFragment extends Fragment {
 
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
@@ -36,14 +29,11 @@ public class WallInfoFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    public DisplayImageOptions options;
-    public ImageLoader imageLoader;
-
     public Bundle bundle;
     public static String CONVERSATION_ID;
 
-    public TextView mWallName,mWallDate,mWallCount;
-    public ImageView mImageView;
+    public GridView mGridView;
+    public FloatingActionButton floatingActionButton;
 
     private OnFragmentInteractionListener mListener;
 
@@ -53,12 +43,12 @@ public class WallInfoFragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment WallInfoFragment.
+     * @return A new instance of fragment EditWallPaperFragment.
      */
 
-    public static WallInfoFragment newInstance(String param1, String param2) {
+    public static EditWallPaperFragment newInstance(String param1, String param2) {
 
-        WallInfoFragment fragment = new WallInfoFragment();
+        EditWallPaperFragment fragment = new EditWallPaperFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -67,13 +57,12 @@ public class WallInfoFragment extends Fragment {
         return fragment;
     }
 
-    public WallInfoFragment() {
+    public EditWallPaperFragment() {
 
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
 
@@ -89,47 +78,15 @@ public class WallInfoFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View rootView = inflater.inflate(R.layout.fragment_wall_info, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_edit_wall_paper_feagment, container, false);
 
-        imageLoader = ImageLoader.getInstance();
+        floatingActionButton = (FloatingActionButton)rootView.findViewById(R.id.add);
+        mGridView = (GridView)rootView.findViewById(R.id.gridview);
 
-        imageLoader.init(ImageLoaderConfiguration.createDefault(getActivity()));
+        WallPaperGridAdapter wallPaperGridAdapter = new WallPaperGridAdapter(getActivity());
+        mGridView.setAdapter(wallPaperGridAdapter);
 
-        options = new DisplayImageOptions.Builder()
-                .showImageOnLoading(R.drawable.photo3)
-                .showImageForEmptyUri(R.drawable.photo3)
-                .showImageOnFail(R.drawable.photo3)
-                .cacheInMemory(true)
-                .cacheOnDisk(true)
-                .considerExifParams(true)
-                .bitmapConfig(Bitmap.Config.RGB_565)
-                .build();
-
-        mWallName = (TextView)rootView.findViewById(R.id.wall_name);
-        mWallDate = (TextView)rootView.findViewById(R.id.wall_date);
-        mWallCount = (TextView)rootView.findViewById(R.id.wall_count);
-        mImageView = (ImageView)rootView.findViewById(R.id.wall_code);
-
-        final AVIMConversation avimConversation = AppData.getIMClient().getConversation(CONVERSATION_ID);
-        mWallName.setText(avimConversation.getAttribute("name").toString());
-        mWallDate.setText(avimConversation.getAttribute("date").toString());
-        avimConversation.getMemberCount(new AVIMConversationMemberCountCallback() {
-            @Override
-            public void done(Integer integer, AVException e) {
-                if (e==null){
-                    mWallCount.setText(String.valueOf(integer)+"人");
-                }else {
-
-                }
-            }
-        });
-
-        imageLoader.displayImage(AppData.getIMClient()
-                .getConversation(CONVERSATION_ID)
-                .getAttribute("link_url")
-                .toString(),mImageView,options);
-
-        mImageView.setOnClickListener(new View.OnClickListener() {
+        floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -139,6 +96,7 @@ public class WallInfoFragment extends Fragment {
         return rootView;
     }
 
+    // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
 
         if (mListener != null) {

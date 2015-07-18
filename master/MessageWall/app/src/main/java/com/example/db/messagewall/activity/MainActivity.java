@@ -16,9 +16,7 @@
 
 package com.example.db.messagewall.activity;
 
-import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -32,12 +30,11 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 
 import com.example.db.messagewall.fragment.AddMessageItemFragment;
 import com.example.db.messagewall.fragment.AlertWallFragment;
 import com.example.db.messagewall.fragment.AskMembersFragment;
-import com.example.db.messagewall.fragment.CheeseListFragment;
+import com.example.db.messagewall.fragment.EditWallPaperFragment;
 import com.example.db.messagewall.fragment.MembersFragment;
 import com.example.db.messagewall.fragment.MessageWallFeagment;
 import com.example.db.messagewall.fragment.WallInfoFragment;
@@ -45,10 +42,6 @@ import com.example.db.messagewall.utils.AppConstant;
 import com.support.android.designlibdemo.R;
 import com.umeng.fb.FeedbackAgent;
 import com.umeng.message.PushAgent;
-
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * TODO
@@ -58,7 +51,8 @@ public class MainActivity extends AppCompatActivity implements MessageWallFeagme
                                                                 ,WallInfoFragment.OnFragmentInteractionListener
                                                                 ,AskMembersFragment.OnFragmentInteractionListener
                                                                 ,AlertWallFragment.OnFragmentInteractionListener
-                                                                ,AddMessageItemFragment.OnFragmentInteractionListener{
+                                                                ,AddMessageItemFragment.OnFragmentInteractionListener
+                                                                ,EditWallPaperFragment.OnFragmentInteractionListener{
 
     private DrawerLayout mDrawerLayout;
 
@@ -180,7 +174,9 @@ public class MainActivity extends AppCompatActivity implements MessageWallFeagme
 
                         toolbar.setTitle(menuItem.getTitle());
                         fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                        fragmentTransaction.replace(R.id.container, new MessageWallFeagment()).commit();
+                        EditWallPaperFragment editWallPaperFeagment = new EditWallPaperFragment();
+                        editWallPaperFeagment.setArguments(bundle);
+                        fragmentTransaction.replace(R.id.container, editWallPaperFeagment).commit();
                         menuItem.setChecked(true);
                         mDrawerLayout.closeDrawers();
 

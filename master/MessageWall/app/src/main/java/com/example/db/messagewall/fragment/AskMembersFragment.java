@@ -1,12 +1,15 @@
 package com.example.db.messagewall.fragment;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +20,7 @@ import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.im.v2.AVIMConversation;
 import com.avos.avoscloud.im.v2.callback.AVIMConversationCallback;
 import com.example.db.messagewall.api.AppData;
+import com.example.db.messagewall.utils.ShareData;
 import com.example.db.messagewall.view.ALifeToast;
 import com.example.db.messagewall.view.materialedittext.MaterialEditText;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
@@ -24,6 +28,7 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.support.android.designlibdemo.R;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -100,7 +105,7 @@ public class AskMembersFragment extends Fragment {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_ask_members, container, false);
 
-        imageLoader=ImageLoader.getInstance();
+        imageLoader = ImageLoader.getInstance();
 
         imageLoader.init(ImageLoaderConfiguration.createDefault(getActivity()));
 
@@ -173,6 +178,33 @@ public class AskMembersFragment extends Fragment {
                             , ALifeToast.LENGTH_SHORT)
                             .show();
                 }
+            }
+        });
+
+        mShare.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                /*
+                寻找对应的文件的路径
+                 */
+                AVIMConversation avimConversation = AppData.getIMClient().getConversation(CONVERSATION_ID);
+                File directory=new File(Environment.getExternalStorageDirectory().getAbsolutePath());
+                String rootPath = directory.getAbsolutePath()+"/Messagewall";
+                File file = new File(rootPath);
+                String path = "";
+                String[] list = file.list();
+                for (int i=0;i<list.length;i++){
+                    if (list[i].equals(avimConversation.getAttribute("name").toString()+".png")){
+                        path = rootPath+"/"+list[i];
+                    }
+                }
+                Intent intent = new Intent(Intent.ACTION_SEND);
+                intent.setType("image/*");
+                intent.putExtra(Intent.EXTRA_TITLE,"加入群组");
+                intent.putExtra(Intent.EXTRA_SUBJECT,"扫描二维码加入群组！");
+                intent.putExtra(Intent.EXTRA_STREAM,Uri.parse(path));
+                startActivity(Intent.createChooser(intent,"选择应用"));
             }
         });
 
