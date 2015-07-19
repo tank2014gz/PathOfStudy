@@ -45,5 +45,9 @@
   <string name="multi_conversation_activity">多会话模式</string>
   <string name="title_item_list">反馈列表</string>
   <string name="message_image_desc">Message Image</string>
+    <string name="title_activity_scanner">ScannerActivity</string>
+
+  <!-- 二维码扫描-->
+  <string name="scan_text">将二维码放入框内, 即可自动扫描</string>
 
 </resources>

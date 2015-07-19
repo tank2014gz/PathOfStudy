@@ -1,5 +1,7 @@
 package com.example.db.messagewall.activity;
 
+import android.app.Activity;
+import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -7,6 +9,7 @@ import android.os.AsyncTask;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -14,10 +17,12 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.util.TypedValue;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.AVUser;
@@ -33,8 +38,10 @@ import com.baoyz.swipemenulistview.SwipeMenuListView;
 import com.example.db.messagewall.adapter.WallAdapter;
 import com.example.db.messagewall.adapter.WallSwipeAdapter;
 import com.example.db.messagewall.api.AppData;
+import com.example.db.messagewall.scanner.MipcaActivityCapture;
 import com.example.db.messagewall.utils.AppConstant;
 import com.example.db.messagewall.view.ALifeToast;
+import com.example.db.messagewall.view.MaterialDialog;
 import com.support.android.designlibdemo.R;
 
 import java.util.ArrayList;
@@ -109,11 +116,7 @@ public class SelectActivity extends AppCompatActivity {
                         }
                     });
                 }else {
-                    ALifeToast.makeText(SelectActivity.this
-                            , "请先登陆或注册！"
-                            , ALifeToast.ToastType.SUCCESS
-                            , ALifeToast.LENGTH_SHORT)
-                            .show();
+                    AppConstant.showSelfToast(getApplicationContext(),"请先登陆或注册！");
                 }
                 mSwipeRefreshLayout.setRefreshing(false);
             }
@@ -129,8 +132,33 @@ public class SelectActivity extends AppCompatActivity {
             public void onClick(View v) {
                 AVUser avUser = AVUser.getCurrentUser();
                 if (avUser!=null){
-                    Intent intent = new Intent(SelectActivity.this,AddMessageWallActivity.class);
-                    startActivity(intent);
+
+                    final MaterialDialog materialDialog = new MaterialDialog(SelectActivity.this);
+                    View view = LayoutInflater.from(getApplicationContext())
+                            .inflate(R.layout.select_dialog,null);
+                    TextView scanner = (TextView)view.findViewById(R.id.scanner);
+                    TextView add = (TextView)view.findViewById(R.id.add);
+                    scanner.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Intent intent = new Intent(SelectActivity.this,MipcaActivityCapture.class);
+                            startActivity(intent);
+                            materialDialog.dismiss();
+                        }
+                    });
+                    add.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Intent intent = new Intent(SelectActivity.this,AddMessageWallActivity.class);
+                            startActivity(intent);
+                            materialDialog.dismiss();
+                        }
+                    });
+                    materialDialog.setView(view)
+                                  .setCanceledOnTouchOutside(true);
+                    materialDialog.show();
+
+
                 }else {
                     Intent intent = new Intent(SelectActivity.this,SignUpActivity.class);
                     startActivity(intent);
@@ -174,11 +202,7 @@ public class SelectActivity extends AppCompatActivity {
                 }
             });
         }else {
-            ALifeToast.makeText(SelectActivity.this
-                    , "请先登陆或注册！"
-                    , ALifeToast.ToastType.SUCCESS
-                    , ALifeToast.LENGTH_SHORT)
-                    .show();
+            AppConstant.showSelfToast(getApplicationContext(),"请先登陆或注册！");
         }
 
     }

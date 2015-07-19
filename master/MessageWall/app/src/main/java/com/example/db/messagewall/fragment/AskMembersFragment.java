@@ -20,6 +20,7 @@ import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.im.v2.AVIMConversation;
 import com.avos.avoscloud.im.v2.callback.AVIMConversationCallback;
 import com.example.db.messagewall.api.AppData;
+import com.example.db.messagewall.utils.AppConstant;
 import com.example.db.messagewall.utils.ShareData;
 import com.example.db.messagewall.view.ALifeToast;
 import com.example.db.messagewall.view.materialedittext.MaterialEditText;
@@ -133,7 +134,7 @@ public class AskMembersFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 askphone = mAskName.getText().toString();
-                if (askphone!=null){
+                if (askphone!=null&& AppConstant.isMobile(askphone)){
                     List<String> list = new ArrayList<String>();
                     list.add(askphone);
                     AVIMConversation avimConversation = AppData.getIMClient().getConversation(CONVERSATION_ID);
@@ -173,7 +174,7 @@ public class AskMembersFragment extends Fragment {
                     });
                 }else {
                     ALifeToast.makeText(getActivity()
-                            , "输入不能为空！"
+                            , "输入格式不正确！"
                             , ALifeToast.ToastType.SUCCESS
                             , ALifeToast.LENGTH_SHORT)
                             .show();

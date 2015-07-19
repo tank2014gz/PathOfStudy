@@ -98,7 +98,7 @@ public class SignUpActivity extends AppCompatActivity {
             public void onClick(View v) {
                 username = mUserName.getText().toString();
                 userpsd = mUserPsd.getText().toString();
-                if (username.length()!=0&&userpsd.length()!=0){
+                if (username.length()!=0&&userpsd.length()!=0&&AppConstant.isMobile(username)){
                     AVUser avUser = new AVUser();
                     avUser.setUsername(username);
                     avUser.setPassword(userpsd);
@@ -132,7 +132,7 @@ public class SignUpActivity extends AppCompatActivity {
 
                 }else {
                     ALifeToast.makeText(SignUpActivity.this
-                                        , "输入不能为空！"
+                                        , "输入不正确！"
                                         , ALifeToast.ToastType.SUCCESS
                                         , ALifeToast.LENGTH_SHORT)
                                         .show();

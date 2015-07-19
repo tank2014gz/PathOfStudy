@@ -12,9 +12,9 @@
         android:layout_marginTop="6dp">
 
         <LinearLayout
-            style="@style/Widget.CardContent"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
             <TextView
                 android:layout_width="match_parent"
@@ -26,10 +26,12 @@
                 android:textSize="16sp"
                 android:textColor="@color/actionbar0"
                 android:maxLines="1"
-                android:ellipsize="middle"/>
+                android:ellipsize="middle"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"/>
             <TextView
                 android:layout_width="match_parent"
-                android:layout_height="120dp"
+                android:layout_height="136dp"
                 android:id="@+id/content"
                 android:text="      宝贝快回家吃饭了，一会儿就要下暴雨了，不然又要淋湿了."
                 android:layout_gravity="center"
@@ -38,20 +40,25 @@
                 android:textColor="@android:color/darker_gray"
                 android:maxLines="5"
                 android:ellipsize="end"
-                android:lineSpacingMultiplier="1.2"/>
+                android:lineSpacingMultiplier="1.2"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"/>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp">
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_weight="1"></LinearLayout>
                 <TextView
                     android:layout_width="wrap_content"
-                    android:layout_height="32dp"
+                    android:layout_height="40dp"
                     android:id="@+id/from"
-                    android:text="----妈咪"
+                    android:text="----  妈咪"
                     android:layout_gravity="center"
                     android:gravity="right|center"
                     android:textSize="13sp"

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="horizontal">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="64dp"
+        android:orientation="horizontal">
+        <com.example.db.messagewall.view.materialedittext.MaterialEditText
+            android:id="@+id/edit_ask_phone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textColor="@color/actionbar0"
+            android:textSize="14sp"
+            android:layout_gravity="center"
+            android:gravity="center|left"
+            android:textColorHint="@android:color/darker_gray"
+            android:hint="请输入手机号"
+            android:cursorVisible="false"
+            app:hideUnderline="true"
+            app:baseColor="@android:color/darker_gray"
+            app:floatingLabel="highlight"
+            app:maxCharacters="11"
+            app:minCharacters="1"
+            app:errorColor="@color/error"
+            app:helperText=""
+            app:primaryColor="#f3f3f3"
+            app:singleLineEllipsis="true"
+            android:drawableLeft="@drawable/ab_handwriting"
+            android:paddingLeft="16dp"
+            android:drawablePadding="16dp"/>
+    </LinearLayout>
+</LinearLayout>

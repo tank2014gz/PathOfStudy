@@ -62,7 +62,7 @@ public class SignInActivity extends AppCompatActivity {
             public void onClick(View v) {
                 username = mUserName.getText().toString();
                 userpsd = mUserPsd.getText().toString();
-                if (username.length()!=0&&userpsd.length()!=0){
+                if (username.length()!=0&&userpsd.length()!=0&&AppConstant.isMobile(username)){
                     AVUser.logInInBackground(username, userpsd, new LogInCallback<AVUser>() {
                         @Override
                         public void done(AVUser avUser, AVException e) {
@@ -95,7 +95,7 @@ public class SignInActivity extends AppCompatActivity {
                         );
                     }else {
                         ALifeToast.makeText(SignInActivity.this
-                                            , "输入不能为空！"
+                                            , "输入不正确！"
                                             , ALifeToast.ToastType.SUCCESS
                                             , ALifeToast.LENGTH_SHORT)
                                             .show();

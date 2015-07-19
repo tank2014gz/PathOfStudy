@@ -16,7 +16,10 @@
 
 package com.example.db.messagewall.activity;
 
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -222,6 +225,25 @@ public class MainActivity extends AppCompatActivity implements MessageWallFeagme
         });
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+       if (requestCode==2&&resultCode== Activity.RESULT_OK){
+           if (data!=null){
+               Uri uri = data.getData();
+               String path = uri.toString();
+               Log.v("ljjjjjj",path);
+               SharedPreferences sharedPreferences = getApplicationContext()
+                       .getSharedPreferences("com.example.db.alife_wallpaper"
+                               , Context.MODE_PRIVATE);
+               SharedPreferences.Editor editor = sharedPreferences.edit();
+               editor.putString("paper_path", path);
+               editor.commit();
+           }else {
+               AppConstant.showSelfToast(MainActivity.this,"设置失败！");
+           }
+       }
+    }
 
     @Override
     public void onFragmentInteraction(Uri uri) {

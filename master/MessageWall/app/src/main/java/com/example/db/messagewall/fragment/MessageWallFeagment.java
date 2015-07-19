@@ -11,7 +11,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.GridView;
 
 import com.avos.avoscloud.AVException;
@@ -20,7 +19,6 @@ import com.avos.avoscloud.im.v2.AVIMMessage;
 import com.avos.avoscloud.im.v2.callback.AVIMMessagesQueryCallback;
 import com.example.db.messagewall.adapter.MessageGridAdapter;
 import com.example.db.messagewall.api.AppData;
-import com.example.db.messagewall.api.MessageHandler;
 import com.support.android.designlibdemo.R;
 
 import java.util.ArrayList;
@@ -97,7 +95,7 @@ public class MessageWallFeagment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View rootView = inflater.inflate(R.layout.fragment_edit_wall_paper_feagment, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_message_wall, container, false);
 
         mGridView = (GridView)rootView.findViewById(R.id.gridview);
         mSwipeRefreshLayout=(SwipeRefreshLayout)rootView.findViewById(R.id.refreshlayout);

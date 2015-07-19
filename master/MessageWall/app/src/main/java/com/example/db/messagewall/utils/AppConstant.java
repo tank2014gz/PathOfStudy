@@ -6,8 +6,12 @@ import android.graphics.Bitmap;
 import android.os.Build;
 import android.os.Environment;
 import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.db.messagewall.view.SystemBarTintManager;
 import com.google.zxing.BarcodeFormat;
@@ -23,6 +27,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Hashtable;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Created by db on 7/13/15.
@@ -58,6 +64,15 @@ public class AppConstant {
             context.getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
             tintManager = new SystemBarTintManager(context);
             tintManager.setStatusBarTintColor(context.getResources().getColor(R.color.actionbar));
+            tintManager.setStatusBarTintEnabled(true);
+        }
+    }
+    public static void setScanner(boolean on,Activity context){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT){
+            context.getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+            context.getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
+            tintManager = new SystemBarTintManager(context);
+            tintManager.setStatusBarTintColor(context.getResources().getColor(R.color.scanner));
             tintManager.setStatusBarTintEnabled(true);
         }
     }
@@ -158,5 +173,28 @@ public class AppConstant {
         }
         return file.getPath();
     }
-
+    /*
+    自定义Toast的布局内容
+     */
+    public static void showSelfToast(Context context,String title){
+        Toast toast = new Toast(context);
+        View view = LayoutInflater.from(context).inflate(R.layout.self_toast,null);
+        TextView textView = (TextView)view.findViewById(R.id.text);
+        textView.setText(title);
+        toast.setView(view);
+        toast.setDuration(Toast.LENGTH_SHORT);
+        toast.show();
+    }
+    /*
+    利用正则表达式来验证输入的手机号码是否为合法的格式
+     */
+    public static boolean isMobile(String str) {
+        Pattern p = null;
+        Matcher m = null;
+        boolean b = false;
+        p = Pattern.compile("^[1][3,4,5,8][0-9]{9}$"); // 验证手机号
+        m = p.matcher(str);
+        b = m.matches();
+        return b;
+    }
 }
