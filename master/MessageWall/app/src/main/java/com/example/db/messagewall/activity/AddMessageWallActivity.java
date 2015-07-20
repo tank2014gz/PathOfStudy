@@ -29,6 +29,7 @@ import com.example.db.messagewall.api.AppData;
 import com.example.db.messagewall.utils.AppConstant;
 import com.example.db.messagewall.view.ALifeToast;
 import com.example.db.messagewall.view.materialedittext.MaterialEditText;
+import com.example.db.messagewall.view.materialloadingprogressbar.CircleProgressBar;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.EncodeHintType;
 import com.google.zxing.MultiFormatWriter;

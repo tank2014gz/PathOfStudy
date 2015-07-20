@@ -197,4 +197,18 @@ public class AppConstant {
         b = m.matches();
         return b;
     }
+    public static boolean isExist(int position){
+        File directory=new File(Environment.getExternalStorageDirectory().getAbsolutePath());
+        directory.mkdir();
+        File QR=new File(directory.getAbsolutePath()+"/MessageWall/Paper");
+        if (!QR.exists()){
+            QR.mkdir();
+        }
+        File myCaptureFile = new File(QR.getAbsolutePath() +"/"+"paper_bkg"+String.valueOf(position)+".png");
+        if (myCaptureFile.exists()){
+            return true;
+        }else {
+            return false;
+        }
+    }
 }

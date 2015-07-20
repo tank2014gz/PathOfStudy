@@ -15,9 +15,13 @@ import com.avos.avoscloud.im.v2.AVIMConversation;
 import com.avos.avoscloud.im.v2.Conversation;
 import com.avos.avoscloud.im.v2.callback.AVIMConversationCallback;
 import com.avos.avoscloud.im.v2.callback.AVIMConversationMemberCountCallback;
+import com.example.db.messagewall.activity.SelectActivity;
 import com.example.db.messagewall.bean.WallInfo;
 import com.example.db.messagewall.activity.MainActivity;
+import com.example.db.messagewall.utils.AppConstant;
+import com.example.db.messagewall.view.ALifeToast;
 import com.example.db.messagewall.view.CircleImageView;
+import com.example.db.messagewall.view.MaterialDialog;
 import com.support.android.designlibdemo.R;
 
 import java.util.List;
@@ -36,6 +40,8 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
         super();
         this.context = context;
         this.avimConversations = avimConversations;
+
+
     }
 
     @Override
@@ -71,6 +77,41 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
                 intent.putExtras(bundle);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 context.startActivity(intent);
+            }
+        });
+        holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+
+                final MaterialDialog materialDialog = new MaterialDialog(context);
+                materialDialog.setTitle("确定退出?")
+                        .setPositiveButton("Ok", new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                avimConversation.quit(new AVIMConversationCallback() {
+                                    @Override
+                                    public void done(AVException e) {
+                                        if (e==null){
+                                            AppConstant.showSelfToast(context,"退出成功！");
+                                        }else {
+                                            AppConstant.showSelfToast(context,"退出失败！");
+                                        }
+                                    }
+                                });
+                                materialDialog.dismiss();
+                            }
+                        })
+                        .setNegativeButton("Cancel", new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                materialDialog.dismiss();
+                            }
+                        })
+                        .setCanceledOnTouchOutside(true)
+                        .setMessage("将不再接受消息")
+                        .show();
+
+                return false;
             }
         });
     }

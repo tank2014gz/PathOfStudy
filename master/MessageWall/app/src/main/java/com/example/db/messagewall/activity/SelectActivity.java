@@ -105,7 +105,7 @@ public class SelectActivity extends AppCompatActivity {
                                         if (null != e) {
                                             Log.v("db.error4", e.getMessage());
                                         } else {
-                                            recyclerView.setAdapter(new WallAdapter(getApplicationContext(), list));
+                                            recyclerView.setAdapter(new WallAdapter(SelectActivity.this, list));
                                             Log.v("db.cnm2", String.valueOf(list.size()));
                                         }
                                     }
@@ -191,7 +191,7 @@ public class SelectActivity extends AppCompatActivity {
                                 if (null != e) {
                                     Log.v("db.error4", e.getMessage());
                                 } else {
-                                    recyclerView.setAdapter(new WallAdapter(getApplicationContext(), list));
+                                    recyclerView.setAdapter(new WallAdapter(SelectActivity.this, list));
                                     Log.v("db.cnm2", String.valueOf(list.size()));
                                 }
                             }

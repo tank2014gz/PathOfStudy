@@ -5,16 +5,21 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.avos.avoscloud.AVException;
+import com.avos.avoscloud.AVUser;
 import com.avos.avoscloud.im.v2.AVIMConversation;
+import com.avos.avoscloud.im.v2.callback.AVIMConversationCallback;
 import com.avos.avoscloud.im.v2.callback.AVIMConversationMemberCountCallback;
 import com.example.db.messagewall.api.AppData;
+import com.example.db.messagewall.view.ALifeToast;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
@@ -44,6 +49,7 @@ public class WallInfoFragment extends Fragment {
 
     public TextView mWallName,mWallDate,mWallCount;
     public ImageView mImageView;
+    public LinearLayout linearLayout;
 
     private OnFragmentInteractionListener mListener;
 
@@ -109,6 +115,7 @@ public class WallInfoFragment extends Fragment {
         mWallDate = (TextView)rootView.findViewById(R.id.wall_date);
         mWallCount = (TextView)rootView.findViewById(R.id.wall_count);
         mImageView = (ImageView)rootView.findViewById(R.id.wall_code);
+        linearLayout = (LinearLayout)rootView.findViewById(R.id.btn_refresh);
 
         final AVIMConversation avimConversation = AppData.getIMClient().getConversation(CONVERSATION_ID);
         mWallName.setText(avimConversation.getAttribute("name").toString());
@@ -124,15 +131,44 @@ public class WallInfoFragment extends Fragment {
             }
         });
 
-        imageLoader.displayImage(AppData.getIMClient()
-                .getConversation(CONVERSATION_ID)
-                .getAttribute("link_url")
-                .toString(),mImageView,options);
+        avimConversation.fetchInfoInBackground(new AVIMConversationCallback() {
+            @Override
+            public void done(AVException e) {
+                if (e==null){
+                    imageLoader.displayImage(AppData.getIMClient()
+                            .getConversation(CONVERSATION_ID)
+                            .getAttribute("link_url")
+                            .toString(),mImageView,options);
+                }else {
+                    ALifeToast.makeText(getActivity()
+                            , "请重新加载！"
+                            , ALifeToast.ToastType.SUCCESS
+                            , ALifeToast.LENGTH_SHORT)
+                            .show();
+                }
+            }
+        });
 
-        mImageView.setOnClickListener(new View.OnClickListener() {
+        linearLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                avimConversation.fetchInfoInBackground(new AVIMConversationCallback() {
+                    @Override
+                    public void done(AVException e) {
+                        if (e==null){
+                            imageLoader.displayImage(AppData.getIMClient()
+                                    .getConversation(CONVERSATION_ID)
+                                    .getAttribute("link_url")
+                                    .toString(),mImageView,options);
+                        }else {
+                            ALifeToast.makeText(getActivity()
+                                    , "请重新加载！"
+                                    , ALifeToast.ToastType.SUCCESS
+                                    , ALifeToast.LENGTH_SHORT)
+                                    .show();
+                        }
+                    }
+                });
             }
         });
 

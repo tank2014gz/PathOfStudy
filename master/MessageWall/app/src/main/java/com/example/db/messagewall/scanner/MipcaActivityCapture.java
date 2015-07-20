@@ -27,6 +27,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.avos.avoscloud.AVException;
+import com.avos.avoscloud.AVUser;
 import com.avos.avoscloud.im.v2.AVIMClient;
 import com.avos.avoscloud.im.v2.AVIMConversation;
 import com.avos.avoscloud.im.v2.callback.AVIMClientCallback;
@@ -162,71 +163,55 @@ public class MipcaActivityCapture extends AppCompatActivity implements Callback 
 		}else {
 
 			Log.v("scanner",resultString);
-			final MaterialDialog materialDialog = new MaterialDialog(MipcaActivityCapture.this);
-			View view = LayoutInflater.from(getApplicationContext())
-					.inflate(R.layout.scanner_iuput,null);
-			final MaterialEditText edit = (MaterialEditText)view.findViewById(R.id.edit_ask_phone);
-			materialDialog.setView(view)
-					.setCanceledOnTouchOutside(true)
-					.setPositiveButton("Ok", new OnClickListener() {
+			if (AVUser.getCurrentUser()!=null){
+				String phone = AVUser.getCurrentUser().getUsername();
+				if (phone!=null&&AppConstant.isMobile(phone)){
+									/*
+									扫描以后处理二维码
+									自动加入二维码携带信息中的群组
+									 */
+					final String[] temp = resultString.split(" ");
+									/*
+									加入输入的手机用户到留言墙中去
+									 */
+					final List<String> list = new ArrayList<String>();
+					list.add(phone);
+									/*
+									根据clinetId获得AVIMClient
+									 */
+					AVIMClient avimClient = AVIMClient.getInstance(temp[1]);
+					avimClient.open(new AVIMClientCallback() {
 						@Override
-						public void onClick(View v) {
-
-							String phone = edit.getText().toString();
-							if (phone!=null&&AppConstant.isMobile(phone)){
-								/*
-								扫描以后处理二维码
-								自动加入二维码携带信息中的群组
-								 */
-								final String[] temp = resultString.split(" ");
-								/*
-								加入输入的手机用户到留言墙中去
-								 */
-								final List<String> list = new ArrayList<String>();
-								list.add(phone);
-								/*
-								根据clinetId获得AVIMClient
-								 */
-								AVIMClient avimClient = AVIMClient.getInstance(temp[1]);
-								avimClient.open(new AVIMClientCallback() {
+						public void done(AVIMClient avimClient, AVException e) {
+							if (e==null){
+								AVIMConversation avimConversation = avimClient.getConversation(temp[0]);
+								avimConversation.addMembers(list, new AVIMConversationCallback() {
 									@Override
-									public void done(AVIMClient avimClient, AVException e) {
+									public void done(AVException e) {
 										if (e==null){
-											AVIMConversation avimConversation = avimClient.getConversation(temp[0]);
-											avimConversation.addMembers(list, new AVIMConversationCallback() {
-												@Override
-												public void done(AVException e) {
-													if (e==null){
-														Intent intent = new Intent(MipcaActivityCapture.this, SelectActivity.class);
-														startActivity(intent);
-														MipcaActivityCapture.this.finish();
-														materialDialog.dismiss();
-														AppConstant.showSelfToast(MipcaActivityCapture.this,"加入成功！");
-													}else {
-														materialDialog.dismiss();
-														AppConstant.showSelfToast(MipcaActivityCapture.this,"加入失败！");
-														Log.v("db.error15",e.getMessage());
-													}
-												}
-											});
+											Intent intent = new Intent(MipcaActivityCapture.this, SelectActivity.class);
+											startActivity(intent);
+											MipcaActivityCapture.this.finish();
+											AppConstant.showSelfToast(MipcaActivityCapture.this,"加入成功！");
 										}else {
-											Log.v("db.error14",e.getMessage());
+											AppConstant.showSelfToast(MipcaActivityCapture.this,"加入失败！");
+											Log.v("db.error15",e.getMessage());
 										}
 									}
 								});
-
 							}else {
-								AppConstant.showSelfToast(MipcaActivityCapture.this,"输入不正确!");
+								Log.v("db.error14",e.getMessage());
 							}
 						}
-					})
-					.setNegativeButton("Cancel", new OnClickListener() {
-						@Override
-						public void onClick(View v) {
-							materialDialog.dismiss();
-						}
 					});
-			materialDialog.show();
+
+				}else {
+					AppConstant.showSelfToast(MipcaActivityCapture.this,"输入不正确!");
+				}
+		}else {
+				AppConstant.showSelfToast(getApplicationContext(),"请先登陆或注册！");
+			}
+
 		}
 	}
 	

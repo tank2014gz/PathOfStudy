@@ -56,6 +56,7 @@ public class AskMembersFragment extends Fragment {
     public ImageView mAskCode;
     public LinearLayout mShare;
     public FloatingActionButton floatingActionButton;
+    public LinearLayout linearLayout;
 
     public String askphone;
 
@@ -124,11 +125,51 @@ public class AskMembersFragment extends Fragment {
         mAskCode = (ImageView)rootView.findViewById(R.id.edit_ask_code);
         mShare = (LinearLayout)rootView.findViewById(R.id.btn_share);
         floatingActionButton = (FloatingActionButton)rootView.findViewById(R.id.fab);
+        linearLayout = (LinearLayout)rootView.findViewById(R.id.btn_refresh);
 
-        imageLoader.displayImage(AppData.getIMClient()
-                .getConversation(CONVERSATION_ID)
-                .getAttribute("link_url")
-                .toString(),mAskCode,options);
+        AppData.getIMClient()
+                .getConversation(CONVERSATION_ID).fetchInfoInBackground(new AVIMConversationCallback() {
+            @Override
+            public void done(AVException e) {
+                if (e==null){
+                    imageLoader.displayImage(AppData.getIMClient()
+                            .getConversation(CONVERSATION_ID)
+                            .getAttribute("link_url")
+                            .toString(),mAskCode,options);
+                }else {
+                    ALifeToast.makeText(getActivity()
+                            , "请重新加载！"
+                            , ALifeToast.ToastType.SUCCESS
+                            , ALifeToast.LENGTH_SHORT)
+                            .show();
+                }
+            }
+        });
+
+        linearLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AppData.getIMClient()
+                        .getConversation(CONVERSATION_ID)
+                        .fetchInfoInBackground(new AVIMConversationCallback() {
+                    @Override
+                    public void done(AVException e) {
+                        if (e==null){
+                            imageLoader.displayImage(AppData.getIMClient()
+                                    .getConversation(CONVERSATION_ID)
+                                    .getAttribute("link_url")
+                                    .toString(),mAskCode,options);
+                        }else {
+                            ALifeToast.makeText(getActivity()
+                                    , "请重新加载！"
+                                    , ALifeToast.ToastType.SUCCESS
+                                    , ALifeToast.LENGTH_SHORT)
+                                    .show();
+                        }
+                    }
+                });
+            }
+        });
 
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
