@@ -3,6 +3,7 @@ package com.example.db.messagewall.adapter;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AlertDialog;
@@ -27,6 +28,7 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.support.android.designlibdemo.R;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.LogRecord;
@@ -38,6 +40,7 @@ public class WallPaperGridAdapter extends BaseAdapter{
 
     public Context context;
     public List<String> list = new ArrayList<String>();
+    public String path;
 
     /*
     设置flag实现只能单选
@@ -153,11 +156,19 @@ public class WallPaperGridAdapter extends BaseAdapter{
                             if (viewHolder.linearLayout.getVisibility()==ViewGroup.VISIBLE){
 
                                 viewHolder.linearLayout.setVisibility(ViewGroup.GONE);
+                                setPath("");
                                 flag = false;
 
                             }else if (viewHolder.linearLayout.getVisibility()==ViewGroup.GONE&&flag==false){
 
                                 viewHolder.linearLayout.setVisibility(ViewGroup.VISIBLE);
+                                /*
+                                得到本地文件的路径
+                                 */
+                                File directory=new File(Environment.getExternalStorageDirectory().getAbsolutePath());
+                                directory.mkdir();
+                                File QR=new File(directory.getAbsolutePath()+"/MessageWall/Paper");
+                                setPath(QR.getAbsolutePath()+"/"+"paper_bkg"+String.valueOf(position)+".png");
                                 flag = true;
                             }
                         }else {
@@ -210,5 +221,11 @@ public class WallPaperGridAdapter extends BaseAdapter{
         list.add("http://f10.topitme.com/l019/100190816957f620a7.jpg");
 
 
+    }
+    public void setPath(String path){
+        this.path = path;
+    }
+    public String getPath(){
+        return this.path;
     }
 }

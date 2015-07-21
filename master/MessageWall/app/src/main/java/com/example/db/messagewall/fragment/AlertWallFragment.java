@@ -7,12 +7,25 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.avos.avoscloud.AVException;
+import com.avos.avoscloud.AVUser;
+import com.avos.avoscloud.im.v2.AVIMClient;
+import com.avos.avoscloud.im.v2.AVIMConversation;
+import com.avos.avoscloud.im.v2.AVIMConversationQuery;
+import com.avos.avoscloud.im.v2.callback.AVIMClientCallback;
+import com.avos.avoscloud.im.v2.callback.AVIMConversationQueryCallback;
+import com.example.db.messagewall.adapter.AlterWallAdapter;
 import com.example.db.messagewall.adapter.WallAdapter;
+import com.example.db.messagewall.api.AppData;
 import com.support.android.designlibdemo.R;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -23,16 +36,17 @@ import com.support.android.designlibdemo.R;
  * create an instance of this fragment.
  */
 public class AlertWallFragment extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
+
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
-    // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
 
     public RecyclerView recyclerView;
+
+    public Bundle bundle;
+    public static String CONVERSATION_ID;
 
     private OnFragmentInteractionListener mListener;
 
@@ -44,38 +58,79 @@ public class AlertWallFragment extends Fragment {
      * @param param2 Parameter 2.
      * @return A new instance of fragment AlertWallFragment.
      */
-    // TODO: Rename and change types and number of parameters
+
     public static AlertWallFragment newInstance(String param1, String param2) {
+
         AlertWallFragment fragment = new AlertWallFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
         fragment.setArguments(args);
+
         return fragment;
     }
 
     public AlertWallFragment() {
-        // Required empty public constructor
+
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
+
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
+
+            bundle = this.getArguments();
+            CONVERSATION_ID = bundle.getString("_ID");
         }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+
         View rootView =  inflater.inflate(R.layout.fragment_alert_wall, container, false);
 
         recyclerView = (RecyclerView)rootView.findViewById(R.id.listview);
         recyclerView.setLayoutManager(new LinearLayoutManager(recyclerView.getContext()));
 
+
+        /*
+        直接加载所有的留言墙
+         */
+        List<String> list = new ArrayList<String>();
+        list.add(AVUser.getCurrentUser().getUsername());
+
+        AppData.setClientIdToPre(AVUser.getCurrentUser().getUsername());
+
+        final AVIMClient avimClient0 = AppData.getIMClient();
+        final List<String> queryClientIds = new ArrayList<String>();
+        queryClientIds.addAll(list);
+
+        avimClient0.open(new AVIMClientCallback() {
+            @Override
+            public void done(AVIMClient avimClient, AVException e) {
+                if (e == null) {
+                    AVIMConversationQuery query = avimClient.getQuery();
+                    query.containsMembers(queryClientIds);
+                    query.findInBackground(new AVIMConversationQueryCallback() {
+                        @Override
+                        public void done(List<AVIMConversation> list, AVException e) {
+                            if (null != e) {
+                                Log.v("db.error4", e.getMessage());
+                            } else {
+                                recyclerView.setAdapter(new AlterWallAdapter(getActivity(), list));
+                                Log.v("db.cnm2", String.valueOf(list.size()));
+                            }
+                        }
+                    });
+                } else {
+                    Log.v("db.error11", e.getMessage());
+                }
+            }
+        });
 
         return rootView;
     }

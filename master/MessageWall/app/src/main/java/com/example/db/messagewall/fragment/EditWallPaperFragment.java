@@ -1,16 +1,23 @@
 package com.example.db.messagewall.fragment;
 
 import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.GridView;
 
+import com.example.db.messagewall.activity.MainActivity;
 import com.example.db.messagewall.adapter.WallPaperGridAdapter;
+import com.example.db.messagewall.utils.AppConstant;
+import com.example.db.messagewall.view.ALifeToast;
 import com.support.android.designlibdemo.R;
 
 /**
@@ -33,6 +40,7 @@ public class EditWallPaperFragment extends Fragment {
     public static String CONVERSATION_ID;
 
     public GridView mGridView;
+    public WallPaperGridAdapter wallPaperGridAdapter;
     public FloatingActionButton floatingActionButton;
 
     private OnFragmentInteractionListener mListener;
@@ -83,12 +91,33 @@ public class EditWallPaperFragment extends Fragment {
         floatingActionButton = (FloatingActionButton)rootView.findViewById(R.id.add);
         mGridView = (GridView)rootView.findViewById(R.id.gridview);
 
-        WallPaperGridAdapter wallPaperGridAdapter = new WallPaperGridAdapter(getActivity());
+        wallPaperGridAdapter = new WallPaperGridAdapter(getActivity());
         mGridView.setAdapter(wallPaperGridAdapter);
 
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (wallPaperGridAdapter.flag){
+                    SharedPreferences sharedPreferences = getActivity()
+                            .getSharedPreferences("com.example.db.alife_wallpaper"
+                                    , Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                    editor.putString("paper_path", wallPaperGridAdapter.getPath());
+                    editor.commit();
+
+                    Intent intent = new Intent(getActivity(), MainActivity.class);
+                    Bundle bundle = new Bundle();
+                    bundle.putString("_ID",CONVERSATION_ID);
+                    intent.putExtras(bundle);
+                    getActivity().finish();
+                    getActivity().startActivity(intent);
+                }else {
+                    ALifeToast.makeText(getActivity()
+                            , "请选择图片！"
+                            , ALifeToast.ToastType.SUCCESS
+                            , ALifeToast.LENGTH_SHORT)
+                            .show();
+                }
 
             }
         });
@@ -131,6 +160,7 @@ public class EditWallPaperFragment extends Fragment {
      * "http://developer.android.com/training/basics/fragments/communicating.html"
      * >Communicating with Other Fragments</a> for more information.
      */
+
     public interface OnFragmentInteractionListener {
 
         public void onFragmentInteraction(Uri uri);

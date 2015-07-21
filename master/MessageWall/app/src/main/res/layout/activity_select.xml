@@ -10,7 +10,8 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/appbar">
+        android:id="@+id/appbar"
+        android:background="@color/actionbar_title_color">
 
 
     <android.support.v4.widget.SwipeRefreshLayout

@@ -59,6 +59,7 @@ public class MessageGridAdapter extends BaseAdapter{
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
+
         ViewHolder viewHolder;
         if (convertView==null){
             convertView = LayoutInflater.from(context).inflate(R.layout.message_wall_item,null);
@@ -70,6 +71,8 @@ public class MessageGridAdapter extends BaseAdapter{
         }else {
             viewHolder = (ViewHolder)convertView.getTag();
         }
+
+        position = avimMessages.size()-position-1;
 
         AVIMMessage avimMessage = avimMessages.get(position);
         viewHolder.from.setText("----   "+avimMessage.getFrom().toString());

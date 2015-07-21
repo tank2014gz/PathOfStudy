@@ -9,7 +9,6 @@ import android.os.Environment;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,7 +20,6 @@ import com.avos.avoscloud.im.v2.AVIMConversation;
 import com.avos.avoscloud.im.v2.callback.AVIMConversationCallback;
 import com.example.db.messagewall.api.AppData;
 import com.example.db.messagewall.utils.AppConstant;
-import com.example.db.messagewall.utils.ShareData;
 import com.example.db.messagewall.view.ALifeToast;
 import com.example.db.messagewall.view.materialedittext.MaterialEditText;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
@@ -187,7 +185,7 @@ public class AskMembersFragment extends Fragment {
                                 FragmentTransaction fragmentTransaction = getActivity()
                                                                             .getSupportFragmentManager()
                                                                             .beginTransaction();
-                                MessageWallFeagment messageWallFeagment = new MessageWallFeagment();
+                                MessageWallFragment messageWallFeagment = new MessageWallFragment();
                                 messageWallFeagment.setArguments(bundle);
                                 fragmentTransaction.replace(R.id.container,messageWallFeagment).commit();
 
@@ -201,7 +199,7 @@ public class AskMembersFragment extends Fragment {
                                 FragmentTransaction fragmentTransaction = getActivity()
                                                                             .getSupportFragmentManager()
                                                                             .beginTransaction();
-                                MessageWallFeagment messageWallFeagment = new MessageWallFeagment();
+                                MessageWallFragment messageWallFeagment = new MessageWallFragment();
                                 messageWallFeagment.setArguments(bundle);
                                 fragmentTransaction.replace(R.id.container,messageWallFeagment).commit();
 

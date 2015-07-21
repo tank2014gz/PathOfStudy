@@ -14,20 +14,13 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.avos.avoscloud.AVException;
-import com.avos.avoscloud.AVUser;
-import com.avos.avoscloud.im.v2.AVIMClient;
 import com.avos.avoscloud.im.v2.AVIMConversation;
-import com.avos.avoscloud.im.v2.AVIMConversationQuery;
 import com.avos.avoscloud.im.v2.AVIMMessage;
-import com.avos.avoscloud.im.v2.Conversation;
 import com.avos.avoscloud.im.v2.callback.AVIMConversationCallback;
 import com.example.db.messagewall.api.AppData;
 import com.example.db.messagewall.view.ALifeToast;
 import com.example.db.messagewall.view.materialedittext.MaterialEditText;
 import com.support.android.designlibdemo.R;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -138,7 +131,7 @@ public class AddMessageItemFragment extends Fragment {
                                 FragmentTransaction fragmentTransaction = getActivity()
                                         .getSupportFragmentManager()
                                         .beginTransaction();
-                                MessageWallFeagment messageWallFeagment = new MessageWallFeagment();
+                                MessageWallFragment messageWallFeagment = new MessageWallFragment();
                                 fragmentTransaction.replace(R.id.container, messageWallFeagment).commit();
 
                             } else {
@@ -151,7 +144,7 @@ public class AddMessageItemFragment extends Fragment {
                                 FragmentTransaction fragmentTransaction = getActivity()
                                         .getSupportFragmentManager()
                                         .beginTransaction();
-                                MessageWallFeagment messageWallFeagment = new MessageWallFeagment();
+                                MessageWallFragment messageWallFeagment = new MessageWallFragment();
                                 fragmentTransaction.replace(R.id.container, messageWallFeagment).commit();
 
                                 Log.v("db.error5", e.getMessage());

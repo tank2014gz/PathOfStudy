@@ -3,7 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context="com.example.db.messagewall.fragment.AlertWallFragment">
+    tools:context="com.example.db.messagewall.fragment.AlertWallFragment"
+    android:background="@color/actionbar_title_color">
 
     <!-- TODO: Update blank fragment layout -->
     <android.support.v7.widget.CardView

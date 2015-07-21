@@ -2,9 +2,12 @@ package com.example.db.messagewall.utils;
 
 import android.app.Activity;
 import android.content.Context;
+import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -197,6 +200,9 @@ public class AppConstant {
         b = m.matches();
         return b;
     }
+    /*
+    判断文件是否已经下载了
+     */
     public static boolean isExist(int position){
         File directory=new File(Environment.getExternalStorageDirectory().getAbsolutePath());
         directory.mkdir();
@@ -210,5 +216,13 @@ public class AppConstant {
         }else {
             return false;
         }
+    }
+    public static String getPath(Context context,Uri uri)
+    {
+        String[] projection = {MediaStore.Images.Media.DATA };
+        Cursor cursor = context.getContentResolver().query(uri, projection, null, null, null);
+        int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+        cursor.moveToFirst();
+        return cursor.getString(column_index);
     }
 }

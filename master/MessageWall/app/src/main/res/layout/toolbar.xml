@@ -27,7 +27,8 @@
         android:layout_height="?attr/actionBarSize"
         android:layout_marginTop="32dp"
         android:minHeight="?attr/actionBarSize"
-        android:background="@color/actionbar">
+        android:background="@color/actionbar"
+        app:popupTheme="@style/pop">
 
     </android.support.v7.widget.Toolbar>
 

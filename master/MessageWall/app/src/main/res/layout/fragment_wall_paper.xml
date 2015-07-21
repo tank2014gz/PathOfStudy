@@ -2,7 +2,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.db.messagewall.fragment.EditWallPaperFeagment">
+    tools:context="com.example.db.messagewall.fragment.EditWallPaperFeagment"
+    android:background="@color/actionbar_title_color">
 
     <!-- TODO: Update blank fragment layout -->
         <GridView

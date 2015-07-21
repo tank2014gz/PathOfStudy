@@ -2,7 +2,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.db.messagewall.fragment.EditWallPaperFeagment">
+    tools:context="com.example.db.messagewall.fragment.EditWallPaperFeagment"
+    android:background="@color/actionbar_title_color"
+    android:id="@+id/set_bkg">
 
     <!-- TODO: Update blank fragment layout -->
     <android.support.v4.widget.SwipeRefreshLayout

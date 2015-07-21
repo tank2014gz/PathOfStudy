@@ -223,7 +223,6 @@ public class SelectActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.sample_actions, menu);
         return true;
     }
     private class RemoteDataTask0 extends AsyncTask<Void, Integer, List<AVIMConversation>> {

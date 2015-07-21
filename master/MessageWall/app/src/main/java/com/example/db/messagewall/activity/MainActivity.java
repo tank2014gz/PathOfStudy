@@ -33,13 +33,17 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 
+import com.avos.avoscloud.AVUser;
 import com.example.db.messagewall.fragment.AddMessageItemFragment;
 import com.example.db.messagewall.fragment.AlertWallFragment;
 import com.example.db.messagewall.fragment.AskMembersFragment;
 import com.example.db.messagewall.fragment.EditWallPaperFragment;
 import com.example.db.messagewall.fragment.MembersFragment;
-import com.example.db.messagewall.fragment.MessageWallFeagment;
+import com.example.db.messagewall.fragment.MessageWallFragment;
 import com.example.db.messagewall.fragment.WallInfoFragment;
 import com.example.db.messagewall.utils.AppConstant;
 import com.support.android.designlibdemo.R;
@@ -49,7 +53,7 @@ import com.umeng.message.PushAgent;
 /**
  * TODO
  */
-public class MainActivity extends AppCompatActivity implements MessageWallFeagment.OnFragmentInteractionListener
+public class MainActivity extends AppCompatActivity implements MessageWallFragment.OnFragmentInteractionListener
                                                                 ,MembersFragment.OnFragmentInteractionListener
                                                                 ,WallInfoFragment.OnFragmentInteractionListener
                                                                 ,AskMembersFragment.OnFragmentInteractionListener
@@ -106,7 +110,7 @@ public class MainActivity extends AppCompatActivity implements MessageWallFeagme
             setupDrawerContent(navigationView);
         }
         fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        MessageWallFeagment messageWallFeagment = new MessageWallFeagment();
+        MessageWallFragment messageWallFeagment = new MessageWallFragment();
         messageWallFeagment.setArguments(bundle);
         fragmentTransaction.replace(R.id.container, messageWallFeagment ).commit();
 
@@ -123,6 +127,9 @@ public class MainActivity extends AppCompatActivity implements MessageWallFeagme
         switch (item.getItemId()) {
             case android.R.id.home:
                 mDrawerLayout.openDrawer(GravityCompat.START);
+                break;
+            case R.id.action_about:
+                startActivity(new Intent(MainActivity.this,AboutActivity.class));
                 return true;
         }
         return super.onOptionsItemSelected(item);
@@ -130,6 +137,17 @@ public class MainActivity extends AppCompatActivity implements MessageWallFeagme
 
 
     private void setupDrawerContent(NavigationView navigationView) {
+
+        ImageView imageView = (ImageView)navigationView.findViewById(R.id.account_logo);
+        TextView textView = (TextView)navigationView.findViewById(R.id.account_name);
+        textView.setText("ID: "+AVUser.getCurrentUser().getUsername());
+        imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, SignInActivity.class));
+            }
+        });
+
         navigationView.setNavigationItemSelectedListener(
                 new NavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -140,7 +158,7 @@ public class MainActivity extends AppCompatActivity implements MessageWallFeagme
                     case R.id.nav_home :
 
                         toolbar.setTitle(menuItem.getTitle());
-                        MessageWallFeagment messageWallFeagment = new MessageWallFeagment();
+                        MessageWallFragment messageWallFeagment = new MessageWallFragment();
                         messageWallFeagment.setArguments(bundle);
                         fragmentTransaction = getSupportFragmentManager().beginTransaction();
                         fragmentTransaction.replace(R.id.container,messageWallFeagment ).commit();
@@ -231,16 +249,16 @@ public class MainActivity extends AppCompatActivity implements MessageWallFeagme
        if (requestCode==2&&resultCode== Activity.RESULT_OK){
            if (data!=null){
                Uri uri = data.getData();
-               String path = uri.toString();
-               Log.v("ljjjjjj",path);
+               String path = AppConstant.getPath(MainActivity.this,uri);
                SharedPreferences sharedPreferences = getApplicationContext()
                        .getSharedPreferences("com.example.db.alife_wallpaper"
                                , Context.MODE_PRIVATE);
                SharedPreferences.Editor editor = sharedPreferences.edit();
                editor.putString("paper_path", path);
                editor.commit();
+               Log.v("paper_path",path);
            }else {
-               AppConstant.showSelfToast(MainActivity.this,"设置失败！");
+               AppConstant.showSelfToast(MainActivity.this,"选择失败！");
            }
        }
     }
