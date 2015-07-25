@@ -43,12 +43,20 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_weight="1"
             android:layout_marginLeft="16dp"
             android:textColor="@android:color/white"
             android:textSize="16sp"
             android:id="@+id/account_name"
             android:gravity="left|center"
             android:text="3025673709@qq.com"/>
+        <Button
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_marginRight="16dp"
+            android:layout_gravity="center"
+            android:id="@+id/alertAccount"
+            android:background="@drawable/ic_swap_horiz_white_24dp"/>
     </LinearLayout>
 
 </LinearLayout>

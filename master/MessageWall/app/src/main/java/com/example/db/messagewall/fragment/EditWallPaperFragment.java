@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.GridView;
+import android.widget.TextView;
 
 import com.example.db.messagewall.activity.MainActivity;
 import com.example.db.messagewall.adapter.WallPaperGridAdapter;
@@ -42,6 +43,7 @@ public class EditWallPaperFragment extends Fragment {
     public GridView mGridView;
     public WallPaperGridAdapter wallPaperGridAdapter;
     public FloatingActionButton floatingActionButton;
+    public TextView select;
 
     private OnFragmentInteractionListener mListener;
 
@@ -90,9 +92,20 @@ public class EditWallPaperFragment extends Fragment {
 
         floatingActionButton = (FloatingActionButton)rootView.findViewById(R.id.add);
         mGridView = (GridView)rootView.findViewById(R.id.gridview);
+        select = (TextView)rootView.findViewById(R.id.select);
 
         wallPaperGridAdapter = new WallPaperGridAdapter(getActivity());
         mGridView.setAdapter(wallPaperGridAdapter);
+
+        select.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.setType("image/*");
+                intent.setAction(Intent.ACTION_GET_CONTENT);
+                getActivity().startActivityForResult(intent,2);
+            }
+        });
 
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override

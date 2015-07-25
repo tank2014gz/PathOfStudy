@@ -108,20 +108,42 @@ public class MessageWallFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_message_wall, container, false);
 
         /*
-        设置背景图片
+        设置背景图片,并且进行裁剪，以适配手机的屏幕
          */
         frameLayout = (FrameLayout)rootView.findViewById(R.id.set_bkg);
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences("com.example.db.alife_wallpaper", Context.MODE_PRIVATE);
         String paper = sharedPreferences.getString("paper_path","");
-        Log.v("nananana",paper);
-        if (paper==""){
+        if (paper.equals("")){
 
         }else {
-            Bitmap bitmap = BitmapFactory.decodeFile(paper);
+
+            /*
+            获取屏幕的参数
+             */
+            int dw = getActivity().getWindowManager().getDefaultDisplay().getWidth();
+            int dh = getActivity().getWindowManager().getDefaultDisplay().getHeight() / 2;
+            BitmapFactory.Options factory = new BitmapFactory.Options();
+            factory.inJustDecodeBounds = true;
+            Bitmap bitmap = BitmapFactory.decodeFile(paper,factory);
+            /*
+            对图片的高度和宽度对应手机屏幕进行匹配
+             */
+            int wRatio = (int) Math.ceil(factory.outWidth / (float) dw);
+            int hRatio = (int) Math.ceil(factory.outHeight / (float) dh);
+            if (wRatio > 1 || hRatio > 1) {
+                /*
+                inSampleSize>1则返回比原图更小的图片
+                 */
+                if (hRatio > wRatio) {
+                    factory.inSampleSize = hRatio;
+                } else {
+                    factory.inSampleSize = wRatio;
+                }
+            }
+            factory.inJustDecodeBounds = false;
+            bitmap = BitmapFactory.decodeFile(paper,factory);
             if (bitmap==null){
-                Log.v("lalalal","不可以转化");
             }else {
-                Log.v("papapap","可以转化啊");
             }
             Drawable drawable = new BitmapDrawable(bitmap);
             frameLayout.setBackgroundDrawable(drawable);

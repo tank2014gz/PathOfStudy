@@ -20,6 +20,10 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -34,6 +38,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -46,6 +51,7 @@ import com.example.db.messagewall.fragment.MembersFragment;
 import com.example.db.messagewall.fragment.MessageWallFragment;
 import com.example.db.messagewall.fragment.WallInfoFragment;
 import com.example.db.messagewall.utils.AppConstant;
+import com.example.db.messagewall.view.CircleImageView;
 import com.support.android.designlibdemo.R;
 import com.umeng.fb.FeedbackAgent;
 import com.umeng.message.PushAgent;
@@ -138,13 +144,33 @@ public class MainActivity extends AppCompatActivity implements MessageWallFragme
 
     private void setupDrawerContent(NavigationView navigationView) {
 
-        ImageView imageView = (ImageView)navigationView.findViewById(R.id.account_logo);
+        CircleImageView imageView = (CircleImageView)navigationView.findViewById(R.id.account_logo);
         TextView textView = (TextView)navigationView.findViewById(R.id.account_name);
+        Button button = (Button)navigationView.findViewById(R.id.alertAccount);
         textView.setText("ID: "+AVUser.getCurrentUser().getUsername());
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this,SignInActivity.class));
+            }
+        });
+        /*
+        显示用户设置的logo
+         */
+        SharedPreferences sharedPreferences = this.getSharedPreferences("com.example.db.alife_walllogo", Context.MODE_PRIVATE);
+        String paper = sharedPreferences.getString("paper_path","");
+        if(paper.equals("")){
+            imageView.setBackgroundResource(R.drawable.photo3);
+        }else {
+            Bitmap bitmap = BitmapFactory.decodeFile(paper);
+            imageView.setImageBitmap(bitmap);
+        }
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this, SignInActivity.class));
+                Intent intent = new Intent(MainActivity.this, PersonInfoActivity.class);
+                intent.putExtras(bundle);
+                startActivity(intent);
             }
         });
 

@@ -12,6 +12,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
@@ -53,7 +54,7 @@ public class AskMembersFragment extends Fragment {
     public MaterialEditText mAskName;
     public ImageView mAskCode;
     public LinearLayout mShare;
-    public FloatingActionButton floatingActionButton;
+    public Button floatingActionButton;
     public LinearLayout linearLayout;
 
     public String askphone;
@@ -122,7 +123,7 @@ public class AskMembersFragment extends Fragment {
         mAskName = (MaterialEditText)rootView.findViewById(R.id.edit_ask_phone);
         mAskCode = (ImageView)rootView.findViewById(R.id.edit_ask_code);
         mShare = (LinearLayout)rootView.findViewById(R.id.btn_share);
-        floatingActionButton = (FloatingActionButton)rootView.findViewById(R.id.fab);
+        floatingActionButton = (Button)rootView.findViewById(R.id.btn_fab);
         linearLayout = (LinearLayout)rootView.findViewById(R.id.btn_refresh);
 
         AppData.getIMClient()

@@ -14,6 +14,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.LinearLayout;
 
 import com.avos.avoscloud.AVException;
@@ -48,7 +49,7 @@ public class AddMessageWallActivity extends AppCompatActivity {
     public Toolbar toolbar;
 
     public MaterialEditText mWallName,mNiChen,mWallDescription;
-    public FloatingActionButton mPutForward;
+    public Button mPutForward;
 
     public String wall_name,wall_nichen,wall_description,friends;
 
@@ -66,7 +67,7 @@ public class AddMessageWallActivity extends AppCompatActivity {
         mWallName = (MaterialEditText)findViewById(R.id.edit_wall_name);
         mNiChen = (MaterialEditText)findViewById(R.id.edit_wall_nichen);
         mWallDescription = (MaterialEditText)findViewById(R.id.edit_wall_description);
-        mPutForward = (FloatingActionButton)findViewById(R.id.add);
+        mPutForward = (Button)findViewById(R.id.btn_fab);
 
 
         mPutForward.setOnClickListener(new View.OnClickListener() {

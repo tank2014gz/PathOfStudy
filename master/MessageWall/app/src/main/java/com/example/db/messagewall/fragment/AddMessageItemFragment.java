@@ -10,8 +10,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.im.v2.AVIMConversation;
@@ -38,10 +40,9 @@ public class AddMessageItemFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    public LinearLayout mSelect;
     public MaterialEditText mWallContent;
-    public FloatingActionButton floatingActionButton;
-    public ImageView mImg;
+    public Button floatingActionButton;
+    public TextView select;
 
     public String wallcontent;
 
@@ -95,10 +96,9 @@ public class AddMessageItemFragment extends Fragment {
                              Bundle savedInstanceState) {
         View rootview =  inflater.inflate(R.layout.fragment_add_message_item, container, false);
 
-        mSelect = (LinearLayout)rootview.findViewById(R.id.btn_select);
         mWallContent = (MaterialEditText)rootview.findViewById(R.id.edit_wall_content);
-        mImg = (ImageView)rootview.findViewById(R.id.select_img);
-        floatingActionButton = (FloatingActionButton)rootview.findViewById(R.id.add);
+        floatingActionButton = (Button)rootview.findViewById(R.id.btn_fab);
+        select = (TextView)rootview.findViewById(R.id.select);
 
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -153,6 +153,13 @@ public class AddMessageItemFragment extends Fragment {
                     });
 
                 }
+            }
+        });
+
+        select.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
             }
         });
 

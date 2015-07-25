@@ -88,7 +88,7 @@ public class WallPaperGridAdapter extends BaseAdapter{
 
     @Override
     public int getCount() {
-        return list.size()+1;
+        return list.size();
     }
 
     @Override
@@ -131,59 +131,45 @@ public class WallPaperGridAdapter extends BaseAdapter{
             }
         };
 
-        if (position==list.size()){
+        imageLoader.displayImage(list.get(position), viewHolder.imageView, options);
 
-            viewHolder.imageView.setImageResource(R.drawable.compose_pic_add_highlighted);
+        if (AppConstant.isExist(position)){
             viewHolder.download.setVisibility(ViewGroup.GONE);
-
         }else {
-            imageLoader.displayImage(list.get(position), viewHolder.imageView, options);
-            if (AppConstant.isExist(position)){
-                viewHolder.download.setVisibility(ViewGroup.GONE);
-            }else {
-                viewHolder.download.setVisibility(ViewGroup.VISIBLE);
-            }
+            viewHolder.download.setVisibility(ViewGroup.VISIBLE);
         }
-
 
         convertView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                if (position!=list.size()){
+                if (AppConstant.isExist(position)){
+                    if (viewHolder.linearLayout.getVisibility()==ViewGroup.VISIBLE){
 
-                        if (AppConstant.isExist(position)){
-                            if (viewHolder.linearLayout.getVisibility()==ViewGroup.VISIBLE){
+                        viewHolder.linearLayout.setVisibility(ViewGroup.GONE);
+                        setPath("");
+                        flag = false;
 
-                                viewHolder.linearLayout.setVisibility(ViewGroup.GONE);
-                                setPath("");
-                                flag = false;
+                    }else if (viewHolder.linearLayout.getVisibility()==ViewGroup.GONE&&flag==false){
 
-                            }else if (viewHolder.linearLayout.getVisibility()==ViewGroup.GONE&&flag==false){
-
-                                viewHolder.linearLayout.setVisibility(ViewGroup.VISIBLE);
-                                /*
-                                得到本地文件的路径
-                                 */
-                                File directory=new File(Environment.getExternalStorageDirectory().getAbsolutePath());
-                                directory.mkdir();
-                                File QR=new File(directory.getAbsolutePath()+"/MessageWall/Paper");
-                                setPath(QR.getAbsolutePath()+"/"+"paper_bkg"+String.valueOf(position)+".png");
-                                flag = true;
-                            }
-                        }else {
-                            ALifeToast.makeText((MainActivity)context
-                                    , "请先下载！"
-                                    , ALifeToast.ToastType.SUCCESS
-                                    , ALifeToast.LENGTH_SHORT)
-                                    .show();
-                        }
+                        viewHolder.linearLayout.setVisibility(ViewGroup.VISIBLE);
+                        /*
+                        得到本地文件的路径
+                        */
+                        File directory=new File(Environment.getExternalStorageDirectory().getAbsolutePath());
+                        directory.mkdir();
+                        File QR=new File(directory.getAbsolutePath()+"/MessageWall/Paper");
+                        setPath(QR.getAbsolutePath()+"/"+"paper_bkg"+String.valueOf(position)+".png");
+                        flag = true;
+                    }
                 }else {
-                    Intent intent = new Intent();
-                    intent.setType("image/*");
-                    intent.setAction(Intent.ACTION_GET_CONTENT);
-                    ((MainActivity)context).startActivityForResult(intent,2);
+                    ALifeToast.makeText((MainActivity)context
+                            , "请先下载！"
+                            , ALifeToast.ToastType.SUCCESS
+                            , ALifeToast.LENGTH_SHORT)
+                            .show();
                 }
+
             }
         });
 

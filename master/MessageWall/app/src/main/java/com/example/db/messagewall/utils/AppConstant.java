@@ -1,7 +1,10 @@
 package com.example.db.messagewall.utils;
 
 import android.app.Activity;
+import android.content.ComponentName;
 import android.content.Context;
+import android.content.Intent;
+import android.content.pm.ResolveInfo;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.net.Uri;
@@ -16,6 +19,7 @@ import android.view.WindowManager;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.db.messagewall.activity.PersonInfoActivity;
 import com.example.db.messagewall.view.SystemBarTintManager;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.EncodeHintType;
@@ -27,6 +31,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.OutputStream;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Hashtable;
 import java.util.List;
@@ -225,4 +230,5 @@ public class AppConstant {
         cursor.moveToFirst();
         return cursor.getString(column_index);
     }
+
 }

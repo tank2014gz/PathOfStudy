@@ -154,6 +154,11 @@
             android:label="@string/title_activity_about"
             android:theme="@style/nLiveoDrawer" >
         </activity>
+        <activity
+            android:name="com.example.db.messagewall.activity.PersonInfoActivity"
+            android:label="@string/title_activity_person_info"
+            android:theme="@style/nLiveoDrawer">
+        </activity>
     </application>
 
 </manifest>
