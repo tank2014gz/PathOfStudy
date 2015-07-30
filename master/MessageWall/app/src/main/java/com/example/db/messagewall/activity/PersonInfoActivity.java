@@ -18,6 +18,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.avos.avoscloud.AVException;
@@ -40,6 +41,7 @@ public class PersonInfoActivity extends AppCompatActivity {
 
     public CircleImageView circleImageView;
     public TextView mNiChen, mPhone, mDate;
+    public Button mLoginOut;
 
     public Bundle bundle;
     public static String CONVERSATION_ID;
@@ -61,6 +63,7 @@ public class PersonInfoActivity extends AppCompatActivity {
         mNiChen = (TextView) findViewById(R.id.nichen);
         mPhone = (TextView) findViewById(R.id.phone);
         mDate = (TextView) findViewById(R.id.date);
+        mLoginOut = (Button)findViewById(R.id.btn_loginout);
 
         /*
         显示用户设置的logo
@@ -134,6 +137,14 @@ public class PersonInfoActivity extends AppCompatActivity {
                 materialDialog.setView(view)
                         .setCanceledOnTouchOutside(true);
                 materialDialog.show();
+            }
+        });
+
+        mLoginOut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(PersonInfoActivity.this,SignInActivity.class));
+                PersonInfoActivity.this.finish();
             }
         });
 

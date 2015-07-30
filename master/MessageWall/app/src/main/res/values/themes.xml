@@ -21,7 +21,7 @@
     <style name="AppTheme.DarkActionBar" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="colorPrimary">@color/actionbar</item>
         <item name="colorPrimaryDark">@color/actionbar</item>
-        <item name="colorAccent">@color/actionbar0</item>
+        <item name="colorAccent">@color/actionbar</item>
         <item name="actionMenuTextColor">@color/actionbar0</item>
         <item name="windowActionModeOverlay">true</item>
         <item name="popupTheme">@style/ThemeOverlay.AppCompat.Light</item>

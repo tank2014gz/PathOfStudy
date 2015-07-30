@@ -222,6 +222,7 @@ public class AppConstant {
             return false;
         }
     }
+
     public static String getPath(Context context,Uri uri)
     {
         String[] projection = {MediaStore.Images.Media.DATA };
@@ -229,6 +230,42 @@ public class AppConstant {
         int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
         cursor.moveToFirst();
         return cursor.getString(column_index);
+    }
+
+    /*
+    判断二维码是否存在
+     */
+    public static boolean isCodeExist(String name){
+        boolean flag = true;
+        File directory=new File(Environment.getExternalStorageDirectory().getAbsolutePath());
+        directory.mkdir();
+        File QR=new File(directory.getAbsolutePath()+"/MessageWall");
+        if (!QR.exists()){
+            QR.mkdir();
+        }
+        File file=new File(QR.getAbsolutePath()+"/"+name+".png");
+        if (file.exists()){
+            flag = true;
+        }else {
+            flag = false;
+        }
+
+        return flag;
+    }
+    /*
+     获取path
+     */
+    public static Uri getCodePath(String name){
+
+        File directory=new File(Environment.getExternalStorageDirectory().getAbsolutePath());
+        directory.mkdir();
+        File QR=new File(directory.getAbsolutePath()+"/MessageWall");
+        if (!QR.exists()){
+            QR.mkdir();
+        }
+        File file=new File(QR.getAbsolutePath()+"/"+name+".png");
+
+        return Uri.fromFile(file);
     }
 
 }

@@ -21,4 +21,9 @@
         android:title="关于我们"
         app:showAsAction="never"
         />
+    <item
+        android:id="@+id/action_feedback"
+        android:title="意见反馈"
+        app:showAsAction="never"
+        />
 </menu>

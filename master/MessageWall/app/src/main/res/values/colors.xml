@@ -14,14 +14,17 @@
   ~ See the License for the specific language governing permissions and
   ~ limitations under the License.
   -->
-
+<!--#ffc247-->
+<!--#598d9a-->
+<!--#4c4c4c-->
+<!--#009edf-->
 <resources>
     <color name="window_background">#FFF5F5F5</color>
-    <color name="actionbar">#009edf</color>
-    <color name="content">#4c4c4c</color>
-    <color name="actionbar0">#598d9a</color>
+    <color name="actionbar">#24ba91</color>
+    <color name="content">#757575</color>
+    <color name="actionbar0">#757575</color>
     <color name="messagewall_bkg">#989282</color>
-    <color name="message_gray">#798397</color>
+    <color name="message_gray">#757575</color>
     <color name="messagewall_ganlan">#8b6f1c</color>
     <color name="messagewall_anshihui">#335c4c</color>
     <color name="messagewall_wuyelan">#002f7d</color>

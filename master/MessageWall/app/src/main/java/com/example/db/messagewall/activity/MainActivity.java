@@ -136,6 +136,10 @@ public class MainActivity extends AppCompatActivity implements MessageWallFragme
                 break;
             case R.id.action_about:
                 startActivity(new Intent(MainActivity.this,AboutActivity.class));
+                break;
+            case R.id.action_feedback:
+                Intent intent = new Intent(MainActivity.this,CustomActivity.class);
+                startActivity(intent);
                 return true;
         }
         return super.onOptionsItemSelected(item);
@@ -146,14 +150,7 @@ public class MainActivity extends AppCompatActivity implements MessageWallFragme
 
         CircleImageView imageView = (CircleImageView)navigationView.findViewById(R.id.account_logo);
         TextView textView = (TextView)navigationView.findViewById(R.id.account_name);
-        Button button = (Button)navigationView.findViewById(R.id.alertAccount);
         textView.setText("ID: "+AVUser.getCurrentUser().getUsername());
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this,SignInActivity.class));
-            }
-        });
         /*
         显示用户设置的logo
          */
@@ -244,20 +241,8 @@ public class MainActivity extends AppCompatActivity implements MessageWallFragme
                     case R.id.nav_alert:
 
                         toolbar.setTitle(menuItem.getTitle());
-                        AlertWallFragment alertWallFragment = new AlertWallFragment();
-                        alertWallFragment.setArguments(bundle);
-                        fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                        fragmentTransaction.replace(R.id.container, alertWallFragment).commit();
-                        menuItem.setChecked(true);
-                        mDrawerLayout.closeDrawers();
-
-                        break;
-
-                    case R.id.nav_setting_feedback:
-
-                        toolbar.setTitle(menuItem.getTitle());
-                        Intent intent = new Intent(MainActivity.this,CustomActivity.class);
-                        startActivity(intent);
+                        startActivity(new Intent(MainActivity.this,AlertWallActivity.class));
+                        MainActivity.this.finish();
                         menuItem.setChecked(true);
                         mDrawerLayout.closeDrawers();
 
