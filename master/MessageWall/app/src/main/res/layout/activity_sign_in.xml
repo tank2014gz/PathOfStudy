@@ -27,7 +27,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="48dp"
                     android:layout_weight="1"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:background="#ffffff">
                     <ImageView
                         android:layout_width="24dp"
                         android:layout_height="24dp"
@@ -52,7 +53,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="48dp"
                     android:layout_weight="1"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:background="#ffffff">
                     <ImageView
                         android:layout_width="24dp"
                         android:layout_height="24dp"
@@ -78,8 +80,6 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="36dp"
-                    android:layout_marginRight="16dp"
-                    android:layout_marginLeft="16dp"
                     android:orientation="horizontal"
                     android:background="#ffffff">
                     <LinearLayout
@@ -90,6 +90,7 @@
                         android:id="@+id/tv_signup"
                         android:layout_width="120dp"
                         android:layout_height="match_parent"
+                        android:paddingRight="16dp"
                         android:layout_gravity="center"
                         android:gravity="center|right"
                         android:textSize="14sp"

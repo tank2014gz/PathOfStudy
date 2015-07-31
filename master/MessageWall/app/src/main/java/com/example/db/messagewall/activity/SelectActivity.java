@@ -71,7 +71,6 @@ public class SelectActivity extends AppCompatActivity {
         toolbar.setTitle(cheeseName);
 
         loadBackdrop();
-
         mSwipeRefreshLayout=(SwipeRefreshLayout)findViewById(R.id.refreshlayout);
         recyclerView = (RecyclerView)findViewById(R.id.listview);
         recyclerView.setLayoutManager(new LinearLayoutManager(recyclerView.getContext()));

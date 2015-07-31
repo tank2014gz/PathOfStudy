@@ -15,11 +15,12 @@
             android:layout_gravity="center"
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp"
-            android:src="@drawable/photo3"
-            android:id="@+id/img"/>
+            android:src="@drawable/ic_launcher_web"
+            android:id="@+id/img"
+            />
         <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="81dp"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
             android:orientation="vertical">
             <TextView
@@ -31,23 +32,18 @@
                 android:textSize="18sp"
                 android:textColor="@color/actionbar0"
                 android:text="KG@Hust"
-                android:id="@+id/name"/>
+                android:id="@+id/name"
+                />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="32dp"
                 android:layout_gravity="center"
-                android:gravity="top|left"
+                android:gravity="center|left"
                 android:textSize="14sp"
                 android:textColor="@android:color/darker_gray"
                 android:text="妈咪"
                 android:id="@+id/description"/>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginTop="9dp"
-                android:background="@drawable/bkg">
-            </LinearLayout>
         </LinearLayout>
 
     </LinearLayout>

@@ -13,5 +13,6 @@
         android:text=""
         android:maxLines="1"
         android:id="@+id/count"
-        android:paddingLeft="16dp"/>
+        android:paddingLeft="16dp"
+        />
 </LinearLayout>

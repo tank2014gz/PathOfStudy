@@ -157,7 +157,7 @@ public class MainActivity extends AppCompatActivity implements MessageWallFragme
         SharedPreferences sharedPreferences = this.getSharedPreferences("com.example.db.alife_walllogo", Context.MODE_PRIVATE);
         String paper = sharedPreferences.getString("paper_path","");
         if(paper.equals("")){
-            imageView.setBackgroundResource(R.drawable.photo3);
+            imageView.setBackgroundResource(R.drawable.ic_launcher_web);
         }else {
             Bitmap bitmap = BitmapFactory.decodeFile(paper);
             imageView.setImageBitmap(bitmap);

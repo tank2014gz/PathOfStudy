@@ -15,6 +15,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.AVUser;
@@ -28,6 +29,15 @@ import com.example.db.messagewall.api.AppData;
 import com.example.db.messagewall.utils.AppConstant;
 import com.example.db.messagewall.view.ALifeToast;
 import com.support.android.designlibdemo.R;
+import com.umeng.socialize.bean.SHARE_MEDIA;
+import com.umeng.socialize.controller.UMServiceFactory;
+import com.umeng.socialize.controller.UMSocialService;
+import com.umeng.socialize.controller.listener.SocializeListeners;
+import com.umeng.socialize.exception.SocializeException;
+import com.umeng.socialize.sso.UMSsoHandler;
+
+import java.util.Map;
+import java.util.Set;
 
 public class SignInActivity extends AppCompatActivity {
 
@@ -39,12 +49,7 @@ public class SignInActivity extends AppCompatActivity {
     public String username,userpsd;
     public Button mLoginQQ,mLoginWeiBo;
 
-    /*
-    １代表QQ，2代表微博
-    0不代表任何事物
-     */
-    public static  int FLAG = 0;
-
+    public SNSType type = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,24 +64,7 @@ public class SignInActivity extends AppCompatActivity {
         /*
         初始化第三方登陆的东西
          */
-        final SNSCallback myCallback = new SNSCallback() {
-            @Override
-            public void done(SNSBase object, SNSException e) {
-                if (e == null) {
-                    AppConstant.showSelfToast(SignInActivity.this,"授权成功!");
-                }else {
-                    Log.v("weibo_avos.error",e.getMessage());
-                }
-            }
-        };
-        try {
-            SNS.setupPlatform(this, SNSType.AVOSCloudSNSSinaWeibo,
-                    "574579688","69b7025c912bc15192ab2ce3b8e89c9a","https://leancloud.cn/1.1/sns/callback/4h9h5f5bunrwe42f");
-            SNS.setupPlatform(this, SNSType.AVOSCloudSNSQQ,
-                    "1104717039","ltUfw4djOvhyrJHg","https://leancloud.cn/1.1/sns/callback/tux1pn5f04378ayy");
-        } catch (AVException e) {
-            e.printStackTrace();
-        }
+
 
         mSignUp = (TextView)findViewById(R.id.tv_signup);
         mSignIn = (Button)findViewById(R.id.btn_signin);
@@ -121,8 +109,8 @@ public class SignInActivity extends AppCompatActivity {
                                     AppData.setClientIdToPre(AVUser.getCurrentUser().getUsername());
                                 }
 
-                                    startActivity(new Intent(SignInActivity.this, SelectActivity.class));
-                                    SignInActivity.this.finish();
+
+
                                 } else {
                                     Log.v("db.error1", e.getMessage());
                                 }
@@ -144,15 +132,104 @@ public class SignInActivity extends AppCompatActivity {
         mLoginQQ.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SNS.loginWithCallback(SignInActivity.this, SNSType.AVOSCloudSNSQQ, myCallback);
-                FLAG = 1;
+                try {
+                    type = SNSType.AVOSCloudSNSQQ;
+                    SNS.setupPlatform(SignInActivity.this, SNSType.AVOSCloudSNSQQ,
+                            "1104717039",
+                            "ltUfw4djOvhyrJHg",
+                            "https://leancloud.cn/1.1/sns/callback/tux1pn5f04378ayy");
+                    SNS.loginWithCallback(SignInActivity.this, SNSType.AVOSCloudSNSQQ, new SNSCallback() {
+                        @Override
+                        public void done(SNSBase base, SNSException e) {
+                            if (e==null) {
+                                SNS.loginWithAuthData(base.userInfo(), new LogInCallback<AVUser>() {
+                                    @Override
+                                    public void done(AVUser user, AVException error) {
+                                        if (error==null){
+                                            /*
+                                            存储本地账户的相关信息
+                                            包括姓名、登陆状态
+                                            在初始的时候显示
+                                             */
+                                            SharedPreferences sharedPreferences = getApplicationContext()
+                                                    .getSharedPreferences("com.example.db.alife_account"
+                                                            , Context.MODE_PRIVATE);
+                                            SharedPreferences.Editor editor = sharedPreferences.edit();
+                                            editor.putString("NAME", user.getUsername());
+                                            editor.putBoolean("STATUS", true);
+                                            editor.commit();
+
+                                            if (!TextUtils.isEmpty(AVUser.getCurrentUser().getUsername())) {
+                                                AppData.setClientIdToPre(AVUser.getCurrentUser().getUsername());
+                                            }
+
+
+                                        }else {
+                                            AppConstant.showSelfToast(SignInActivity.this,"授权失败!");
+
+                                        }
+                                    }
+                                });
+                            }else {
+                                AppConstant.showSelfToast(SignInActivity.this, "授权失败!");
+                            }
+                        }
+                    });
+                } catch (AVException e) {
+                    e.printStackTrace();
+                }
+
             }
         });
+
         mLoginWeiBo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SNS.loginWithCallback(SignInActivity.this, SNSType.AVOSCloudSNSSinaWeibo, myCallback);
-                FLAG = 2;
+                try {
+                    type = SNSType.AVOSCloudSNSSinaWeibo;
+                    SNS.setupPlatform(SignInActivity.this, SNSType.AVOSCloudSNSSinaWeibo, "574579688",
+                            "69b7025c912bc15192ab2ce3b8e89c9a",
+                            "https://leancloud.cn/1.1/sns/callback/4h9h5f5bunrwe42f");
+                    SNS.loginWithCallback(SignInActivity.this, SNSType.AVOSCloudSNSSinaWeibo, new SNSCallback() {
+                        @Override
+                        public void done(SNSBase base, SNSException e) {
+                            if (e==null) {
+                                SNS.loginWithAuthData(base.userInfo(), new LogInCallback<AVUser>() {
+                                    @Override
+                                    public void done(AVUser user, AVException error) {
+                                        if (error==null){
+                                            /*
+                                            存储本地账户的相关信息
+                                            包括姓名、登陆状态
+                                            在初始的时候显示
+                                             */
+                                            SharedPreferences sharedPreferences = getApplicationContext()
+                                                    .getSharedPreferences("com.example.db.alife_account"
+                                                            , Context.MODE_PRIVATE);
+                                            SharedPreferences.Editor editor = sharedPreferences.edit();
+                                            editor.putString("NAME", user.getUsername());
+                                            editor.putBoolean("STATUS", true);
+                                            editor.commit();
+
+                                            if (!TextUtils.isEmpty(AVUser.getCurrentUser().getUsername())) {
+                                                AppData.setClientIdToPre(AVUser.getCurrentUser().getUsername());
+                                            }
+
+
+                                        }else {
+                                            AppConstant.showSelfToast(SignInActivity.this,"授权失败!");
+                                        }
+                                    }
+                                });
+                            }else {
+                                AppConstant.showSelfToast(SignInActivity.this, "授权失败!");
+                            }
+                        }
+                    });
+                } catch (AVException e) {
+                    e.printStackTrace();
+                }
+
             }
         });
     }
@@ -195,15 +272,9 @@ public class SignInActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (FLAG==1){
-            SNS.onActivityResult(requestCode,resultCode,data,SNSType.AVOSCloudSNSQQ);
-            FLAG = 0;
-        }else if(FLAG==2){
-            SNS.onActivityResult(requestCode, resultCode, data, SNSType.AVOSCloudSNSSinaWeibo);
-            FLAG = 0;
-        }else {
-            Log.v("dbbbbbbbbbbbbbb","hahahha");
-        }
+        SNS.onActivityResult(requestCode, resultCode, data, type);
 
+        startActivity(new Intent(SignInActivity.this, SelectActivity.class));
+        SignInActivity.this.finish();
     }
 }

@@ -26,4 +26,9 @@
         android:title="意见反馈"
         app:showAsAction="never"
         />
+    <item
+        android:id="@+id/action_settheme"
+        android:title="设置主题"
+        app:showAsAction="never"
+        />
 </menu>

@@ -76,7 +76,7 @@ public class MessageGridAdapter extends BaseAdapter{
 
         AVIMMessage avimMessage = avimMessages.get(position);
         viewHolder.from.setText("----   "+avimMessage.getFrom().toString());
-        viewHolder.content.setText(avimMessage.getContent().toString());
+        viewHolder.content.setText("    "+avimMessage.getContent().toString());
         viewHolder.date.setText(AppConstant.convertTime(avimMessage.getTimestamp()));
         convertView.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
