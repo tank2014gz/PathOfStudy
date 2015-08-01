@@ -53,5 +53,8 @@
     <string name="title_activity_person_info">PersonInfoActivity</string>
     <string name="title_activity_wei_bo_auth">WeiBoAuthActivity</string>
     <string name="title_activity_alert_wall">AlertWallActivity</string>
+    <string name="title_activity_add_message_item">AddMessageItemActivity</string>
+    <string name="title_activity_select_paper">SelectPaperActivity</string>
+    <string name="title_activity_base">BaseActivity</string>
 
 </resources>

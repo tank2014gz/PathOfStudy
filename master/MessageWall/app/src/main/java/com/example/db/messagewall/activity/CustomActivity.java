@@ -35,7 +35,7 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-public class CustomActivity extends AppCompatActivity {
+public class CustomActivity extends BaseActivity {
 
 	public Toolbar toolbar;
 

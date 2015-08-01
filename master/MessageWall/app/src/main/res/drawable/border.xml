@@ -1,10 +1,11 @@
 <shape xmlns:android="http://schemas.android.com/apk/res/android"
     android:shape="rectangle" >
     <solid
-        android:color="@color/actionbar"/>
+        android:color="@color/message_gray"
+        />
     <stroke
         android:width="1dip"
-        android:color="@color/actionbar" />
+        android:color="@color/message_gray" />
     <padding
         android:top="8dp"
         android:bottom="8dp"

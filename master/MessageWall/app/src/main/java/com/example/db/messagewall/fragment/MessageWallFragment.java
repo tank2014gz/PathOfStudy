@@ -2,6 +2,7 @@ package com.example.db.messagewall.fragment;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -24,6 +25,7 @@ import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.im.v2.AVIMConversation;
 import com.avos.avoscloud.im.v2.AVIMMessage;
 import com.avos.avoscloud.im.v2.callback.AVIMMessagesQueryCallback;
+import com.example.db.messagewall.activity.AddMessageItemActivity;
 import com.example.db.messagewall.adapter.MessageGridAdapter;
 import com.example.db.messagewall.api.AppData;
 import com.support.android.designlibdemo.R;
@@ -171,12 +173,9 @@ public class MessageWallFragment extends Fragment {
             @Override
             public void onClick(View v) {
 
-                FragmentTransaction fragmentTransaction = getActivity()
-                        .getSupportFragmentManager()
-                        .beginTransaction();
-                AddMessageItemFragment addMessageItemFragment = new AddMessageItemFragment();
-                addMessageItemFragment.setArguments(bundle);
-                fragmentTransaction.replace(R.id.container, addMessageItemFragment).commit();
+                Intent intent = new Intent(getActivity(), AddMessageItemActivity.class);
+                intent.putExtras(bundle);
+                startActivity(intent);
             }
         });
 

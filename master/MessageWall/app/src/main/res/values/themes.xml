@@ -17,7 +17,7 @@
 <resources>
 
 
-
+    <!--默认的主题-->
     <style name="AppTheme.DarkActionBar" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="colorPrimary">@color/actionbar</item>
         <item name="colorPrimaryDark">@color/actionbar</item>
@@ -26,20 +26,168 @@
         <item name="windowActionModeOverlay">true</item>
         <item name="popupTheme">@style/ThemeOverlay.AppCompat.Light</item>
         <item name="theme">@style/ThemeOverlay.AppCompat.Dark.ActionBar</item>
+        <item name="appBkg">@color/actionbar</item>
+        <item name="appBkg0">@color/message_gray</item>
+        <item name="textDark">@color/content</item>
+        <item name="textGray">@android:color/darker_gray</item>
     </style>
     <style name="pop" parent="Base.Widget.AppCompat.Light.PopupMenu.Overflow">
         <item name="android:textColor">@color/actionbar0</item>
         <item name="android:background">#f5f5f5</item>
     </style>
-
     <style name="nLiveo.Theme.DarkActionBar" parent="AppTheme.DarkActionBar" />
     <!-- fab-->
     <style name="Theme" parent="@android:style/Theme.Holo.Light">
         <item name="android:textViewStyle">@style/theme_textview_style</item>
     </style>
-
     <style name="theme_textview_style"
         parent="@android:style/Widget.Holo.Light.TextView">
     <item name="android:textColor">@color/actionbar0</item>
-</style>
+    </style>
+
+    <!-- 蓝色的主题-->
+    <style name="AppTheme.BlueActionBar" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">@color/actionbar_blue</item>
+        <item name="colorPrimaryDark">@color/actionbar_blue</item>
+        <item name="colorAccent">@color/actionbar_blue0</item>
+        <item name="actionMenuTextColor">@color/actionbar0</item>
+        <item name="windowActionModeOverlay">true</item>
+        <item name="popupTheme">@style/ThemeOverlay.AppCompat.Light</item>
+        <item name="theme">@style/ThemeOverlay.AppCompat.Dark.ActionBar</item>
+        <item name="appBkg">@color/actionbar_blue</item>
+        <item name="appBkg0">@color/actionbar_blue0</item>
+        <item name="textDark">@color/content</item>
+        <item name="textGray">@android:color/darker_gray</item>
+    </style>
+    <style name="nLiveo.Theme.BlueActionBar" parent="AppTheme.BlueActionBar" />
+
+    <!-- 雾霾回主题-->
+    <style name="AppTheme.WumaiActionBar" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">@color/actionbar_wumai</item>
+        <item name="colorPrimaryDark">@color/actionbar_wumai</item>
+        <item name="colorAccent">@color/actionbar_wumai0</item>
+        <item name="actionMenuTextColor">@color/actionbar0</item>
+        <item name="windowActionModeOverlay">true</item>
+        <item name="popupTheme">@style/ThemeOverlay.AppCompat.Light</item>
+        <item name="theme">@style/ThemeOverlay.AppCompat.Dark.ActionBar</item>
+        <item name="appBkg">@color/actionbar_wumai</item>
+        <item name="appBkg0">@color/actionbar_wumai0</item>
+        <item name="textDark">@color/content</item>
+        <item name="textGray">@android:color/darker_gray</item>
+    </style>
+    <style name="nLiveo.Theme.WumaiActionBar" parent="AppTheme.WumaiActionBar" />
+
+    <!-- 中国红主题-->
+    <style name="AppTheme.ChinaredActionBar" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">@color/actionbar_chinared</item>
+        <item name="colorPrimaryDark">@color/actionbar_chinared</item>
+        <item name="colorAccent">@color/actionbar_chinared0</item>
+        <item name="actionMenuTextColor">@color/actionbar0</item>
+        <item name="windowActionModeOverlay">true</item>
+        <item name="popupTheme">@style/ThemeOverlay.AppCompat.Light</item>
+        <item name="theme">@style/ThemeOverlay.AppCompat.Dark.ActionBar</item>
+        <item name="appBkg">@color/actionbar_chinared</item>
+        <item name="appBkg0">@color/actionbar_chinared0</item>
+        <item name="textDark">@color/content</item>
+        <item name="textGray">@android:color/darker_gray</item>
+    </style>
+    <style name="nLiveo.Theme.ChinaredActionBar" parent="AppTheme.ChinaredActionBar" />
+
+    <!-- 高端黑主题-->
+    <style name="AppTheme.GdblackActionBar" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">@color/actionbar_gdblack</item>
+        <item name="colorPrimaryDark">@color/actionbar_gdblack</item>
+        <item name="colorAccent">@color/actionbar_gdblack0</item>
+        <item name="actionMenuTextColor">@color/actionbar0</item>
+        <item name="windowActionModeOverlay">true</item>
+        <item name="popupTheme">@style/ThemeOverlay.AppCompat.Light</item>
+        <item name="theme">@style/ThemeOverlay.AppCompat.Dark.ActionBar</item>
+        <item name="appBkg">@color/actionbar_gdblack</item>
+        <item name="appBkg0">@color/actionbar_gdblack0</item>
+        <item name="textDark">@color/content</item>
+        <item name="textGray">@android:color/darker_gray</item>
+    </style>
+    <style name="nLiveo.Theme.GdblackActionBar" parent="AppTheme.GdblackActionBar" />
+
+    <!-- 豆瓣请主题-->
+    <style name="AppTheme.DoubangreenActionBar" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">@color/actionbar_doubangreen</item>
+        <item name="colorPrimaryDark">@color/actionbar_doubangreen</item>
+        <item name="colorAccent">@color/actionbar_doubangreen0</item>
+        <item name="actionMenuTextColor">@color/actionbar0</item>
+        <item name="windowActionModeOverlay">true</item>
+        <item name="popupTheme">@style/ThemeOverlay.AppCompat.Light</item>
+        <item name="theme">@style/ThemeOverlay.AppCompat.Dark.ActionBar</item>
+        <item name="appBkg">@color/actionbar_doubangreen</item>
+        <item name="appBkg0">@color/actionbar_doubangreen0</item>
+        <item name="textDark">@color/content</item>
+        <item name="textGray">@android:color/darker_gray</item>
+    </style>
+    <style name="nLiveo.Theme.DoubangreenActionBar" parent="AppTheme.DoubangreenActionBar" />
+
+    <!-- 小米橙色主题-->
+    <style name="AppTheme.XiaomioriginActionBar" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">@color/actionbar_xiaomiorigin</item>
+        <item name="colorPrimaryDark">@color/actionbar_xiaomiorigin</item>
+        <item name="colorAccent">@color/actionbar_xiaomiorigin0</item>
+        <item name="actionMenuTextColor">@color/actionbar0</item>
+        <item name="windowActionModeOverlay">true</item>
+        <item name="popupTheme">@style/ThemeOverlay.AppCompat.Light</item>
+        <item name="theme">@style/ThemeOverlay.AppCompat.Dark.ActionBar</item>
+        <item name="appBkg">@color/actionbar_xiaomiorigin</item>
+        <item name="appBkg0">@color/actionbar_xiaomiorigin0</item>
+        <item name="textDark">@color/content</item>
+        <item name="textGray">@android:color/darker_gray</item>
+    </style>
+    <style name="nLiveo.Theme.XiaomigreenActionBar" parent="AppTheme.XiaomioriginActionBar" />
+
+    <!-- 蛋碎黄主题-->
+    <style name="AppTheme.DansuiyellowActionBar" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">@color/actionbar_dansuiyellow</item>
+        <item name="colorPrimaryDark">@color/actionbar_dansuiyellow</item>
+        <item name="colorAccent">@color/actionbar_dansuiyellow0</item>
+        <item name="actionMenuTextColor">@color/actionbar0</item>
+        <item name="windowActionModeOverlay">true</item>
+        <item name="popupTheme">@style/ThemeOverlay.AppCompat.Light</item>
+        <item name="theme">@style/ThemeOverlay.AppCompat.Dark.ActionBar</item>
+        <item name="appBkg">@color/actionbar_dansuiyellow</item>
+        <item name="appBkg0">@color/actionbar_dansuiyellow0</item>
+        <item name="textDark">@color/content</item>
+        <item name="textGray">@android:color/darker_gray</item>
+    </style>
+    <style name="nLiveo.Theme.DansuiyellowActionBar" parent="AppTheme.DansuiyellowActionBar" />
+
+    <!-- 脑残粉主题-->
+    <style name="AppTheme.NaocanpinkActionBar" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">@color/actionbar_naocanpink</item>
+        <item name="colorPrimaryDark">@color/actionbar_naocanpink</item>
+        <item name="colorAccent">@color/actionbar_naocanpink0</item>
+        <item name="actionMenuTextColor">@color/actionbar0</item>
+        <item name="windowActionModeOverlay">true</item>
+        <item name="popupTheme">@style/ThemeOverlay.AppCompat.Light</item>
+        <item name="theme">@style/ThemeOverlay.AppCompat.Dark.ActionBar</item>
+        <item name="appBkg">@color/actionbar_naocanpink</item>
+        <item name="appBkg0">@color/actionbar_naocanpink0</item>
+        <item name="textDark">@color/content</item>
+        <item name="textGray">@android:color/darker_gray</item>
+    </style>
+    <style name="nLiveo.Theme.NaocanpinkActionBar" parent="AppTheme.NaocanpinkActionBar" />
+
+    <!-- 闷骚紫主题-->
+    <style name="AppTheme.MensaopurpleActionBar" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">@color/actionbar_mensaopurple</item>
+        <item name="colorPrimaryDark">@color/actionbar_mensaopurple</item>
+        <item name="colorAccent">@color/actionbar_mensaopurple0</item>
+        <item name="actionMenuTextColor">@color/actionbar0</item>
+        <item name="windowActionModeOverlay">true</item>
+        <item name="popupTheme">@style/ThemeOverlay.AppCompat.Light</item>
+        <item name="theme">@style/ThemeOverlay.AppCompat.Dark.ActionBar</item>
+        <item name="appBkg">@color/actionbar_mensaopurple</item>
+        <item name="appBkg0">@color/actionbar_mensaopurple0</item>
+        <item name="textDark">@color/content</item>
+        <item name="textGray">@android:color/darker_gray</item>
+    </style>
+    <style name="nLiveo.Theme.MensaopurpleActionBar" parent="AppTheme.MensaopurpleActionBar" />
+
+
 </resources>

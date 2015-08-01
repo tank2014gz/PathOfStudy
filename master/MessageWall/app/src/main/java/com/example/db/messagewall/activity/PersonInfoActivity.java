@@ -35,7 +35,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
-public class PersonInfoActivity extends AppCompatActivity {
+public class PersonInfoActivity extends BaseActivity {
 
     public Toolbar toolbar;
 

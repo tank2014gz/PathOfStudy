@@ -35,7 +35,12 @@
         <item name="android:orientation">vertical</item>
     </style>
 
+    <!-- 默认的主题-->
     <style name="nLiveoDrawer" parent="nLiveo.Theme.DarkActionBar">
+        <!-- Customize your theme here. --></style>
+
+    <!-- 蓝色主题-->
+    <style name="nLiveoDrawer_blue" parent="nLiveo.Theme.BlueActionBar">
         <!-- Customize your theme here. --></style>
 
 </resources>

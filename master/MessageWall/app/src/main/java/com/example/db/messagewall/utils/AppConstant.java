@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.pm.ResolveInfo;
 import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
@@ -71,7 +72,36 @@ public class AppConstant {
             context.getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
             context.getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
             tintManager = new SystemBarTintManager(context);
-            tintManager.setStatusBarTintColor(context.getResources().getColor(R.color.actionbar));
+            switch (ThemeHelper.getTheme(context)){
+                case R.style.nLiveo_Theme_BlueActionBar:
+                    tintManager.setStatusBarTintColor(context.getResources().getColor(R.color.actionbar_blue));
+                    break;
+                case R.style.nLiveo_Theme_WumaiActionBar:
+                    tintManager.setStatusBarTintColor(context.getResources().getColor(R.color.actionbar_wumai));
+                    break;
+                case R.style.nLiveo_Theme_ChinaredActionBar:
+                    tintManager.setStatusBarTintColor(context.getResources().getColor(R.color.actionbar_chinared));
+                    break;
+                case R.style.nLiveo_Theme_GdblackActionBar:
+                    tintManager.setStatusBarTintColor(context.getResources().getColor(R.color.actionbar_gdblack));
+                    break;
+                case R.style.nLiveo_Theme_DoubangreenActionBar:
+                    tintManager.setStatusBarTintColor(context.getResources().getColor(R.color.actionbar_doubangreen));
+                    break;
+                case R.style.nLiveo_Theme_XiaomigreenActionBar:
+                    tintManager.setStatusBarTintColor(context.getResources().getColor(R.color.actionbar_xiaomiorigin));
+                    break;
+                case R.style.nLiveo_Theme_DansuiyellowActionBar:
+                    tintManager.setStatusBarTintColor(context.getResources().getColor(R.color.actionbar_dansuiyellow));
+                    break;
+                case R.style.nLiveo_Theme_NaocanpinkActionBar:
+                    tintManager.setStatusBarTintColor(context.getResources().getColor(R.color.actionbar_naocanpink));
+                    break;
+                case R.style.nLiveo_Theme_MensaopurpleActionBar:
+                    tintManager.setStatusBarTintColor(context.getResources().getColor(R.color.actionbar_mensaopurple));
+                    break;
+                default: tintManager.setStatusBarTintColor(context.getResources().getColor(R.color.actionbar));
+            }
             tintManager.setStatusBarTintEnabled(true);
         }
     }
@@ -212,6 +242,24 @@ public class AppConstant {
         File directory=new File(Environment.getExternalStorageDirectory().getAbsolutePath());
         directory.mkdir();
         File QR=new File(directory.getAbsolutePath()+"/MessageWall/Paper");
+        if (!QR.exists()){
+            QR.mkdir();
+        }
+        File myCaptureFile = new File(QR.getAbsolutePath() +"/"+"paper_bkg"+String.valueOf(position)+".png");
+        if (myCaptureFile.exists()){
+            return true;
+        }else {
+            return false;
+        }
+    }
+
+    /*
+    判断文件是否已经下载,这是itempaper
+     */
+    public static boolean isExist0(int position){
+        File directory=new File(Environment.getExternalStorageDirectory().getAbsolutePath());
+        directory.mkdir();
+        File QR=new File(directory.getAbsolutePath()+"/MessageWall/ItemPaper");
         if (!QR.exists()){
             QR.mkdir();
         }

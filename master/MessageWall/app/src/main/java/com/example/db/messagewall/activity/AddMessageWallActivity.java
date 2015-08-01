@@ -44,7 +44,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class AddMessageWallActivity extends AppCompatActivity {
+public class AddMessageWallActivity extends BaseActivity {
 
     public Toolbar toolbar;
 

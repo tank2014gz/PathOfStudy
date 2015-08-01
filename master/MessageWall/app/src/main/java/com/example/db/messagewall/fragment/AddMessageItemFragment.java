@@ -21,6 +21,7 @@ import com.avos.avoscloud.im.v2.AVIMMessage;
 import com.avos.avoscloud.im.v2.callback.AVIMConversationCallback;
 import com.example.db.messagewall.api.AppData;
 import com.example.db.messagewall.view.ALifeToast;
+import com.example.db.messagewall.view.CircleImageView;
 import com.example.db.messagewall.view.materialedittext.MaterialEditText;
 import com.support.android.designlibdemo.R;
 

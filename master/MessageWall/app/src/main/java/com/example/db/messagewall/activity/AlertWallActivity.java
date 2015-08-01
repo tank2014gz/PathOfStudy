@@ -26,7 +26,7 @@ import com.support.android.designlibdemo.R;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AlertWallActivity extends AppCompatActivity {
+public class AlertWallActivity extends BaseActivity {
 
     public Toolbar toolbar;
 

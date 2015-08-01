@@ -40,6 +40,7 @@ import com.example.db.messagewall.adapter.WallSwipeAdapter;
 import com.example.db.messagewall.api.AppData;
 import com.example.db.messagewall.scanner.MipcaActivityCapture;
 import com.example.db.messagewall.utils.AppConstant;
+import com.example.db.messagewall.utils.ThemeHelper;
 import com.example.db.messagewall.view.ALifeToast;
 import com.example.db.messagewall.view.MaterialDialog;
 import com.support.android.designlibdemo.R;
@@ -47,7 +48,7 @@ import com.support.android.designlibdemo.R;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SelectActivity extends AppCompatActivity {
+public class SelectActivity extends BaseActivity {
 
     public static final String EXTRA_NAME = "cheese_name";
 
@@ -282,4 +283,5 @@ public class SelectActivity extends AppCompatActivity {
         return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp,
                 getResources().getDisplayMetrics());
     }
+
 }

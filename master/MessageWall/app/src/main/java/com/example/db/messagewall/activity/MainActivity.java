@@ -22,8 +22,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -35,14 +33,15 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
-import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.avos.avoscloud.AVUser;
+import com.example.db.messagewall.adapter.ColorPickerAdapter;
 import com.example.db.messagewall.fragment.AddMessageItemFragment;
 import com.example.db.messagewall.fragment.AlertWallFragment;
 import com.example.db.messagewall.fragment.AskMembersFragment;
@@ -51,7 +50,9 @@ import com.example.db.messagewall.fragment.MembersFragment;
 import com.example.db.messagewall.fragment.MessageWallFragment;
 import com.example.db.messagewall.fragment.WallInfoFragment;
 import com.example.db.messagewall.utils.AppConstant;
+import com.example.db.messagewall.utils.ThemeHelper;
 import com.example.db.messagewall.view.CircleImageView;
+import com.example.db.messagewall.view.MaterialDialog;
 import com.support.android.designlibdemo.R;
 import com.umeng.fb.FeedbackAgent;
 import com.umeng.message.PushAgent;
@@ -59,7 +60,7 @@ import com.umeng.message.PushAgent;
 /**
  * TODO
  */
-public class MainActivity extends AppCompatActivity implements MessageWallFragment.OnFragmentInteractionListener
+public class MainActivity extends BaseActivity implements MessageWallFragment.OnFragmentInteractionListener
                                                                 ,MembersFragment.OnFragmentInteractionListener
                                                                 ,WallInfoFragment.OnFragmentInteractionListener
                                                                 ,AskMembersFragment.OnFragmentInteractionListener
@@ -140,6 +141,34 @@ public class MainActivity extends AppCompatActivity implements MessageWallFragme
             case R.id.action_feedback:
                 Intent intent = new Intent(MainActivity.this,CustomActivity.class);
                 startActivity(intent);
+                break;
+            case R.id.action_settheme:
+                final MaterialDialog materialDialog = new MaterialDialog(MainActivity.this);
+                View view = LayoutInflater.from(this).inflate(R.layout.color_picker,null);
+                ListView listView = (ListView)view.findViewById(R.id.listview);
+                final ColorPickerAdapter colorPickerAdapter = new ColorPickerAdapter(MainActivity.this);
+                listView.setAdapter(colorPickerAdapter);
+                materialDialog.setView(view);
+                materialDialog.setCanceledOnTouchOutside(true);
+                materialDialog.setNegativeButton("Cancel", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        materialDialog.dismiss();
+                    }
+                }).setPositiveButton("Ok", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (colorPickerAdapter.Flag){
+                        ThemeHelper.setTheme(MainActivity.this, colorPickerAdapter.getThemeId());
+                        reload();
+                            materialDialog.dismiss();
+                        }else {
+                            materialDialog.dismiss();
+                        }
+                    }
+                });
+                materialDialog.show();
                 return true;
         }
         return super.onOptionsItemSelected(item);

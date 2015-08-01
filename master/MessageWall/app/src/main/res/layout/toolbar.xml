@@ -17,7 +17,7 @@
     android:layout_width="match_parent"
     android:layout_height="80dp"
     xmlns:ndroid="http://schemas.android.com/tools"
-    android:background="@color/actionbar"
+    android:background="?attr/appBkg"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
@@ -27,7 +27,7 @@
         android:layout_height="?attr/actionBarSize"
         android:layout_marginTop="32dp"
         android:minHeight="?attr/actionBarSize"
-        android:background="@color/actionbar"
+        android:background="?attr/appBkg"
         app:popupTheme="@style/pop">
 
     </android.support.v7.widget.Toolbar>

@@ -39,7 +39,7 @@ import com.umeng.socialize.sso.UMSsoHandler;
 import java.util.Map;
 import java.util.Set;
 
-public class SignInActivity extends AppCompatActivity {
+public class SignInActivity extends BaseActivity {
 
     public Toolbar toolbar;
 
