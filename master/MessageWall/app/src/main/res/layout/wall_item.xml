@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
 
@@ -10,21 +11,36 @@
             android:layout_height="80dp"
             android:orientation="horizontal">
 
-            <LinearLayout
+            <!--<LinearLayout-->
+                <!--android:layout_width="48dp"-->
+                <!--android:layout_height="48dp"-->
+                <!--android:layout_marginRight="16dp"-->
+                <!--android:layout_gravity="center"-->
+                <!--android:gravity="center"-->
+                <!--android:layout_marginLeft="16dp"-->
+                <!--android:id="@+id/circle"-->
+                <!--android:background="@drawable/circle_gray">-->
+                <!--<com.example.db.messagewall.view.CircleImageView-->
+                    <!--android:layout_width="24dp"-->
+                    <!--android:layout_height="24dp"-->
+                    <!--android:id="@+id/img"-->
+                    <!--android:background="@drawable/cam_doc"/>-->
+
+            <!--</LinearLayout>-->
+            <com.example.db.messagewall.view.CircleButton
                 android:layout_width="48dp"
                 android:layout_height="48dp"
-                android:layout_marginRight="16dp"
                 android:layout_gravity="center"
-                android:gravity="center"
                 android:layout_marginLeft="16dp"
-                android:id="@+id/circle"
-                android:background="@drawable/circle_gray">
-                <com.example.db.messagewall.view.CircleImageView
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:id="@+id/img"
-                    android:background="@drawable/cam_doc"/>
-            </LinearLayout>
+                android:layout_marginRight="16dp"
+                app:cb_color="?attr/appBkg0"
+                app:cb_pressedRingWidth="0dp"
+                android:src="@drawable/ic_done"
+                android:id="@+id/circlebutton"
+                >
+
+            </com.example.db.messagewall.view.CircleButton>
+
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="64dp"

@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="45dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="horizontal">
     <TextView
         android:layout_width="wrap_content"
@@ -14,22 +15,15 @@
         android:layout_gravity="center"
         android:text="hhahah"
         android:textColor="@color/content"/>
-    <LinearLayout
-        android:layout_width="26dp"
-        android:layout_height="26dp"
-        android:id="@+id/btn_share"
-        android:orientation="vertical"
-        android:layout_marginLeft="8dp"
+    <com.example.db.messagewall.view.CircleButton
+        android:layout_width="28dp"
+        android:layout_height="28dp"
         android:layout_gravity="center"
-        android:visibility="gone"
+        android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
-        android:background="@drawable/circle_gray">
-        <ImageView
-            android:layout_width="16dp"
-            android:layout_height="16dp"
-            android:layout_marginTop="5dp"
-            android:layout_gravity="center"
-            android:src="@drawable/ic_done"
-            />
-    </LinearLayout>
+        app:cb_color="?attr/appBkg0"
+        app:cb_pressedRingWidth="0dp"
+        android:src="@drawable/ic_done"
+        android:id="@+id/btn_share"
+        android:visibility="gone"/>
 </LinearLayout>

@@ -19,6 +19,7 @@ import com.example.db.messagewall.utils.AppConstant;
 import com.example.db.messagewall.utils.DownloadRunnable;
 import com.example.db.messagewall.utils.DownloadRunnable0;
 import com.example.db.messagewall.view.ALifeToast;
+import com.example.db.messagewall.view.CircleButton;
 import com.example.db.messagewall.view.MaterialDialog;
 import com.example.db.messagewall.view.materialloadingprogressbar.CircleProgressBar;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
@@ -105,9 +106,9 @@ public class ItemPaperAdapter extends BaseAdapter {
         if (convertView==null){
             convertView = LayoutInflater.from(context).inflate(R.layout.paper_item,null);
             viewHolder = new ViewHolder();
-            viewHolder.linearLayout = (LinearLayout)convertView.findViewById(R.id.btn_share);
+            viewHolder.linearLayout = (CircleButton)convertView.findViewById(R.id.btn_share);
             viewHolder.imageView = (ImageView)convertView.findViewById(R.id.img_item);
-            viewHolder.download = (LinearLayout)convertView.findViewById(R.id.btn_download);
+            viewHolder.download = (CircleButton)convertView.findViewById(R.id.btn_download);
             convertView.setTag(viewHolder);
         }else {
             viewHolder = (ViewHolder)convertView.getTag();
@@ -189,7 +190,7 @@ public class ItemPaperAdapter extends BaseAdapter {
     }
 
     public static class ViewHolder{
-        LinearLayout linearLayout,download;
+        CircleButton linearLayout,download;
         ImageView imageView;
     }
 

@@ -68,5 +68,7 @@
         android:layout_gravity="right|bottom"
         android:src="@drawable/ic_done"
         android:clickable="true"
+        android:layout_marginRight="16dp"
+        android:layout_marginBottom="16dp"
         android:id="@+id/add"/>
 </FrameLayout>

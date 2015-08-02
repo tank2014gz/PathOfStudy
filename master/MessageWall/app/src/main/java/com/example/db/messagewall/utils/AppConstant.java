@@ -100,7 +100,8 @@ public class AppConstant {
                 case R.style.nLiveo_Theme_MensaopurpleActionBar:
                     tintManager.setStatusBarTintColor(context.getResources().getColor(R.color.actionbar_mensaopurple));
                     break;
-                default: tintManager.setStatusBarTintColor(context.getResources().getColor(R.color.actionbar));
+                default:
+                    tintManager.setStatusBarTintColor(context.getResources().getColor(R.color.actionbar));
             }
             tintManager.setStatusBarTintEnabled(true);
         }

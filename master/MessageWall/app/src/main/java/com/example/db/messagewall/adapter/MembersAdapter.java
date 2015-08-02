@@ -8,6 +8,7 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.example.db.messagewall.bean.MemberInfo;
+import com.example.db.messagewall.view.CircleButton;
 import com.example.db.messagewall.view.CircleImageView;
 import com.support.android.designlibdemo.R;
 
@@ -50,7 +51,7 @@ public class MembersAdapter extends BaseAdapter{
         if (convertView==null){
             convertView = LayoutInflater.from(context).inflate(R.layout.members_item,null);
             viewHolder = new ViewHolder();
-            viewHolder.circleImageView = (CircleImageView)convertView.findViewById(R.id.img);
+            viewHolder.circleButton = (CircleButton)convertView.findViewById(R.id.img);
             viewHolder.name = (TextView)convertView.findViewById(R.id.name);
             viewHolder.description = (TextView)convertView.findViewById(R.id.description);
             convertView.setTag(viewHolder);
@@ -66,7 +67,7 @@ public class MembersAdapter extends BaseAdapter{
         return convertView;
     }
     public static class ViewHolder{
-        CircleImageView circleImageView;
         TextView name,description;
+        CircleButton circleButton;
     }
 }

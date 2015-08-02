@@ -1,6 +1,7 @@
 package com.example.db.messagewall.adapter;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +12,7 @@ import android.widget.CompoundButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.example.db.messagewall.view.CircleButton;
 import com.support.android.designlibdemo.R;
 
 import java.util.ArrayList;
@@ -22,7 +24,7 @@ import java.util.List;
 public class ColorPickerAdapter extends BaseAdapter{
 
     public Context context;
-    public List<Integer> bkg = new ArrayList<Integer>();
+    public List<String> bkg = new ArrayList<String>();
     public List<String> name = new ArrayList<String>();
     public List<Integer> theme = new ArrayList<Integer>();
 
@@ -63,7 +65,7 @@ public class ColorPickerAdapter extends BaseAdapter{
             convertView = LayoutInflater.from(context).inflate(R.layout.color_item,null);
             viewHolder = new ViewHolder();
             viewHolder.textView = (TextView)convertView.findViewById(R.id.textview);
-            viewHolder.linearLayout = (LinearLayout)convertView.findViewById(R.id.btn_share);
+            viewHolder.linearLayout = (CircleButton)convertView.findViewById(R.id.btn_share);
             convertView.setTag(viewHolder);
         }else {
             viewHolder = (ViewHolder)convertView.getTag();
@@ -71,7 +73,7 @@ public class ColorPickerAdapter extends BaseAdapter{
 
 
 
-        viewHolder.textView.setTextColor(bkg.get(position));
+        viewHolder.textView.setTextColor(Color.parseColor(bkg.get(position)));
         viewHolder.textView.setText(name.get(position));
 
         convertView.setOnClickListener(new View.OnClickListener() {
@@ -92,21 +94,21 @@ public class ColorPickerAdapter extends BaseAdapter{
     }
     public static class ViewHolder{
         TextView textView;
-        LinearLayout linearLayout;
+        CircleButton linearLayout;
     }
 
     public void initList(){
 
-        bkg.add(R.color.actionbar);
-        bkg.add(R.color.actionbar_blue);
-        bkg.add(R.color.actionbar_wumai);
-        bkg.add(R.color.actionbar_chinared);
-        bkg.add(R.color.actionbar_gdblack);
-        bkg.add(R.color.actionbar_doubangreen);
-        bkg.add(R.color.actionbar_xiaomiorigin);
-        bkg.add(R.color.actionbar_dansuiyellow);
-        bkg.add(R.color.actionbar_naocanpink);
-        bkg.add(R.color.actionbar_mensaopurple);
+        bkg.add("#24ba91");
+        bkg.add("#009edf");
+        bkg.add("#777777");
+        bkg.add("#cc2c28");
+        bkg.add("#1b1b1b");
+        bkg.add("#3baa24");
+        bkg.add("#ff5200");
+        bkg.add("#ffb016");
+        bkg.add("#f95ebd");
+        bkg.add("#862fc9");
 
         name.add("留言墙绿");
         name.add("天空蓝");
@@ -123,7 +125,7 @@ public class ColorPickerAdapter extends BaseAdapter{
         theme.add(R.style.nLiveo_Theme_BlueActionBar);
         theme.add(R.style.nLiveo_Theme_WumaiActionBar);
         theme.add(R.style.nLiveo_Theme_ChinaredActionBar);
-        theme.add(R.style.AppTheme_GdblackActionBar);
+        theme.add(R.style.nLiveo_Theme_GdblackActionBar);
         theme.add(R.style.nLiveo_Theme_DoubangreenActionBar);
         theme.add(R.style.nLiveo_Theme_XiaomigreenActionBar);
         theme.add(R.style.nLiveo_Theme_DansuiyellowActionBar);

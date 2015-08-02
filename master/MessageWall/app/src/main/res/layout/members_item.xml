@@ -9,13 +9,15 @@
         android:layout_width="match_parent"
         android:layout_height="65dp"
         android:orientation="horizontal">
-        <com.example.db.messagewall.view.CircleImageView
+        <com.example.db.messagewall.view.CircleButton
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:layout_gravity="center"
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp"
-            android:src="@drawable/ic_launcher_web"
+            app:cb_color="?attr/appBkg0"
+            app:cb_pressedRingWidth="0dp"
+            android:src="@drawable/ic_done"
             android:id="@+id/img"
             />
         <LinearLayout
