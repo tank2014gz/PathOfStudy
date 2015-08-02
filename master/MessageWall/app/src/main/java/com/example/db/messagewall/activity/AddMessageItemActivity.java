@@ -144,7 +144,7 @@ public class AddMessageItemActivity extends BaseActivity {
     private void initToolBar() {
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.setTitle("添加留言条");
+        toolbar.setTitle("添加文字留言条");
         toolbar.setTitleTextColor(getResources().getColor(R.color.actionbar_title_color));
         toolbar.setSubtitleTextColor(getResources().getColor(R.color.actionbar_title_color));
 

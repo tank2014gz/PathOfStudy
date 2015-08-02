@@ -10,9 +10,7 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -26,12 +24,13 @@ import com.avos.avoscloud.im.v2.AVIMConversation;
 import com.avos.avoscloud.im.v2.AVIMMessage;
 import com.avos.avoscloud.im.v2.callback.AVIMMessagesQueryCallback;
 import com.example.db.messagewall.activity.AddMessageItemActivity;
+import com.example.db.messagewall.activity.AddPictureItemActivity;
+import com.example.db.messagewall.activity.AddVoiceItemActivity;
 import com.example.db.messagewall.adapter.MessageGridAdapter;
 import com.example.db.messagewall.api.AppData;
+import com.example.db.messagewall.view.fab.FloatingActionMenu;
 import com.support.android.designlibdemo.R;
 
-import java.io.File;
-import java.io.FileInputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -56,8 +55,12 @@ public class MessageWallFragment extends Fragment {
 
     public SwipeRefreshLayout mSwipeRefreshLayout;
     public GridView mGridView;
-    public FloatingActionButton floatingActionButton;
     public FrameLayout frameLayout;
+
+    com.example.db.messagewall.view.fab.FloatingActionButton floatingActionButton_Text
+                                                            ,floatingActionButton_Picture
+                                                            ,floatingActionButton_Voice;
+    FloatingActionMenu floatingActionMenu;
 
     public AVIMConversation avimConversation;
     public NoteHandler noteHandler;
@@ -153,7 +156,17 @@ public class MessageWallFragment extends Fragment {
 
         mGridView = (GridView)rootView.findViewById(R.id.gridview);
         mSwipeRefreshLayout=(SwipeRefreshLayout)rootView.findViewById(R.id.refreshlayout);
-        floatingActionButton = (FloatingActionButton)rootView.findViewById(R.id.add);
+
+        floatingActionMenu = (FloatingActionMenu)rootView.findViewById(R.id.fab_menu);
+        floatingActionMenu.setClosedOnTouchOutside(true);
+
+        floatingActionButton_Text = (com.example.db.messagewall.view.fab.FloatingActionButton)
+                rootView.findViewById(R.id.fab_text);
+        floatingActionButton_Picture = (com.example.db.messagewall.view.fab.FloatingActionButton)
+                rootView.findViewById(R.id.fab_picture);
+        floatingActionButton_Voice = (com.example.db.messagewall.view.fab.FloatingActionButton)
+                rootView.findViewById(R.id.fab_voice);
+
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -169,16 +182,33 @@ public class MessageWallFragment extends Fragment {
 
         convertMsgToList();
 
-        floatingActionButton.setOnClickListener(new View.OnClickListener() {
+        floatingActionButton_Text.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                floatingActionMenu.close(true);
                 Intent intent = new Intent(getActivity(), AddMessageItemActivity.class);
                 intent.putExtras(bundle);
                 startActivity(intent);
             }
         });
-
+        floatingActionButton_Picture.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                floatingActionMenu.close(true);
+                Intent intent = new Intent(getActivity(), AddPictureItemActivity.class);
+                intent.putExtras(bundle);
+                startActivity(intent);
+            }
+        });
+        floatingActionButton_Voice.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                floatingActionMenu.close(true);
+                Intent intent = new Intent(getActivity(), AddVoiceItemActivity.class);
+                intent.putExtras(bundle);
+                startActivity(intent);
+            }
+        });
 
         return rootView;
     }
