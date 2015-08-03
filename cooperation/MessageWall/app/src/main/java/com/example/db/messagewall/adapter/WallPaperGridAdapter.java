@@ -21,6 +21,7 @@ import com.example.db.messagewall.api.AppData;
 import com.example.db.messagewall.utils.AppConstant;
 import com.example.db.messagewall.utils.DownloadRunnable;
 import com.example.db.messagewall.view.ALifeToast;
+import com.example.db.messagewall.view.CircleButton;
 import com.example.db.messagewall.view.MaterialDialog;
 import com.example.db.messagewall.view.materialloadingprogressbar.CircleProgressBar;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
@@ -88,7 +89,7 @@ public class WallPaperGridAdapter extends BaseAdapter{
 
     @Override
     public int getCount() {
-        return list.size()+1;
+        return list.size();
     }
 
     @Override
@@ -108,9 +109,9 @@ public class WallPaperGridAdapter extends BaseAdapter{
         if (convertView==null){
             convertView = LayoutInflater.from(context).inflate(R.layout.paper_item,null);
             viewHolder = new ViewHolder();
-            viewHolder.linearLayout = (LinearLayout)convertView.findViewById(R.id.btn_share);
+            viewHolder.linearLayout = (CircleButton)convertView.findViewById(R.id.btn_share);
             viewHolder.imageView = (ImageView)convertView.findViewById(R.id.img_item);
-            viewHolder.download = (LinearLayout)convertView.findViewById(R.id.btn_download);
+            viewHolder.download = (CircleButton)convertView.findViewById(R.id.btn_download);
             convertView.setTag(viewHolder);
         }else {
             viewHolder = (ViewHolder)convertView.getTag();
@@ -131,59 +132,45 @@ public class WallPaperGridAdapter extends BaseAdapter{
             }
         };
 
-        if (position==list.size()){
+        imageLoader.displayImage(list.get(position), viewHolder.imageView, options);
 
-            viewHolder.imageView.setImageResource(R.drawable.compose_pic_add_highlighted);
+        if (AppConstant.isExist(position)){
             viewHolder.download.setVisibility(ViewGroup.GONE);
-
         }else {
-            imageLoader.displayImage(list.get(position), viewHolder.imageView, options);
-            if (AppConstant.isExist(position)){
-                viewHolder.download.setVisibility(ViewGroup.GONE);
-            }else {
-                viewHolder.download.setVisibility(ViewGroup.VISIBLE);
-            }
+            viewHolder.download.setVisibility(ViewGroup.VISIBLE);
         }
-
 
         convertView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                if (position!=list.size()){
+                if (AppConstant.isExist(position)){
+                    if (viewHolder.linearLayout.getVisibility()==ViewGroup.VISIBLE){
 
-                        if (AppConstant.isExist(position)){
-                            if (viewHolder.linearLayout.getVisibility()==ViewGroup.VISIBLE){
+                        viewHolder.linearLayout.setVisibility(ViewGroup.GONE);
+                        setPath("");
+                        flag = false;
 
-                                viewHolder.linearLayout.setVisibility(ViewGroup.GONE);
-                                setPath("");
-                                flag = false;
+                    }else if (viewHolder.linearLayout.getVisibility()==ViewGroup.GONE&&flag==false){
 
-                            }else if (viewHolder.linearLayout.getVisibility()==ViewGroup.GONE&&flag==false){
-
-                                viewHolder.linearLayout.setVisibility(ViewGroup.VISIBLE);
-                                /*
-                                得到本地文件的路径
-                                 */
-                                File directory=new File(Environment.getExternalStorageDirectory().getAbsolutePath());
-                                directory.mkdir();
-                                File QR=new File(directory.getAbsolutePath()+"/MessageWall/Paper");
-                                setPath(QR.getAbsolutePath()+"/"+"paper_bkg"+String.valueOf(position)+".png");
-                                flag = true;
-                            }
-                        }else {
-                            ALifeToast.makeText((MainActivity)context
-                                    , "请先下载！"
-                                    , ALifeToast.ToastType.SUCCESS
-                                    , ALifeToast.LENGTH_SHORT)
-                                    .show();
-                        }
+                        viewHolder.linearLayout.setVisibility(ViewGroup.VISIBLE);
+                        /*
+                        得到本地文件的路径
+                        */
+                        File directory=new File(Environment.getExternalStorageDirectory().getAbsolutePath());
+                        directory.mkdir();
+                        File QR=new File(directory.getAbsolutePath()+"/MessageWall/Paper");
+                        setPath(QR.getAbsolutePath()+"/"+"paper_bkg"+String.valueOf(position)+".png");
+                        flag = true;
+                    }
                 }else {
-                    Intent intent = new Intent();
-                    intent.setType("image/*");
-                    intent.setAction(Intent.ACTION_GET_CONTENT);
-                    ((MainActivity)context).startActivityForResult(intent,2);
+                    ALifeToast.makeText((MainActivity)context
+                            , "请先下载！"
+                            , ALifeToast.ToastType.SUCCESS
+                            , ALifeToast.LENGTH_SHORT)
+                            .show();
                 }
+
             }
         });
 
@@ -206,19 +193,24 @@ public class WallPaperGridAdapter extends BaseAdapter{
     }
 
     public static class ViewHolder{
-        LinearLayout linearLayout,download;
+        CircleButton linearLayout,download;
         ImageView imageView;
     }
 
     public void initList(){
-        list.add("http://i10.topitme.com/l019/10019082022d55c5f8.jpg");
-        list.add("http://i10.topitme.com/l019/100190830222f6d2b8.jpg");
-        list.add("http://i10.topitme.com/l019/1001908229cd19a9ab.jpg");
-        list.add("http://i10.topitme.com/l019/100190815685414412.jpg");
-        list.add("http://i10.topitme.com/l019/10019081290e4eaf34.jpg");
-        list.add("http://i10.topitme.com/l019/10019081332d6b63d7.jpg");
-        list.add("http://i10.topitme.com/l019/1001908213613400dc.jpg");
-        list.add("http://f10.topitme.com/l019/100190816957f620a7.jpg");
+        list.add("http://p5.image.hiapk.com/uploads/allimg/150421/7730-150421105135.jpg");
+        list.add("http://p4.image.hiapk.com/uploads/allimg/150119/7730-150119154322.jpg");
+        list.add("http://p1.image.hiapk.com/uploads/allimg/141015/7730-141015164107.jpg");
+        list.add("http://p1.image.hiapk.com/uploads/allimg/131216/23-131216113G6.jpg");
+        list.add("http://p1.image.hiapk.com/uploads/allimg/131101/23-1311011H102-52.jpg");
+        list.add("http://p4.image.hiapk.com/uploads/allimg/130904/9-130Z41T519-51.jpg");
+        list.add("http://p5.image.hiapk.com/uploads/allimg/150724/7730-150H41I033.jpg");
+        list.add("http://p1.image.hiapk.com/uploads/allimg/150625/7730-1506251G327.jpg");
+        list.add("http://p3.image.hiapk.com/uploads/allimg/150727/7730-150HG60135.jpg");
+        list.add("http://p5.image.hiapk.com/uploads/allimg/150306/7730-150306140551.jpg");
+        list.add("http://p3.image.hiapk.com/uploads/allimg/150211/7730-150211142A8.png");
+        list.add("http://p4.image.hiapk.com/uploads/allimg/150625/7730-150625160F7.jpg");
+        list.add("http://p2.image.hiapk.com/uploads/allimg/141205/7730-141205163037-51.jpg");
 
 
     }

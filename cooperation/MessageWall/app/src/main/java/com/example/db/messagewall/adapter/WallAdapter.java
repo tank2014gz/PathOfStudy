@@ -20,6 +20,7 @@ import com.example.db.messagewall.bean.WallInfo;
 import com.example.db.messagewall.activity.MainActivity;
 import com.example.db.messagewall.utils.AppConstant;
 import com.example.db.messagewall.view.ALifeToast;
+import com.example.db.messagewall.view.CircleButton;
 import com.example.db.messagewall.view.CircleImageView;
 import com.example.db.messagewall.view.MaterialDialog;
 import com.support.android.designlibdemo.R;
@@ -66,6 +67,7 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
             }
         });
         holder.name.setText(avimConversation.getName());
+        holder.textView.setText(avimConversation.getName().substring(0,1));
         holder.description.setText(avimConversation.getAttribute("description").toString());
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -123,17 +125,15 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
 
     public static class ViewHolder extends RecyclerView.ViewHolder{
 
-        CircleImageView circleImageView;
-        TextView name,description,count;
-        LinearLayout linearLayout;
-
+        TextView name,description,count,textView;
+        CircleButton circleButton;
         public ViewHolder(View itemView) {
             super(itemView);
-            circleImageView = (CircleImageView)itemView.findViewById(R.id.img);
             name = (TextView)itemView.findViewById(R.id.wall_name);
             description = (TextView)itemView.findViewById(R.id.wall_description);
             count = (TextView)itemView.findViewById(R.id.wall_count);
-            linearLayout = (LinearLayout)itemView.findViewById(R.id.circle);
+            circleButton = (CircleButton)itemView.findViewById(R.id.circlebutton);
+            textView = (TextView)itemView.findViewById(R.id.text);
         }
     }
 

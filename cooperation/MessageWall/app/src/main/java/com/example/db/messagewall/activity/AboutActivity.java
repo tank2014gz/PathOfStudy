@@ -13,7 +13,7 @@ import com.example.db.messagewall.adapter.AboutAdapter;
 import com.example.db.messagewall.utils.AppConstant;
 import com.support.android.designlibdemo.R;
 
-public class AboutActivity extends AppCompatActivity {
+public class AboutActivity extends BaseActivity {
 
     public Toolbar toolbar;
 

@@ -11,6 +11,8 @@ import com.avos.avoscloud.im.v2.AVIMClient;
 import com.avos.avoscloud.im.v2.AVIMConversation;
 import com.avos.avoscloud.im.v2.AVIMConversationQuery;
 import com.avos.avoscloud.im.v2.AVIMMessageManager;
+import com.avos.avoscloud.im.v2.AVIMMessageType;
+import com.avos.avoscloud.im.v2.AVIMTypedMessage;
 import com.avos.avoscloud.im.v2.callback.AVIMClientCallback;
 import com.avos.avoscloud.im.v2.callback.AVIMConversationCallback;
 import com.avos.avoscloud.im.v2.callback.AVIMConversationCreatedCallback;
@@ -43,7 +45,7 @@ public class AppData extends Application {
          */
         AVOSCloud.initialize(this, "c24bthahdhtom81fheg54bkuxhfagmg9arplx9prunj71lzx"
                                  , "h1xcwrtpe07xkkttx9ueg3gz8v2rvjdl0ixoc6j387voa5le");
-        AVIMMessageManager.registerDefaultMessageHandler(new MessageHandler(getApplicationContext()));
+        AVIMMessageManager.registerMessageHandler(AVIMTypedMessage.class,new MessageHandlerHelper());
 
         /*
         启动错误Log日志

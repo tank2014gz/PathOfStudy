@@ -12,11 +12,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.im.v2.AVIMConversation;
 import com.avos.avoscloud.im.v2.Conversation;
 import com.avos.avoscloud.im.v2.callback.AVIMConversationCallback;
+import com.avos.avoscloud.im.v2.callback.AVIMConversationMemberCountCallback;
 import com.baoyz.swipemenulistview.SwipeMenu;
 import com.baoyz.swipemenulistview.SwipeMenuCreator;
 import com.baoyz.swipemenulistview.SwipeMenuItem;
@@ -47,6 +49,7 @@ public class MembersFragment extends Fragment {
     private String mParam2;
 
     public SwipeMenuListView mlistView;
+    public TextView textView;
     public List<MemberInfo> memberInfos;
     public MembersAdapter membersAdapter;
 
@@ -100,6 +103,30 @@ public class MembersFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_members, container, false);
 
         mlistView = (SwipeMenuListView)rootView.findViewById(R.id.listview);
+
+        View mHeadView = LayoutInflater.from(getActivity())
+                .inflate(R.layout.members_head,null);
+        /*
+        成员个数
+         */
+        textView = (TextView)mHeadView.findViewById(R.id.count);
+        final AVIMConversation avimConversation0 = AppData.getIMClient().getConversation(CONVERSATION_ID);
+        avimConversation0.fetchInfoInBackground(new AVIMConversationCallback() {
+            @Override
+            public void done(AVException e) {
+                if (e==null){
+                 avimConversation0.getMemberCount(new AVIMConversationMemberCountCallback() {
+                     @Override
+                     public void done(Integer integer, AVException e) {
+                         if (e==null){
+                             textView.setText("一共有"+String.valueOf(integer)+"个成员");
+                         }
+                     }
+                 });
+                }
+            }
+        });
+        mlistView.addHeaderView(mHeadView);
 
         SwipeMenuCreator swipeMenuCreator = new SwipeMenuCreator() {
             @Override

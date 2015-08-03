@@ -95,7 +95,7 @@ public class AlterWallAdapter extends RecyclerView.Adapter<AlterWallAdapter.View
             name = (TextView)itemView.findViewById(R.id.wall_name);
             description = (TextView)itemView.findViewById(R.id.wall_description);
             count = (TextView)itemView.findViewById(R.id.wall_count);
-            linearLayout = (LinearLayout)itemView.findViewById(R.id.circle);
+//            linearLayout = (LinearLayout)itemView.findViewById(R.id.circle);
         }
     }
 

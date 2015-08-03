@@ -22,7 +22,7 @@ import com.example.db.messagewall.view.ALifeToast;
 import com.support.android.designlibdemo.R;
 
 
-public class SignUpActivity extends AppCompatActivity {
+public class SignUpActivity extends BaseActivity {
 
     public Toolbar toolbar;
 

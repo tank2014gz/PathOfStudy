@@ -156,7 +156,7 @@ public class ALifeToast extends LinearLayout {
         mTaskQueue
                 .offer(new ToastTask(mContentView, text, toastType, duration, toastClickListener));
 
-            mToastView.findViewById(R.id.toast_container).setBackgroundResource(R.drawable.border_pressed);
+            mToastView.findViewById(R.id.toast_container).setBackgroundResource(R.drawable.toast);
     }
 
     public void show() {

@@ -3,20 +3,38 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context="com.example.db.messagewall.fragment.AddMessageItemFragment">
+    tools:context="com.example.db.messagewall.fragment.AddMessageItemFragment"
+    android:background="@color/actionbar_title_color">
 
     <!-- TODO: Update blank fragment layout -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:background="@color/actionbar_title_color">
+        android:orientation="vertical">
+
+        <android.support.v7.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_margin="@dimen/card_margin">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingLeft="16dp"
+                android:layout_gravity="center"
+                android:text="选择留言纸"
+                android:gravity="left|center"
+                android:textSize="16sp"
+                android:textColor="@color/actionbar0"
+                android:drawableRight="@drawable/common_icon_arrow"
+                android:paddingRight="16dp"
+                android:id="@+id/select"/>
+        </android.support.v7.widget.CardView>
 
         <android.support.v7.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/card_margin"
-            android:id="@+id/appbar">
+            android:layout_marginRight="16dp"
+            android:layout_marginLeft="16dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -30,68 +48,10 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="32dp"
-                    android:text="添加留言条"
-                    android:layout_gravity="center"
-                    android:gravity="left|center"
-                    android:textSize="16sp"
-                    android:textStyle="bold"
-                    android:textColor="@color/actionbar0"/>
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="32dp"
-                    android:text=""
-                    android:layout_gravity="center"
-                    android:gravity="left|center"
-                    android:textSize="16sp"
-                    android:textStyle="bold"
-                    android:textColor="@color/actionbar0"/>
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="32dp"
-                    android:orientation="horizontal">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="32dp"
-                        android:layout_weight="1"
-                        android:text="选择留言纸"
-                        android:layout_gravity="center"
-                        android:gravity="left|center"
-                        android:textSize="16sp"
-                        android:textStyle="bold"
-                        android:textColor="@color/actionbar0"/>
-                    <LinearLayout
-                        android:layout_width="28dp"
-                        android:layout_height="28dp"
-                        android:layout_gravity="center"
-                        android:id="@+id/btn_select"
-                        android:orientation="vertical"
-                        android:background="@drawable/circle_unpressed">
-                        <ImageView
-                            android:layout_width="16dp"
-                            android:layout_height="16dp"
-                            android:layout_marginTop="6dp"
-                            android:layout_gravity="center"
-                            android:src="@drawable/fab_add"
-                            />
-                    </LinearLayout>
-                </LinearLayout>
-
-                <ImageView
-                    android:layout_width="96dp"
-                    android:layout_height="96dp"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginBottom="8dp"
-                    android:src="@drawable/photo3"
-                    android:scaleType="fitXY"
-                    android:id="@+id/select_img"/>
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="32dp"
                     android:text="编辑留言"
                     android:layout_gravity="center"
                     android:gravity="left|center"
                     android:textSize="16sp"
-                    android:textStyle="bold"
                     android:textColor="@color/actionbar0"/>
                 <com.example.db.messagewall.view.materialedittext.MaterialEditText
                     android:id="@+id/edit_wall_content"
@@ -118,13 +78,19 @@
             </LinearLayout>
 
         </android.support.v7.widget.CardView>
-
+        <Button
+            android:id="@+id/btn_fab"
+            android:layout_width="match_parent"
+            android:layout_height="42dp"
+            android:layout_marginLeft="64dp"
+            android:layout_marginRight="64dp"
+            android:layout_marginBottom="16dp"
+            android:layout_marginTop="16dp"
+            android:textSize="16sp"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text="提交"
+            android:background="?attr/appBkg0"
+            android:textColor="@color/actionbar_title_color"/>
     </LinearLayout>
-    <android.support.design.widget.FloatingActionButton
-        android:layout_height="wrap_content"
-        android:layout_width="wrap_content"
-        android:layout_gravity="right|bottom"
-        android:src="@drawable/ic_done"
-        android:clickable="true"
-        android:id="@+id/add"/>
 </FrameLayout>

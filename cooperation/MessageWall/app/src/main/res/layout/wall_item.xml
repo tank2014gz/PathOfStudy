@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
 
@@ -10,21 +11,33 @@
             android:layout_height="80dp"
             android:orientation="horizontal">
 
-            <LinearLayout
+            <FrameLayout
                 android:layout_width="48dp"
                 android:layout_height="48dp"
-                android:layout_marginRight="8dp"
                 android:layout_gravity="center"
-                android:gravity="center"
-                android:layout_marginLeft="8dp"
-                android:id="@+id/circle"
-                android:background="@drawable/circle_gray">
-                <com.example.db.messagewall.view.CircleImageView
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:id="@+id/img"
-                    android:background="@drawable/cam_doc"/>
-            </LinearLayout>
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp">
+                <com.example.db.messagewall.view.CircleButton
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_gravity="center"
+                    app:cb_color="?attr/appBkg0"
+                    app:cb_pressedRingWidth="0dp"
+                    android:id="@+id/circlebutton"
+                    >
+                </com.example.db.messagewall.view.CircleButton>
+                <TextView
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:layout_gravity="center"
+                    android:textSize="24sp"
+                    android:textColor="@color/actionbar_title_color"
+                    android:text="U"
+                    android:gravity="center"
+                    android:id="@+id/text"/>
+            </FrameLayout>
+
+
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="64dp"
@@ -42,8 +55,8 @@
                     android:gravity="left|center"
                     android:ellipsize="end"
                     android:maxLines="1"
-                    android:textStyle="bold"
-                    android:id="@+id/wall_name"/>
+                    android:id="@+id/wall_name"
+                    />
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="24dp"
@@ -52,8 +65,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="32dp"
                         android:layout_weight="1"
-                        android:textSize="13sp"
-                        android:textStyle="bold"
+                        android:textSize="15sp"
                         android:text="是个温暖有爱的地方"
                         android:layout_gravity="center"
                         android:gravity="left|center"
@@ -65,15 +77,15 @@
                     <TextView
                         android:layout_width="64dp"
                         android:layout_height="32dp"
-                        android:textSize="13sp"
+                        android:textSize="15sp"
                         android:text=""
-                        android:textStyle="bold"
                         android:layout_gravity="center"
                         android:gravity="center"
                         android:ellipsize="middle"
                         android:maxLines="1"
                         android:id="@+id/wall_count"
-                        android:textColor="@android:color/darker_gray"/>
+                        android:textColor="@android:color/darker_gray"
+                        />
                 </LinearLayout>
 
             </LinearLayout>

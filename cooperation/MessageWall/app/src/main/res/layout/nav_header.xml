@@ -33,7 +33,7 @@
             android:layout_gravity="center"
             android:layout_marginLeft="16dp"
             android:layout_marginTop="8dp"
-            android:src="@drawable/photo3"
+            android:src="@drawable/ic_launcher_web"
             android:id="@+id/account_logo"/>
     </LinearLayout>
     <LinearLayout
@@ -49,6 +49,7 @@
             android:id="@+id/account_name"
             android:gravity="left|center"
             android:text="3025673709@qq.com"/>
+
     </LinearLayout>
 
 </LinearLayout>

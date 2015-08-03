@@ -91,5 +91,23 @@ public class Download {
         bos.close();
 
     }
+    /*
+    保存另外一个itempaper
+     */
+    public static void saveFile0(Bitmap bm, String fileName) throws IOException {
+
+        File directory=new File(Environment.getExternalStorageDirectory().getAbsolutePath());
+        directory.mkdir();
+        File QR=new File(directory.getAbsolutePath()+"/MessageWall/ItemPaper");
+        if (!QR.exists()){
+            QR.mkdir();
+        }
+        File myCaptureFile = new File(QR.getAbsolutePath() +"/"+ fileName+".png");
+        BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(myCaptureFile));
+        bm.compress(Bitmap.CompressFormat.JPEG, 80, bos);
+        bos.flush();
+        bos.close();
+
+    }
 
 }

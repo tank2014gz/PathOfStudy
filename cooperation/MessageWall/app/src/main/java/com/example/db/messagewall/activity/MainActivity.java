@@ -20,6 +20,8 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -31,13 +33,15 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.avos.avoscloud.AVUser;
+import com.example.db.messagewall.adapter.ColorPickerAdapter;
 import com.example.db.messagewall.fragment.AddMessageItemFragment;
 import com.example.db.messagewall.fragment.AlertWallFragment;
 import com.example.db.messagewall.fragment.AskMembersFragment;
@@ -46,6 +50,9 @@ import com.example.db.messagewall.fragment.MembersFragment;
 import com.example.db.messagewall.fragment.MessageWallFragment;
 import com.example.db.messagewall.fragment.WallInfoFragment;
 import com.example.db.messagewall.utils.AppConstant;
+import com.example.db.messagewall.utils.ThemeHelper;
+import com.example.db.messagewall.view.CircleImageView;
+import com.example.db.messagewall.view.MaterialDialog;
 import com.support.android.designlibdemo.R;
 import com.umeng.fb.FeedbackAgent;
 import com.umeng.message.PushAgent;
@@ -53,7 +60,7 @@ import com.umeng.message.PushAgent;
 /**
  * TODO
  */
-public class MainActivity extends AppCompatActivity implements MessageWallFragment.OnFragmentInteractionListener
+public class MainActivity extends BaseActivity implements MessageWallFragment.OnFragmentInteractionListener
                                                                 ,MembersFragment.OnFragmentInteractionListener
                                                                 ,WallInfoFragment.OnFragmentInteractionListener
                                                                 ,AskMembersFragment.OnFragmentInteractionListener
@@ -130,6 +137,38 @@ public class MainActivity extends AppCompatActivity implements MessageWallFragme
                 break;
             case R.id.action_about:
                 startActivity(new Intent(MainActivity.this,AboutActivity.class));
+                break;
+            case R.id.action_feedback:
+                Intent intent = new Intent(MainActivity.this,CustomActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.action_settheme:
+                final MaterialDialog materialDialog = new MaterialDialog(MainActivity.this);
+                View view = LayoutInflater.from(this).inflate(R.layout.color_picker,null);
+                ListView listView = (ListView)view.findViewById(R.id.listview);
+                final ColorPickerAdapter colorPickerAdapter = new ColorPickerAdapter(MainActivity.this);
+                listView.setAdapter(colorPickerAdapter);
+                materialDialog.setView(view);
+                materialDialog.setCanceledOnTouchOutside(true);
+                materialDialog.setNegativeButton("Cancel", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        materialDialog.dismiss();
+                    }
+                }).setPositiveButton("Ok", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (colorPickerAdapter.Flag){
+                        ThemeHelper.setTheme(MainActivity.this, colorPickerAdapter.getThemeId());
+                        reload();
+                            materialDialog.dismiss();
+                        }else {
+                            materialDialog.dismiss();
+                        }
+                    }
+                });
+                materialDialog.show();
                 return true;
         }
         return super.onOptionsItemSelected(item);
@@ -138,13 +177,26 @@ public class MainActivity extends AppCompatActivity implements MessageWallFragme
 
     private void setupDrawerContent(NavigationView navigationView) {
 
-        ImageView imageView = (ImageView)navigationView.findViewById(R.id.account_logo);
+        CircleImageView imageView = (CircleImageView)navigationView.findViewById(R.id.account_logo);
         TextView textView = (TextView)navigationView.findViewById(R.id.account_name);
         textView.setText("ID: "+AVUser.getCurrentUser().getUsername());
+        /*
+        显示用户设置的logo
+         */
+        SharedPreferences sharedPreferences = this.getSharedPreferences("com.example.db.alife_walllogo", Context.MODE_PRIVATE);
+        String paper = sharedPreferences.getString("paper_path","");
+        if(paper.equals("")){
+            imageView.setBackgroundResource(R.drawable.ic_launcher_web);
+        }else {
+            Bitmap bitmap = BitmapFactory.decodeFile(paper);
+            imageView.setImageBitmap(bitmap);
+        }
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this, SignInActivity.class));
+                Intent intent = new Intent(MainActivity.this, PersonInfoActivity.class);
+                intent.putExtras(bundle);
+                startActivity(intent);
             }
         });
 
@@ -218,20 +270,8 @@ public class MainActivity extends AppCompatActivity implements MessageWallFragme
                     case R.id.nav_alert:
 
                         toolbar.setTitle(menuItem.getTitle());
-                        AlertWallFragment alertWallFragment = new AlertWallFragment();
-                        alertWallFragment.setArguments(bundle);
-                        fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                        fragmentTransaction.replace(R.id.container, alertWallFragment).commit();
-                        menuItem.setChecked(true);
-                        mDrawerLayout.closeDrawers();
-
-                        break;
-
-                    case R.id.nav_setting_feedback:
-
-                        toolbar.setTitle(menuItem.getTitle());
-                        Intent intent = new Intent(MainActivity.this,CustomActivity.class);
-                        startActivity(intent);
+                        startActivity(new Intent(MainActivity.this,AlertWallActivity.class));
+                        MainActivity.this.finish();
                         menuItem.setChecked(true);
                         mDrawerLayout.closeDrawers();
 

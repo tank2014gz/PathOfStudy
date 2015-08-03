@@ -1,9 +1,13 @@
 package com.example.db.messagewall.utils;
 
 import android.app.Activity;
+import android.content.ComponentName;
 import android.content.Context;
+import android.content.Intent;
+import android.content.pm.ResolveInfo;
 import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
@@ -16,6 +20,7 @@ import android.view.WindowManager;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.db.messagewall.activity.PersonInfoActivity;
 import com.example.db.messagewall.view.SystemBarTintManager;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.EncodeHintType;
@@ -27,6 +32,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.OutputStream;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Hashtable;
 import java.util.List;
@@ -66,7 +72,37 @@ public class AppConstant {
             context.getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
             context.getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
             tintManager = new SystemBarTintManager(context);
-            tintManager.setStatusBarTintColor(context.getResources().getColor(R.color.actionbar));
+            switch (ThemeHelper.getTheme(context)){
+                case R.style.nLiveo_Theme_BlueActionBar:
+                    tintManager.setStatusBarTintColor(context.getResources().getColor(R.color.actionbar_blue));
+                    break;
+                case R.style.nLiveo_Theme_WumaiActionBar:
+                    tintManager.setStatusBarTintColor(context.getResources().getColor(R.color.actionbar_wumai));
+                    break;
+                case R.style.nLiveo_Theme_ChinaredActionBar:
+                    tintManager.setStatusBarTintColor(context.getResources().getColor(R.color.actionbar_chinared));
+                    break;
+                case R.style.nLiveo_Theme_GdblackActionBar:
+                    tintManager.setStatusBarTintColor(context.getResources().getColor(R.color.actionbar_gdblack));
+                    break;
+                case R.style.nLiveo_Theme_DoubangreenActionBar:
+                    tintManager.setStatusBarTintColor(context.getResources().getColor(R.color.actionbar_doubangreen));
+                    break;
+                case R.style.nLiveo_Theme_XiaomigreenActionBar:
+                    tintManager.setStatusBarTintColor(context.getResources().getColor(R.color.actionbar_xiaomiorigin));
+                    break;
+                case R.style.nLiveo_Theme_DansuiyellowActionBar:
+                    tintManager.setStatusBarTintColor(context.getResources().getColor(R.color.actionbar_dansuiyellow));
+                    break;
+                case R.style.nLiveo_Theme_NaocanpinkActionBar:
+                    tintManager.setStatusBarTintColor(context.getResources().getColor(R.color.actionbar_naocanpink));
+                    break;
+                case R.style.nLiveo_Theme_MensaopurpleActionBar:
+                    tintManager.setStatusBarTintColor(context.getResources().getColor(R.color.actionbar_mensaopurple));
+                    break;
+                default:
+                    tintManager.setStatusBarTintColor(context.getResources().getColor(R.color.actionbar));
+            }
             tintManager.setStatusBarTintEnabled(true);
         }
     }
@@ -217,6 +253,25 @@ public class AppConstant {
             return false;
         }
     }
+
+    /*
+    判断文件是否已经下载,这是itempaper
+     */
+    public static boolean isExist0(int position){
+        File directory=new File(Environment.getExternalStorageDirectory().getAbsolutePath());
+        directory.mkdir();
+        File QR=new File(directory.getAbsolutePath()+"/MessageWall/ItemPaper");
+        if (!QR.exists()){
+            QR.mkdir();
+        }
+        File myCaptureFile = new File(QR.getAbsolutePath() +"/"+"paper_bkg"+String.valueOf(position)+".png");
+        if (myCaptureFile.exists()){
+            return true;
+        }else {
+            return false;
+        }
+    }
+
     public static String getPath(Context context,Uri uri)
     {
         String[] projection = {MediaStore.Images.Media.DATA };
@@ -225,4 +280,41 @@ public class AppConstant {
         cursor.moveToFirst();
         return cursor.getString(column_index);
     }
+
+    /*
+    判断二维码是否存在
+     */
+    public static boolean isCodeExist(String name){
+        boolean flag = true;
+        File directory=new File(Environment.getExternalStorageDirectory().getAbsolutePath());
+        directory.mkdir();
+        File QR=new File(directory.getAbsolutePath()+"/MessageWall");
+        if (!QR.exists()){
+            QR.mkdir();
+        }
+        File file=new File(QR.getAbsolutePath()+"/"+name+".png");
+        if (file.exists()){
+            flag = true;
+        }else {
+            flag = false;
+        }
+
+        return flag;
+    }
+    /*
+     获取path
+     */
+    public static Uri getCodePath(String name){
+
+        File directory=new File(Environment.getExternalStorageDirectory().getAbsolutePath());
+        directory.mkdir();
+        File QR=new File(directory.getAbsolutePath()+"/MessageWall");
+        if (!QR.exists()){
+            QR.mkdir();
+        }
+        File file=new File(QR.getAbsolutePath()+"/"+name+".png");
+
+        return Uri.fromFile(file);
+    }
+
 }

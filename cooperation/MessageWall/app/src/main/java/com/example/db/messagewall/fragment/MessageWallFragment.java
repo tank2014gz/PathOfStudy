@@ -2,6 +2,7 @@ package com.example.db.messagewall.fragment;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -9,9 +10,7 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -23,13 +22,19 @@ import android.widget.GridView;
 import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.im.v2.AVIMConversation;
 import com.avos.avoscloud.im.v2.AVIMMessage;
+import com.avos.avoscloud.im.v2.AVIMTypedMessage;
 import com.avos.avoscloud.im.v2.callback.AVIMMessagesQueryCallback;
+import com.example.db.messagewall.activity.AddFileItemActivity;
+import com.example.db.messagewall.activity.AddMessageItemActivity;
+import com.example.db.messagewall.activity.AddPictureItemActivity;
+import com.example.db.messagewall.activity.AddVoiceItemActivity;
 import com.example.db.messagewall.adapter.MessageGridAdapter;
 import com.example.db.messagewall.api.AppData;
+import com.example.db.messagewall.api.MessageHandlerHelper;
+import com.example.db.messagewall.view.fab.FloatingActionButton;
+import com.example.db.messagewall.view.fab.FloatingActionMenu;
 import com.support.android.designlibdemo.R;
 
-import java.io.File;
-import java.io.FileInputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -54,8 +59,13 @@ public class MessageWallFragment extends Fragment {
 
     public SwipeRefreshLayout mSwipeRefreshLayout;
     public GridView mGridView;
-    public FloatingActionButton floatingActionButton;
     public FrameLayout frameLayout;
+
+    com.example.db.messagewall.view.fab.FloatingActionButton floatingActionButton_Text
+                                                            ,floatingActionButton_Picture
+                                                            ,floatingActionButton_Voice
+                                                            ,floatingActionButton_File;
+    FloatingActionMenu floatingActionMenu;
 
     public AVIMConversation avimConversation;
     public NoteHandler noteHandler;
@@ -108,20 +118,42 @@ public class MessageWallFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_message_wall, container, false);
 
         /*
-        设置背景图片
+        设置背景图片,并且进行裁剪，以适配手机的屏幕
          */
         frameLayout = (FrameLayout)rootView.findViewById(R.id.set_bkg);
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences("com.example.db.alife_wallpaper", Context.MODE_PRIVATE);
         String paper = sharedPreferences.getString("paper_path","");
-        Log.v("nananana",paper);
-        if (paper==""){
+        if (paper.equals("")){
 
         }else {
-            Bitmap bitmap = BitmapFactory.decodeFile(paper);
+
+            /*
+            获取屏幕的参数
+             */
+            int dw = getActivity().getWindowManager().getDefaultDisplay().getWidth();
+            int dh = getActivity().getWindowManager().getDefaultDisplay().getHeight() / 2;
+            BitmapFactory.Options factory = new BitmapFactory.Options();
+            factory.inJustDecodeBounds = true;
+            Bitmap bitmap = BitmapFactory.decodeFile(paper,factory);
+            /*
+            对图片的高度和宽度对应手机屏幕进行匹配
+             */
+            int wRatio = (int) Math.ceil(factory.outWidth / (float) dw);
+            int hRatio = (int) Math.ceil(factory.outHeight / (float) dh);
+            if (wRatio > 1 || hRatio > 1) {
+                /*
+                inSampleSize>1则返回比原图更小的图片
+                 */
+                if (hRatio > wRatio) {
+                    factory.inSampleSize = hRatio;
+                } else {
+                    factory.inSampleSize = wRatio;
+                }
+            }
+            factory.inJustDecodeBounds = false;
+            bitmap = BitmapFactory.decodeFile(paper,factory);
             if (bitmap==null){
-                Log.v("lalalal","不可以转化");
             }else {
-                Log.v("papapap","可以转化啊");
             }
             Drawable drawable = new BitmapDrawable(bitmap);
             frameLayout.setBackgroundDrawable(drawable);
@@ -129,7 +161,19 @@ public class MessageWallFragment extends Fragment {
 
         mGridView = (GridView)rootView.findViewById(R.id.gridview);
         mSwipeRefreshLayout=(SwipeRefreshLayout)rootView.findViewById(R.id.refreshlayout);
-        floatingActionButton = (FloatingActionButton)rootView.findViewById(R.id.add);
+
+        floatingActionMenu = (FloatingActionMenu)rootView.findViewById(R.id.fab_menu);
+        floatingActionMenu.setClosedOnTouchOutside(true);
+
+        floatingActionButton_Text = (com.example.db.messagewall.view.fab.FloatingActionButton)
+                rootView.findViewById(R.id.fab_text);
+        floatingActionButton_Picture = (com.example.db.messagewall.view.fab.FloatingActionButton)
+                rootView.findViewById(R.id.fab_picture);
+        floatingActionButton_Voice = (com.example.db.messagewall.view.fab.FloatingActionButton)
+                rootView.findViewById(R.id.fab_voice);
+        floatingActionButton_File = (com.example.db.messagewall.view.fab.FloatingActionButton)
+                rootView.findViewById(R.id.fab_file);
+
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -145,19 +189,42 @@ public class MessageWallFragment extends Fragment {
 
         convertMsgToList();
 
-        floatingActionButton.setOnClickListener(new View.OnClickListener() {
+        floatingActionButton_Text.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                FragmentTransaction fragmentTransaction = getActivity()
-                        .getSupportFragmentManager()
-                        .beginTransaction();
-                AddMessageItemFragment addMessageItemFragment = new AddMessageItemFragment();
-                addMessageItemFragment.setArguments(bundle);
-                fragmentTransaction.replace(R.id.container, addMessageItemFragment).commit();
+                floatingActionMenu.close(true);
+                Intent intent = new Intent(getActivity(), AddMessageItemActivity.class);
+                intent.putExtras(bundle);
+                startActivity(intent);
             }
         });
-
+        floatingActionButton_Picture.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                floatingActionMenu.close(true);
+                Intent intent = new Intent(getActivity(), AddPictureItemActivity.class);
+                intent.putExtras(bundle);
+                startActivity(intent);
+            }
+        });
+        floatingActionButton_Voice.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                floatingActionMenu.close(true);
+                Intent intent = new Intent(getActivity(), AddVoiceItemActivity.class);
+                intent.putExtras(bundle);
+                startActivity(intent);
+            }
+        });
+        floatingActionButton_File.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                floatingActionMenu.close(true);
+                Intent intent = new Intent(getActivity(), AddFileItemActivity.class);
+                intent.putExtras(bundle);
+                startActivity(intent);
+            }
+        });
 
         return rootView;
     }
@@ -223,7 +290,16 @@ public class MessageWallFragment extends Fragment {
             public void done(List<AVIMMessage> list, AVException e) {
                 if (e==null){
                     if (list!=null){
-                        messageGridAdapter.setAvimMessages(list);
+
+                        List<AVIMTypedMessage> avimTypedMessages = new ArrayList<AVIMTypedMessage>(list.size());
+                        for (AVIMMessage avimMessage:list){
+                            if (avimMessage instanceof AVIMTypedMessage){
+                                avimTypedMessages.add((AVIMTypedMessage)avimMessage);
+                            }else {
+                                Log.v("exception","unexpected message");
+                            }
+                        }
+                        messageGridAdapter.setAvimMessages(avimTypedMessages);
                         messageGridAdapter.notifyDataSetChanged();
                         mGridView.setAdapter(messageGridAdapter);
                     }else {
@@ -234,6 +310,7 @@ public class MessageWallFragment extends Fragment {
                 }
             }
         });
+
 
 
     }

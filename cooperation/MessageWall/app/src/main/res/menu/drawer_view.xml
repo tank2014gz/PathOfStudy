@@ -44,10 +44,6 @@
             android:id="@+id/nav_alert"
             android:icon="@drawable/ic_visibility_black_24dp"
             android:title="切换留言墙" />
-        <item
-            android:id="@+id/nav_setting_feedback"
-            android:icon="@drawable/ic_question_answer_black_24dp"
-            android:title="反馈" />
 
     </group>
 

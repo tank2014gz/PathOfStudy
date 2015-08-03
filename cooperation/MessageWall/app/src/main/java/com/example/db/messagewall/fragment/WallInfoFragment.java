@@ -19,6 +19,7 @@ import com.avos.avoscloud.im.v2.AVIMConversation;
 import com.avos.avoscloud.im.v2.callback.AVIMConversationCallback;
 import com.avos.avoscloud.im.v2.callback.AVIMConversationMemberCountCallback;
 import com.example.db.messagewall.api.AppData;
+import com.example.db.messagewall.utils.AppConstant;
 import com.example.db.messagewall.view.ALifeToast;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -49,7 +50,6 @@ public class WallInfoFragment extends Fragment {
 
     public TextView mWallName,mWallDate,mWallCount;
     public ImageView mImageView;
-    public LinearLayout linearLayout;
 
     private OnFragmentInteractionListener mListener;
 
@@ -115,7 +115,6 @@ public class WallInfoFragment extends Fragment {
         mWallDate = (TextView)rootView.findViewById(R.id.wall_date);
         mWallCount = (TextView)rootView.findViewById(R.id.wall_count);
         mImageView = (ImageView)rootView.findViewById(R.id.wall_code);
-        linearLayout = (LinearLayout)rootView.findViewById(R.id.btn_refresh);
 
         final AVIMConversation avimConversation = AppData.getIMClient().getConversation(CONVERSATION_ID);
         mWallName.setText(avimConversation.getAttribute("name").toString());
@@ -131,46 +130,36 @@ public class WallInfoFragment extends Fragment {
             }
         });
 
-        avimConversation.fetchInfoInBackground(new AVIMConversationCallback() {
-            @Override
-            public void done(AVException e) {
-                if (e==null){
-                    imageLoader.displayImage(AppData.getIMClient()
-                            .getConversation(CONVERSATION_ID)
-                            .getAttribute("link_url")
-                            .toString(),mImageView,options);
-                }else {
-                    ALifeToast.makeText(getActivity()
-                            , "请重新加载！"
-                            , ALifeToast.ToastType.SUCCESS
-                            , ALifeToast.LENGTH_SHORT)
-                            .show();
-                }
-            }
-        });
 
-        linearLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                avimConversation.fetchInfoInBackground(new AVIMConversationCallback() {
-                    @Override
-                    public void done(AVException e) {
-                        if (e==null){
-                            imageLoader.displayImage(AppData.getIMClient()
-                                    .getConversation(CONVERSATION_ID)
-                                    .getAttribute("link_url")
-                                    .toString(),mImageView,options);
-                        }else {
-                            ALifeToast.makeText(getActivity()
-                                    , "请重新加载！"
-                                    , ALifeToast.ToastType.SUCCESS
-                                    , ALifeToast.LENGTH_SHORT)
-                                    .show();
-                        }
+        /*
+        先在本地寻找，本地找不到再去后台数据库寻找
+         */
+        if (AppConstant.isCodeExist(avimConversation.getAttribute("name").toString())){
+            imageLoader.displayImage(AppConstant.getCodePath(avimConversation.getAttribute("name")
+                    .toString())
+                    .toString()
+                    ,mImageView
+                    ,options);
+        }else {
+            avimConversation.fetchInfoInBackground(new AVIMConversationCallback() {
+                @Override
+                public void done(AVException e) {
+                    if (e==null){
+                        imageLoader.displayImage(AppData.getIMClient()
+                                .getConversation(CONVERSATION_ID)
+                                .getAttribute("link_url")
+                                .toString(),mImageView,options);
+                    }else {
+                        ALifeToast.makeText(getActivity()
+                                , "请重新加载！"
+                                , ALifeToast.ToastType.SUCCESS
+                                , ALifeToast.LENGTH_SHORT)
+                                .show();
                     }
-                });
-            }
-        });
+                }
+            });
+        }
+
 
         return rootView;
     }

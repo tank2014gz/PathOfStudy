@@ -60,7 +60,7 @@ public class WallSwipeAdapter extends BaseAdapter {
             viewHolder.circleImageView = (CircleImageView)convertView.findViewById(R.id.img);
             viewHolder.count = (TextView)convertView.findViewById(R.id.wall_count);
             viewHolder.description = (TextView)convertView.findViewById(R.id.wall_description);
-            viewHolder.linearLayout = (LinearLayout)convertView.findViewById(R.id.circle);
+//            viewHolder.linearLayout = (LinearLayout)convertView.findViewById(R.id.circle);
             viewHolder.name = (TextView)convertView.findViewById(R.id.wall_name);
             convertView.setTag(viewHolder);
         }else {

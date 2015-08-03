@@ -14,19 +14,51 @@
   ~ See the License for the specific language governing permissions and
   ~ limitations under the License.
   -->
-
+<!--#ffc247-->
+<!--#598d9a-->
+<!--#4c4c4c-->
+<!--#009edf-->
 <resources>
     <color name="window_background">#FFF5F5F5</color>
-    <color name="actionbar">#009edf</color>
-    <color name="content">#4c4c4c</color>
-    <color name="actionbar0">#598d9a</color>
+    <color name="actionbar">#24ba91</color>
+    <color name="content">#757575</color>
+    <color name="actionbar0">#757575</color>
     <color name="messagewall_bkg">#989282</color>
-    <color name="message_gray">#798397</color>
+    <color name="message_gray">#fdea17</color>
     <color name="messagewall_ganlan">#8b6f1c</color>
     <color name="messagewall_anshihui">#335c4c</color>
     <color name="messagewall_wuyelan">#002f7d</color>
     <color name="actionbar_title_color">#ffffff</color>
     <color name="error">#a2316c</color>
+
+    <!--蓝色主题-->
+    <color name="actionbar_blue">#009edf</color>
+    <color name="actionbar_blue0">#598d9a</color>
+    <!-- 雾霾灰主题-->
+    <color name="actionbar_wumai">#777777</color>
+    <color name="actionbar_wumai0">#ff5200</color>
+    <!-- 中国红主题-->
+    <color name="actionbar_chinared">#cc2c28</color>
+    <color name="actionbar_chinared0">#862fc9</color>
+    <!-- 高端黑主题-->
+    <color name="actionbar_gdblack">#1b1b1b</color>
+    <color name="actionbar_gdblack0">#f95ebd</color>
+    <!-- 豆瓣请主题-->
+    <color name="actionbar_doubangreen">#3baa24</color>
+    <color name="actionbar_doubangreen0">#ffb016</color>
+    <!-- 小米橙色主题-->
+    <color name="actionbar_xiaomiorigin">#ff5200</color>
+    <color name="actionbar_xiaomiorigin0">#777777</color>
+    <!-- 蛋碎黄主题-->
+    <color name="actionbar_dansuiyellow">#ffb016</color>
+    <color name="actionbar_dansuiyellow0">#3baa24</color>
+    <!-- 脑残粉主题-->
+    <color name="actionbar_naocanpink">#f95ebd</color>
+    <color name="actionbar_naocanpink0">#1b1b1b</color>
+    <!-- 闷骚紫主题-->
+    <color name="actionbar_mensaopurple">#862fc9</color>
+    <color name="actionbar_mensaopurple0">#cc2c28</color>
+
 
     <!-- materialdialog-->
     <color name="card_background">#f5f5f5</color>
@@ -47,4 +79,8 @@
     <color name="possible_result_points">#c0ffff00</color>
     <color name="button">#24ba91</color>
     <color name="scanner">@android:color/transparent</color>
+
+    <!-- fab-->
+    <color name="app_primary">#455A64</color>
+    <color name="app_primary_dark">#37474F</color>
 </resources>
