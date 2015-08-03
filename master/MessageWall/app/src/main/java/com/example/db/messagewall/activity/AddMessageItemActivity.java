@@ -21,6 +21,7 @@ import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.im.v2.AVIMConversation;
 import com.avos.avoscloud.im.v2.AVIMMessage;
 import com.avos.avoscloud.im.v2.callback.AVIMConversationCallback;
+import com.avos.avoscloud.im.v2.messages.AVIMTextMessage;
 import com.example.db.messagewall.api.AppData;
 import com.example.db.messagewall.fragment.MessageWallFragment;
 import com.example.db.messagewall.utils.AppConstant;
@@ -71,8 +72,8 @@ public class AddMessageItemActivity extends BaseActivity {
                     /*
                     发送消息
                      */
-                    AVIMMessage avimMessage = new AVIMMessage();
-                    avimMessage.setContent(wallcontent);
+                    AVIMTextMessage avimMessage = new AVIMTextMessage();
+                    avimMessage.setText(wallcontent);
                     /*
                     通过CONVERSATION_ID找到群组,来通过群组发布消息
                      */

@@ -58,5 +58,11 @@
     <string name="title_activity_base">BaseActivity</string>
     <string name="title_activity_add_picture">AddPictureActivity</string>
     <string name="title_activity_add_voice">AddVoiceActivity</string>
+    <string name="title_activity_add_file_item">AddFileItemActivity</string>
+    <string name="title_activity_text_details">TextDetailsActivity</string>
+    <string name="title_activity_picture_detailsactivity">PictureDetailsactivity</string>
+    <string name="title_activity_picture_details">PictureDetailsActivity</string>
+    <string name="title_activity_voice_details">VoiceDetailsActivity</string>
+    <string name="title_activity_file_details">FileDetailsActivity</string>
 
 </resources>

@@ -67,6 +67,7 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
             }
         });
         holder.name.setText(avimConversation.getName());
+        holder.textView.setText(avimConversation.getName().substring(0,1));
         holder.description.setText(avimConversation.getAttribute("description").toString());
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -124,7 +125,7 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
 
     public static class ViewHolder extends RecyclerView.ViewHolder{
 
-        TextView name,description,count;
+        TextView name,description,count,textView;
         CircleButton circleButton;
         public ViewHolder(View itemView) {
             super(itemView);
@@ -132,6 +133,7 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
             description = (TextView)itemView.findViewById(R.id.wall_description);
             count = (TextView)itemView.findViewById(R.id.wall_count);
             circleButton = (CircleButton)itemView.findViewById(R.id.circlebutton);
+            textView = (TextView)itemView.findViewById(R.id.text);
         }
     }
 

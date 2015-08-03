@@ -38,6 +38,14 @@
         fab:menu_labels_singleLine="true"
         fab:menu_backgroundColor="#ccffffff"
         fab:menu_colorNormal="?attr/appBkg0">
+        <com.example.db.messagewall.view.fab.FloatingActionButton
+            android:id="@+id/fab_file"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/abc_ic_voice_search_api_mtrl_alpha"
+            fab:fab_size="mini"
+            fab:fab_label="文件消息"
+            style="@style/MenuButtonsSmall.Yellow"/>
 
         <com.example.db.messagewall.view.fab.FloatingActionButton
             android:id="@+id/fab_voice"

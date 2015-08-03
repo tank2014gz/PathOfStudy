@@ -22,12 +22,16 @@ import android.widget.GridView;
 import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.im.v2.AVIMConversation;
 import com.avos.avoscloud.im.v2.AVIMMessage;
+import com.avos.avoscloud.im.v2.AVIMTypedMessage;
 import com.avos.avoscloud.im.v2.callback.AVIMMessagesQueryCallback;
+import com.example.db.messagewall.activity.AddFileItemActivity;
 import com.example.db.messagewall.activity.AddMessageItemActivity;
 import com.example.db.messagewall.activity.AddPictureItemActivity;
 import com.example.db.messagewall.activity.AddVoiceItemActivity;
 import com.example.db.messagewall.adapter.MessageGridAdapter;
 import com.example.db.messagewall.api.AppData;
+import com.example.db.messagewall.api.MessageHandlerHelper;
+import com.example.db.messagewall.view.fab.FloatingActionButton;
 import com.example.db.messagewall.view.fab.FloatingActionMenu;
 import com.support.android.designlibdemo.R;
 
@@ -59,7 +63,8 @@ public class MessageWallFragment extends Fragment {
 
     com.example.db.messagewall.view.fab.FloatingActionButton floatingActionButton_Text
                                                             ,floatingActionButton_Picture
-                                                            ,floatingActionButton_Voice;
+                                                            ,floatingActionButton_Voice
+                                                            ,floatingActionButton_File;
     FloatingActionMenu floatingActionMenu;
 
     public AVIMConversation avimConversation;
@@ -166,6 +171,8 @@ public class MessageWallFragment extends Fragment {
                 rootView.findViewById(R.id.fab_picture);
         floatingActionButton_Voice = (com.example.db.messagewall.view.fab.FloatingActionButton)
                 rootView.findViewById(R.id.fab_voice);
+        floatingActionButton_File = (com.example.db.messagewall.view.fab.FloatingActionButton)
+                rootView.findViewById(R.id.fab_file);
 
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -205,6 +212,15 @@ public class MessageWallFragment extends Fragment {
             public void onClick(View v) {
                 floatingActionMenu.close(true);
                 Intent intent = new Intent(getActivity(), AddVoiceItemActivity.class);
+                intent.putExtras(bundle);
+                startActivity(intent);
+            }
+        });
+        floatingActionButton_File.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                floatingActionMenu.close(true);
+                Intent intent = new Intent(getActivity(), AddFileItemActivity.class);
                 intent.putExtras(bundle);
                 startActivity(intent);
             }
@@ -274,7 +290,16 @@ public class MessageWallFragment extends Fragment {
             public void done(List<AVIMMessage> list, AVException e) {
                 if (e==null){
                     if (list!=null){
-                        messageGridAdapter.setAvimMessages(list);
+
+                        List<AVIMTypedMessage> avimTypedMessages = new ArrayList<AVIMTypedMessage>(list.size());
+                        for (AVIMMessage avimMessage:list){
+                            if (avimMessage instanceof AVIMTypedMessage){
+                                avimTypedMessages.add((AVIMTypedMessage)avimMessage);
+                            }else {
+                                Log.v("exception","unexpected message");
+                            }
+                        }
+                        messageGridAdapter.setAvimMessages(avimTypedMessages);
                         messageGridAdapter.notifyDataSetChanged();
                         mGridView.setAdapter(messageGridAdapter);
                     }else {
@@ -285,6 +310,7 @@ public class MessageWallFragment extends Fragment {
                 }
             }
         });
+
 
 
     }

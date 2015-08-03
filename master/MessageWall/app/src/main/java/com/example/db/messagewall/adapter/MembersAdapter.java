@@ -54,6 +54,7 @@ public class MembersAdapter extends BaseAdapter{
             viewHolder.circleButton = (CircleButton)convertView.findViewById(R.id.img);
             viewHolder.name = (TextView)convertView.findViewById(R.id.name);
             viewHolder.description = (TextView)convertView.findViewById(R.id.description);
+            viewHolder.textView = (TextView)convertView.findViewById(R.id.text);
             convertView.setTag(viewHolder);
         }else {
             viewHolder = (ViewHolder)convertView.getTag();
@@ -62,12 +63,13 @@ public class MembersAdapter extends BaseAdapter{
         MemberInfo memberInfo = memberInfos.get(position);
 
         viewHolder.name.setText(memberInfo.getName());
+        viewHolder.textView.setText(memberInfo.getName().substring(0,1));
         viewHolder.description.setText("来源于:"+memberInfo.getDate());
 
         return convertView;
     }
     public static class ViewHolder{
-        TextView name,description;
+        TextView name,description,textView;
         CircleButton circleButton;
     }
 }

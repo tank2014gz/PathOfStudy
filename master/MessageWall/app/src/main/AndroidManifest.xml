@@ -213,6 +213,30 @@
             android:name="com.example.db.messagewall.activity.AddVoiceItemActivity"
             android:label="@string/title_activity_add_voice" >
         </activity>
+        <activity
+            android:name="com.example.db.messagewall.activity.AddFileItemActivity"
+            android:label="@string/title_activity_add_file_item" >
+        </activity>
+        <activity
+            android:name="com.example.db.messagewall.activity.TextDetailsActivity"
+            android:label="@string/title_activity_text_details" >
+        </activity>
+        <activity
+            android:name="com.example.db.messagewall.activity.PictureDetailsactivity"
+            android:label="@string/title_activity_picture_detailsactivity" >
+        </activity>
+        <activity
+            android:name="com.example.db.messagewall.activity.PictureDetailsActivity"
+            android:label="@string/title_activity_picture_details" >
+        </activity>
+        <activity
+            android:name="com.example.db.messagewall.activity.VoiceDetailsActivity"
+            android:label="@string/title_activity_voice_details" >
+        </activity>
+        <activity
+            android:name="com.example.db.messagewall.activity.FileDetailsActivity"
+            android:label="@string/title_activity_file_details" >
+        </activity>
     </application>
 
 </manifest>
