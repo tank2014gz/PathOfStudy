@@ -29,6 +29,7 @@ import com.avos.avoscloud.im.v2.messages.AVIMTextMessage;
 import com.example.db.messagewall.activity.FileDetailsActivity;
 import com.example.db.messagewall.activity.PictureDetailsActivity;
 import com.example.db.messagewall.activity.TextDetailsActivity;
+import com.example.db.messagewall.activity.VoiceDetailsActivity;
 import com.example.db.messagewall.utils.AppConstant;
 import com.example.db.messagewall.view.CircleButton;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
@@ -154,7 +155,7 @@ public class MessageGridAdapter extends BaseAdapter{
                 AVIMFileMessage avimFileMessage = (AVIMFileMessage)avimMessage;
                 viewHolder.date0.setText("时间: "+AppConstant.convertTime(avimFileMessage.getTimestamp()));
                 viewHolder.from.setText("来自: "+avimFileMessage.getFrom().toString());
-                viewHolder.circleButton.setImageResource(R.drawable.ic_attachment_white_24dp);
+                viewHolder.circleButton.setImageResource(R.drawable.ic_insert_link_white_24dp);
                 viewHolder.date.setText("文件");
                 break;
         }
@@ -189,7 +190,16 @@ public class MessageGridAdapter extends BaseAdapter{
                         break;
                     case -3:
                         AVIMAudioMessage avimAudioMessage = (AVIMAudioMessage)avimMessage;
-
+                        Intent intent2 = new Intent(context, VoiceDetailsActivity.class);
+                        intent2.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        Bundle bundle2 = new Bundle();
+                        bundle2.putString("content",avimAudioMessage.getText().toString());
+                        bundle2.putString("from",avimAudioMessage.getFrom().toString());
+                        bundle2.putString("date",AppConstant.convertTime(avimAudioMessage.getTimestamp()));
+                        bundle2.putString("url",avimAudioMessage.getFileUrl());
+                        bundle2.putString("msgId",avimAudioMessage.getMessageId());
+                        intent2.putExtras(bundle2);
+                        context.startActivity(intent2);
                         break;
                     case -6:
                         AVIMFileMessage avimFileMessage = (AVIMFileMessage)avimMessage;

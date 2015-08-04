@@ -103,4 +103,20 @@
         <item name="fab_colorRipple">#D99200</item>
     </style>
 
+
+    <!-- 录音的-->
+    <style name="chat_record_button_toast_dialog_style">
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:backgroundDimEnabled">false</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowBackground">@drawable/circle_wuyelan</item>
+    </style>
+    <!-- 播放录音的-->
+    <style name="chat_play_btn">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
 </resources>

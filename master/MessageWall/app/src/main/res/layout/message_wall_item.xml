@@ -41,7 +41,8 @@
                     android:layout_height="56dp"
                     android:layout_gravity="center"
                     app:cb_color="#bebebe"
-                    android:id="@+id/wall_item" />
+                    android:id="@+id/wall_item"
+                    app:cb_pressedRingWidth="0dp"/>
             </FrameLayout>
 
             <LinearLayout
@@ -75,7 +76,7 @@
                     android:textColor="@android:color/darker_gray"
                     android:maxLines="1"
                     android:ellipsize="middle"
-                    />
+                    android:layout_marginBottom="8dp"/>
             </LinearLayout>
 
 

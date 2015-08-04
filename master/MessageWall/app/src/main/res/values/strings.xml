@@ -65,4 +65,11 @@
     <string name="title_activity_voice_details">VoiceDetailsActivity</string>
     <string name="title_activity_file_details">FileDetailsActivity</string>
 
+  <!-- 录音的-->
+  <string name="chat_record_button_slideUpToCancel">上滑取消</string>
+  <string name="chat_record_button_releaseToCancel">松手取消</string>
+  <string name="chat_cancelRecord">取消录音</string>
+  <string name="chat_bottom_record_layout_pressToRecord">按住录音</string>
+  <string name="chat_record_button_pleaseSayMore">说多点吧～</string>
+
 </resources>

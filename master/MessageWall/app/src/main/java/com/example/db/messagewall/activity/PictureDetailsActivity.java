@@ -1,6 +1,9 @@
 package com.example.db.messagewall.activity;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Paint;
+import android.net.Uri;
 import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -49,6 +52,11 @@ public class PictureDetailsActivity extends BaseActivity {
         imageView = (ImageView)findViewById(R.id.img);
         mDownload = (Button)findViewById(R.id.btn_download);
 
+        /*
+        给textview设置下划线
+         */
+        mContent.getPaint().setFlags(Paint.UNDERLINE_TEXT_FLAG);
+
         imageLoader = ImageLoader.getInstance();
         imageLoader.init(ImageLoaderConfiguration.createDefault(PictureDetailsActivity.this));
         options = new DisplayImageOptions.Builder()
@@ -70,7 +78,7 @@ public class PictureDetailsActivity extends BaseActivity {
         }
 
         if (content!=null&&content.length()!=0){
-            mContent.setText("标题: "+content);
+            mContent.setText(content+".png");
             mDate.setText("时间: "+date);
             mFrom.setText("来自: "+from);
         }
@@ -83,6 +91,15 @@ public class PictureDetailsActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
 
+            }
+        });
+
+        mContent.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Uri link = Uri.parse(url);
+                Intent intent = new Intent(Intent.ACTION_VIEW,link);
+                PictureDetailsActivity.this.startActivity(intent);
             }
         });
     }

@@ -137,7 +137,7 @@ public class MembersFragment extends Fragment {
                 item1.setBackground(R.drawable.rect_bkg);
                 item1.setWidth(dp2px(90));
                 item1.setHeight(dp2px(65));
-                item1.setIcon(R.drawable.ic_home_white_24dp);
+                item1.setIcon(R.drawable.ic_vertical_align_top_white_24dp);
                 menu.addMenuItem(item1);
 
                 SwipeMenuItem item2 = new SwipeMenuItem(

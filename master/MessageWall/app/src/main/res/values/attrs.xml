@@ -208,4 +208,9 @@
         <attr name="menu_backgroundColor" format="color" />
     </declare-styleable>
 
+
+    <!-- 录音的-->
+    <declare-styleable name="ChatPlayBtn">
+        <attr name="left" format="boolean"/>
+    </declare-styleable>
 </resources>

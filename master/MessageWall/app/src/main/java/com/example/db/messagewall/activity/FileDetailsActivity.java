@@ -1,5 +1,8 @@
 package com.example.db.messagewall.activity;
 
+import android.content.Intent;
+import android.graphics.Paint;
+import android.net.Uri;
 import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -40,6 +43,10 @@ public class FileDetailsActivity extends BaseActivity {
         mFrom = (TextView)findViewById(R.id.from);
         mDownload = (Button)findViewById(R.id.btn_download);
 
+        /*
+        给textview设置下划线
+         */
+        mContent.getPaint().setFlags(Paint.UNDERLINE_TEXT_FLAG);
 
         bundle = this.getIntent().getExtras();
         if (bundle!=null){
@@ -51,7 +58,7 @@ public class FileDetailsActivity extends BaseActivity {
         }
 
         if (content!=null&&content.length()!=0){
-            mContent.setText("内容: "+content);
+            mContent.setText(content);
             mDate.setText("时间: "+date);
             mFrom.setText("来自: "+from);
         }
@@ -60,6 +67,15 @@ public class FileDetailsActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
 
+            }
+        });
+
+        mContent.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Uri link = Uri.parse(url);
+                Intent intent = new Intent(Intent.ACTION_VIEW,link);
+                FileDetailsActivity.this.startActivity(intent);
             }
         });
     }

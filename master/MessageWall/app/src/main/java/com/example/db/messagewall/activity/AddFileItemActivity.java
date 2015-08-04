@@ -146,7 +146,7 @@ public class AddFileItemActivity extends BaseActivity {
         if (requestCode==2&&resultCode== Activity.RESULT_OK){
             if (data!=null){
                 Uri uri = data.getData();
-                path = AppConstant.getPath(AddFileItemActivity.this,uri);
+                path = uri.getPath();
 
                 Log.v("paper_path", path);
             }else {

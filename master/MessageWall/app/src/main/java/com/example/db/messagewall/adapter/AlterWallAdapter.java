@@ -17,6 +17,7 @@ import com.avos.avoscloud.im.v2.callback.AVIMConversationMemberCountCallback;
 import com.example.db.messagewall.activity.MainActivity;
 import com.example.db.messagewall.bean.WallInfo;
 import com.example.db.messagewall.utils.AppConstant;
+import com.example.db.messagewall.view.CircleButton;
 import com.example.db.messagewall.view.CircleImageView;
 import com.example.db.messagewall.view.MaterialDialog;
 import com.support.android.designlibdemo.R;
@@ -65,6 +66,8 @@ public class AlterWallAdapter extends RecyclerView.Adapter<AlterWallAdapter.View
         holder.name.setText(avimConversation.getName());
         holder.description.setText(avimConversation.getAttribute("description").toString());
 
+        holder.textView.setText(avimConversation.getName().substring(0,1));
+
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -85,17 +88,16 @@ public class AlterWallAdapter extends RecyclerView.Adapter<AlterWallAdapter.View
 
     public static class ViewHolder extends RecyclerView.ViewHolder{
 
-        CircleImageView circleImageView;
-        TextView name,description,count;
-        LinearLayout linearLayout;
+        CircleButton circleButton;
+        TextView name,description,count,textView;
 
         public ViewHolder(View itemView) {
             super(itemView);
-            circleImageView = (CircleImageView)itemView.findViewById(R.id.img);
+            circleButton = (CircleButton)itemView.findViewById(R.id.circlebutton);
             name = (TextView)itemView.findViewById(R.id.wall_name);
             description = (TextView)itemView.findViewById(R.id.wall_description);
             count = (TextView)itemView.findViewById(R.id.wall_count);
-//            linearLayout = (LinearLayout)itemView.findViewById(R.id.circle);
+            textView = (TextView)itemView.findViewById(R.id.text);
         }
     }
 
