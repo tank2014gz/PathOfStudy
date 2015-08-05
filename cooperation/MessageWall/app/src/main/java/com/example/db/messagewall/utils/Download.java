@@ -9,6 +9,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
@@ -108,6 +109,29 @@ public class Download {
         bos.flush();
         bos.close();
 
+    }
+
+    /*
+    下载文件
+    将文件写入SD卡中
+     */
+    public static String writeToSDFromInputStream(String name,InputStream inputStream){
+
+        File file = PathHelper.getFilePath(name);
+        OutputStream outStream=null;
+        try {
+            outStream=new FileOutputStream(file);
+            byte[] buffer = new byte[1024];
+            int len = 0;
+            while( (len=inputStream.read(buffer)) != -1){
+                outStream.write(buffer, 0, len);
+            }
+            outStream.flush();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+        return file.getAbsolutePath();
     }
 
 }

@@ -12,7 +12,7 @@ import com.support.android.designlibdemo.R;
 
 public class BaseActivity extends AppCompatActivity {
 
-    public int mThemeId = R.style.AppTheme_DarkActionBar;
+    public int mThemeId = R.style.nLiveo_Theme_WumaiActionBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

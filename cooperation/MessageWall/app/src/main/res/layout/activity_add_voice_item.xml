@@ -13,6 +13,19 @@
         android:orientation="vertical"
         android:background="@color/actionbar_title_color"
         >
-
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <com.example.db.messagewall.record.RecordButton
+                android:id="@+id/recordBtn"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_gravity="bottom|center"
+                android:background="@drawable/abc_ic_voice_search_api_mtrl_alpha"
+                android:textSize="13sp"
+                android:textColor="?attr/appBkg0"
+                android:text="按住录音"
+                android:layout_marginBottom="32dp"/>
+        </FrameLayout>
     </LinearLayout>
 </LinearLayout>

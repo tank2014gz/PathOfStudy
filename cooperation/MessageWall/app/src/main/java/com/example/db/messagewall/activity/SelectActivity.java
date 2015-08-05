@@ -43,6 +43,8 @@ import com.example.db.messagewall.utils.AppConstant;
 import com.example.db.messagewall.utils.ThemeHelper;
 import com.example.db.messagewall.view.ALifeToast;
 import com.example.db.messagewall.view.MaterialDialog;
+import com.example.db.messagewall.view.filtermenu.library.FilterMenu;
+import com.example.db.messagewall.view.filtermenu.library.FilterMenuLayout;
 import com.support.android.designlibdemo.R;
 
 import java.util.ArrayList;
@@ -52,7 +54,11 @@ public class SelectActivity extends BaseActivity {
 
     public static final String EXTRA_NAME = "cheese_name";
 
+    /*
     public FloatingActionButton floatingActionButton;
+     */
+
+    public FilterMenuLayout filterMenuLayout;
 
     public SwipeRefreshLayout mSwipeRefreshLayout;
     public RecyclerView recyclerView;
@@ -76,7 +82,14 @@ public class SelectActivity extends BaseActivity {
         recyclerView = (RecyclerView)findViewById(R.id.listview);
         recyclerView.setLayoutManager(new LinearLayoutManager(recyclerView.getContext()));
 
+        /*
         floatingActionButton = (FloatingActionButton)findViewById(R.id.add);
+         */
+
+        filterMenuLayout = (FilterMenuLayout)findViewById(R.id.add);
+        filterMenuLayout.setDrawable(getApplicationContext().getResources().getDrawable(R.drawable.ic_more_horiz_white_24dp));
+        attachMenu(filterMenuLayout);
+
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -127,44 +140,44 @@ public class SelectActivity extends BaseActivity {
                 android.R.color.holo_orange_light,
                 android.R.color.holo_red_light);
 
-        floatingActionButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                AVUser avUser = AVUser.getCurrentUser();
-                if (avUser!=null){
-
-                    final MaterialDialog materialDialog = new MaterialDialog(SelectActivity.this);
-                    View view = LayoutInflater.from(getApplicationContext())
-                            .inflate(R.layout.select_dialog,null);
-                    TextView scanner = (TextView)view.findViewById(R.id.scanner);
-                    TextView add = (TextView)view.findViewById(R.id.add);
-                    scanner.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            Intent intent = new Intent(SelectActivity.this,MipcaActivityCapture.class);
-                            startActivity(intent);
-                            materialDialog.dismiss();
-                        }
-                    });
-                    add.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            Intent intent = new Intent(SelectActivity.this,AddMessageWallActivity.class);
-                            startActivity(intent);
-                            materialDialog.dismiss();
-                        }
-                    });
-                    materialDialog.setView(view)
-                                  .setCanceledOnTouchOutside(true);
-                    materialDialog.show();
-
-
-                }else {
-                    Intent intent = new Intent(SelectActivity.this,SignUpActivity.class);
-                    startActivity(intent);
-                }
-            }
-        });
+//        floatingActionButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                AVUser avUser = AVUser.getCurrentUser();
+//                if (avUser!=null){
+//
+//                    final MaterialDialog materialDialog = new MaterialDialog(SelectActivity.this);
+//                    View view = LayoutInflater.from(getApplicationContext())
+//                            .inflate(R.layout.select_dialog,null);
+//                    TextView scanner = (TextView)view.findViewById(R.id.scanner);
+//                    TextView add = (TextView)view.findViewById(R.id.add);
+//                    scanner.setOnClickListener(new View.OnClickListener() {
+//                        @Override
+//                        public void onClick(View v) {
+//                            Intent intent = new Intent(SelectActivity.this,MipcaActivityCapture.class);
+//                            startActivity(intent);
+//                            materialDialog.dismiss();
+//                        }
+//                    });
+//                    add.setOnClickListener(new View.OnClickListener() {
+//                        @Override
+//                        public void onClick(View v) {
+//                            Intent intent = new Intent(SelectActivity.this,AddMessageWallActivity.class);
+//                            startActivity(intent);
+//                            materialDialog.dismiss();
+//                        }
+//                    });
+//                    materialDialog.setView(view)
+//                                  .setCanceledOnTouchOutside(true);
+//                    materialDialog.show();
+//
+//
+//                }else {
+//                    Intent intent = new Intent(SelectActivity.this,SignUpActivity.class);
+//                    startActivity(intent);
+//                }
+//            }
+//        });
 
         /*
         刷新加载
@@ -205,6 +218,39 @@ public class SelectActivity extends BaseActivity {
             AppConstant.showSelfToast(getApplicationContext(),"请先登陆或注册！");
         }
 
+    }
+
+    private FilterMenu attachMenu(FilterMenuLayout layout) {
+        return new FilterMenu.Builder(this)
+                .addItem(R.drawable.ic_edit_white_24dp)
+                .addItem(R.drawable.cam_camera)
+                .attach(layout)
+                .withListener(new FilterMenu.OnMenuChangeListener() {
+                    @Override
+                    public void onMenuItemClick(View view, int position) {
+                        switch (position){
+                            case 0:
+                                Intent intent0 = new Intent(SelectActivity.this,AddMessageWallActivity.class);
+                                startActivity(intent0);
+                                break;
+                            case 1:
+                                Intent intent = new Intent(SelectActivity.this,MipcaActivityCapture.class);
+                                startActivity(intent);
+                                break;
+                        }
+                    }
+
+                    @Override
+                    public void onMenuCollapse() {
+
+                    }
+
+                    @Override
+                    public void onMenuExpand() {
+
+                    }
+                })
+                .build();
     }
 
     @Override

@@ -80,27 +80,43 @@
 
     <style name="MenuButtonsSmall">
         <item name="fab_size">mini</item>
-        <item name="fab_colorNormal">#20253c</item>
-        <item name="fab_colorPressed">#262b42</item>
-        <item name="fab_colorRipple">#2d3049</item>
+        <item name="fab_colorNormal">#01c2e1</item>
+        <item name="fab_colorPressed">#01c2e1</item>
+        <item name="fab_colorRipple">#01c2e1</item>
     </style>
 
     <style name="MenuButtonsSmall.Green">
-        <item name="fab_colorNormal">#084525</item>
-        <item name="fab_colorPressed">#0c4a28</item>
-        <item name="fab_colorRipple">#275440</item>
+        <item name="fab_colorNormal">#58d996</item>
+        <item name="fab_colorPressed">#58d996</item>
+        <item name="fab_colorRipple">#58d996</item>
     </style>
 
     <style name="MenuButtonsSmall.Blue">
-        <item name="fab_colorNormal">#1e189b</item>
-        <item name="fab_colorPressed">#1e1d98</item>
-        <item name="fab_colorRipple">#3438ae</item>
+        <item name="fab_colorNormal">#e45779</item>
+        <item name="fab_colorPressed">#e45779</item>
+        <item name="fab_colorRipple">#e45779</item>
     </style>
 
     <style name="MenuButtonsSmall.Yellow">
-        <item name="fab_colorNormal">#FFB805</item>
-        <item name="fab_colorPressed">#F2AB00</item>
-        <item name="fab_colorRipple">#D99200</item>
+        <item name="fab_colorNormal">#e9c04d</item>
+        <item name="fab_colorPressed">#e9c04d</item>
+        <item name="fab_colorRipple">#e9c04d</item>
     </style>
 
+
+    <!-- 录音的-->
+    <style name="chat_record_button_toast_dialog_style">
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:backgroundDimEnabled">false</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowBackground">@drawable/circle_wuyelan</item>
+    </style>
+    <!-- 播放录音的-->
+    <style name="chat_play_btn">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
 </resources>
