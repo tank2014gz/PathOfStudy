@@ -25,7 +25,6 @@ public class FileDetailsActivity extends BaseActivity {
     public String content,date,from,url;
 
     public TextView mContent,mDate,mFrom;
-    public Button mDownload;
 
 
     @Override
@@ -41,7 +40,6 @@ public class FileDetailsActivity extends BaseActivity {
         mContent = (TextView)findViewById(R.id.content);
         mDate = (TextView)findViewById(R.id.date);
         mFrom = (TextView)findViewById(R.id.from);
-        mDownload = (Button)findViewById(R.id.btn_download);
 
         /*
         给textview设置下划线
@@ -62,13 +60,6 @@ public class FileDetailsActivity extends BaseActivity {
             mDate.setText("时间: "+date);
             mFrom.setText("来自: "+from);
         }
-
-        mDownload.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
 
         mContent.setOnClickListener(new View.OnClickListener() {
             @Override

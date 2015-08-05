@@ -31,7 +31,6 @@ public class PictureDetailsActivity extends BaseActivity {
 
     public TextView mContent,mDate,mFrom;
     public ImageView imageView;
-    public Button mDownload;
 
     public DisplayImageOptions options;
     public ImageLoader imageLoader;
@@ -50,7 +49,6 @@ public class PictureDetailsActivity extends BaseActivity {
         mDate = (TextView)findViewById(R.id.date);
         mFrom = (TextView)findViewById(R.id.from);
         imageView = (ImageView)findViewById(R.id.img);
-        mDownload = (Button)findViewById(R.id.btn_download);
 
         /*
         给textview设置下划线
@@ -87,12 +85,7 @@ public class PictureDetailsActivity extends BaseActivity {
             imageLoader.displayImage(url,imageView,options);
         }
 
-        mDownload.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
 
-            }
-        });
 
         mContent.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
@@ -135,6 +136,7 @@ public class MessageGridAdapter extends BaseAdapter{
                 viewHolder.from.setText("来自: "+avimTextMessage.getFrom().toString());
                 viewHolder.date0.setText("时间: "+AppConstant.convertTime(avimTextMessage.getTimestamp()));
                 viewHolder.circleButton.setImageResource(R.drawable.ic_edit_white_24dp);
+                viewHolder.circleButton.setColor(Color.parseColor("#ade7cf"));
                 viewHolder.date.setText("文字");
                 break;
             case -2:
@@ -142,6 +144,7 @@ public class MessageGridAdapter extends BaseAdapter{
                 viewHolder.from.setText("来自: "+avimImageMessage.getFrom().toString());
                 viewHolder.date0.setText("时间: "+AppConstant.convertTime(avimImageMessage.getTimestamp()));
                 viewHolder.circleButton.setImageResource(R.drawable.ic_crop_original_white_24dp);
+                viewHolder.circleButton.setColor(Color.parseColor("#b8e9ec"));
                 viewHolder.date.setText("图片");
                 break;
             case -3:
@@ -149,6 +152,7 @@ public class MessageGridAdapter extends BaseAdapter{
                 viewHolder.from.setText("来自: "+avimAudioMessage.getFrom().toString());
                 viewHolder.date0.setText("时间: "+AppConstant.convertTime(avimAudioMessage.getTimestamp()));
                 viewHolder.circleButton.setImageResource(R.drawable.abc_ic_voice_search_api_mtrl_alpha);
+                viewHolder.circleButton.setColor(Color.parseColor("#ffcbcf"));
                 viewHolder.date.setText("语音");
                 break;
             case -6:
@@ -156,6 +160,7 @@ public class MessageGridAdapter extends BaseAdapter{
                 viewHolder.date0.setText("时间: "+AppConstant.convertTime(avimFileMessage.getTimestamp()));
                 viewHolder.from.setText("来自: "+avimFileMessage.getFrom().toString());
                 viewHolder.circleButton.setImageResource(R.drawable.ic_insert_link_white_24dp);
+                viewHolder.circleButton.setColor(Color.parseColor("#F9eca4"));
                 viewHolder.date.setText("文件");
                 break;
         }

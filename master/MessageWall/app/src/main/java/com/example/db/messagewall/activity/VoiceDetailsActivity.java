@@ -32,7 +32,6 @@ public class VoiceDetailsActivity extends BaseActivity {
 
     public TextView mContent,mDate,mFrom;
     public PlayButton playButton;
-    public Button mDownload;
 
     public Handler handler;
 
@@ -49,7 +48,6 @@ public class VoiceDetailsActivity extends BaseActivity {
         mContent = (TextView)findViewById(R.id.content);
         mDate = (TextView)findViewById(R.id.date);
         mFrom = (TextView)findViewById(R.id.from);
-        mDownload = (Button)findViewById(R.id.btn_download);
         playButton = (PlayButton)findViewById(R.id.playBtn);
 
         /*
@@ -72,13 +70,6 @@ public class VoiceDetailsActivity extends BaseActivity {
             mDate.setText("时间: "+date);
             mFrom.setText("来自: "+from);
         }
-
-        mDownload.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
 
         mContent.setOnClickListener(new View.OnClickListener() {
             @Override

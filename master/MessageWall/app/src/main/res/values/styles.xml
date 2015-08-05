@@ -80,27 +80,27 @@
 
     <style name="MenuButtonsSmall">
         <item name="fab_size">mini</item>
-        <item name="fab_colorNormal">#20253c</item>
-        <item name="fab_colorPressed">#262b42</item>
-        <item name="fab_colorRipple">#2d3049</item>
+        <item name="fab_colorNormal">#b8e9ec</item>
+        <item name="fab_colorPressed">#b8e9ec</item>
+        <item name="fab_colorRipple">#b8e9ec</item>
     </style>
 
     <style name="MenuButtonsSmall.Green">
-        <item name="fab_colorNormal">#084525</item>
-        <item name="fab_colorPressed">#0c4a28</item>
-        <item name="fab_colorRipple">#275440</item>
+        <item name="fab_colorNormal">#ade7cf</item>
+        <item name="fab_colorPressed">#ade7cf</item>
+        <item name="fab_colorRipple">#ade7cf</item>
     </style>
 
     <style name="MenuButtonsSmall.Blue">
-        <item name="fab_colorNormal">#1e189b</item>
-        <item name="fab_colorPressed">#1e1d98</item>
-        <item name="fab_colorRipple">#3438ae</item>
+        <item name="fab_colorNormal">#ffcbcf</item>
+        <item name="fab_colorPressed">#ffcbcf</item>
+        <item name="fab_colorRipple">#ffcbcf</item>
     </style>
 
     <style name="MenuButtonsSmall.Yellow">
-        <item name="fab_colorNormal">#FFB805</item>
-        <item name="fab_colorPressed">#F2AB00</item>
-        <item name="fab_colorRipple">#D99200</item>
+        <item name="fab_colorNormal">#F9eca4</item>
+        <item name="fab_colorPressed">#F9eca4</item>
+        <item name="fab_colorRipple">#F9eca4</item>
     </style>
 
 

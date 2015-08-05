@@ -36,28 +36,28 @@
     <color name="actionbar_blue0">#598d9a</color>
     <!-- 雾霾灰主题-->
     <color name="actionbar_wumai">#777777</color>
-    <color name="actionbar_wumai0">#ff5200</color>
+    <color name="actionbar_wumai0">#fe595f</color>
     <!-- 中国红主题-->
     <color name="actionbar_chinared">#cc2c28</color>
-    <color name="actionbar_chinared0">#862fc9</color>
+    <color name="actionbar_chinared0">#ffb016</color>
     <!-- 高端黑主题-->
     <color name="actionbar_gdblack">#1b1b1b</color>
-    <color name="actionbar_gdblack0">#f95ebd</color>
+    <color name="actionbar_gdblack0">#777777</color>
     <!-- 豆瓣请主题-->
     <color name="actionbar_doubangreen">#3baa24</color>
-    <color name="actionbar_doubangreen0">#ffb016</color>
+    <color name="actionbar_doubangreen0">#862fc9</color>
     <!-- 小米橙色主题-->
-    <color name="actionbar_xiaomiorigin">#ff5200</color>
+    <color name="actionbar_xiaomiorigin">#fe595f</color>
     <color name="actionbar_xiaomiorigin0">#777777</color>
     <!-- 蛋碎黄主题-->
     <color name="actionbar_dansuiyellow">#ffb016</color>
     <color name="actionbar_dansuiyellow0">#3baa24</color>
     <!-- 脑残粉主题-->
     <color name="actionbar_naocanpink">#f95ebd</color>
-    <color name="actionbar_naocanpink0">#1b1b1b</color>
+    <color name="actionbar_naocanpink0">#3baa24</color>
     <!-- 闷骚紫主题-->
     <color name="actionbar_mensaopurple">#862fc9</color>
-    <color name="actionbar_mensaopurple0">#cc2c28</color>
+    <color name="actionbar_mensaopurple0">#598d9a</color>
 
 
     <!-- materialdialog-->

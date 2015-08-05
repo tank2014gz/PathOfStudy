@@ -76,8 +76,8 @@ public class AppConstant {
                 case R.style.nLiveo_Theme_BlueActionBar:
                     tintManager.setStatusBarTintColor(context.getResources().getColor(R.color.actionbar_blue));
                     break;
-                case R.style.nLiveo_Theme_WumaiActionBar:
-                    tintManager.setStatusBarTintColor(context.getResources().getColor(R.color.actionbar_wumai));
+                case R.style.nLiveo_Theme_DarkActionBar:
+                    tintManager.setStatusBarTintColor(context.getResources().getColor(R.color.actionbar));
                     break;
                 case R.style.nLiveo_Theme_ChinaredActionBar:
                     tintManager.setStatusBarTintColor(context.getResources().getColor(R.color.actionbar_chinared));
@@ -101,11 +101,24 @@ public class AppConstant {
                     tintManager.setStatusBarTintColor(context.getResources().getColor(R.color.actionbar_mensaopurple));
                     break;
                 default:
-                    tintManager.setStatusBarTintColor(context.getResources().getColor(R.color.actionbar));
+                    tintManager.setStatusBarTintColor(context.getResources().getColor(R.color.actionbar_wumai));
             }
             tintManager.setStatusBarTintEnabled(true);
         }
     }
+
+    public static void setStatus0(boolean on,Activity context){
+        Window window = context.getWindow();
+        WindowManager.LayoutParams layoutParams=window.getAttributes();
+        final int bits = WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS;
+        if (on){
+            layoutParams.flags |=bits;
+        }else {
+            layoutParams.flags &= ~bits;
+        }
+        window.setAttributes(layoutParams);
+    }
+
     public static void setScanner(boolean on,Activity context){
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT){
             context.getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
