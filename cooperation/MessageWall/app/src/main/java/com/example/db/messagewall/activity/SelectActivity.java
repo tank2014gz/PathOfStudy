@@ -224,6 +224,7 @@ public class SelectActivity extends BaseActivity {
         return new FilterMenu.Builder(this)
                 .addItem(R.drawable.ic_edit_white_24dp)
                 .addItem(R.drawable.cam_camera)
+                .addItem(R.drawable.ic_group_white_24dp)
                 .attach(layout)
                 .withListener(new FilterMenu.OnMenuChangeListener() {
                     @Override
@@ -236,6 +237,10 @@ public class SelectActivity extends BaseActivity {
                             case 1:
                                 Intent intent = new Intent(SelectActivity.this,MipcaActivityCapture.class);
                                 startActivity(intent);
+                                break;
+                            case 2:
+                                Intent intent1 = new Intent(SelectActivity.this,SignUpActivity.class);
+                                startActivity(intent1);
                                 break;
                         }
                     }

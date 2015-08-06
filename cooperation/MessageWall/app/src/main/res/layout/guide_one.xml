@@ -4,24 +4,43 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    android:background="@drawable/guide1">
+    android:background="#01c2e1">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1">
+        android:layout_weight="1"
+        android:orientation="horizontal">
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"></LinearLayout>
+        <com.example.db.messagewall.view.CircleImageView
+            android:layout_width="96dp"
+            android:layout_height="96dp"
+            android:layout_gravity="center"
+            android:layout_marginLeft="32dp"
+            android:layout_marginRight="32dp"
+            android:layout_marginTop="32dp"
+            android:src="@drawable/logo">
 
+        </com.example.db.messagewall.view.CircleImageView>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"></LinearLayout>
     </LinearLayout>
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="42dp"
-        android:layout_marginBottom="36dp">
-        <Button
-            android:layout_width="192dp"
-            android:layout_height="match_parent"
-            android:layout_gravity="center"
-            android:background="@drawable/button_unpressed"
-            android:text="留言墙　沟通你我"
+        android:layout_marginBottom="160dp">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:textSize="16sp"
             android:textColor="@color/actionbar_title_color"
-            android:textSize="16sp"/>
+            android:text="留言墙　沟通你我"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:textStyle="italic"/>
     </FrameLayout>
 </LinearLayout>

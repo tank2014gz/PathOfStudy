@@ -10,12 +10,12 @@
         android:layout_height="100dp"
         android:orientation="horizontal">
         <com.example.db.messagewall.view.CircleImageView
-            android:layout_width="64dp"
-            android:layout_height="64dp"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
             android:layout_gravity="center"
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp"
-            android:src="@drawable/ic_launcher"
+            android:src="@drawable/logo"
             app:border_width="2dp"
             app:border_color="@color/actionbar_title_color"
             android:id="@+id/img"/>

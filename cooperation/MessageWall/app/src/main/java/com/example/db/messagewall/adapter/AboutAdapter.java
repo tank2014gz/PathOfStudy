@@ -56,17 +56,17 @@ public class AboutAdapter extends BaseAdapter{
 
         switch (position){
             case 0:
-                viewHolder.circleButton.setImageResource(R.drawable.ic_launcher);
+                viewHolder.circleButton.setImageResource(R.drawable.logo);
                 viewHolder.name.setText("Danbo");
                 viewHolder.description.setText("Designer  大一党");
                 break;
             case 1:
-                viewHolder.circleButton.setImageResource(R.drawable.ic_launcher);
+                viewHolder.circleButton.setImageResource(R.drawable.logo);
                 viewHolder.name.setText("吴胖胖");
                 viewHolder.description.setText("PM  大二党");
                 break;
             case 2:
-                viewHolder.circleButton.setImageResource(R.drawable.ic_launcher);
+                viewHolder.circleButton.setImageResource(R.drawable.logo);
                 viewHolder.name.setText("KG");
                 viewHolder.description.setText("Android Coder  大二党");
                 break;

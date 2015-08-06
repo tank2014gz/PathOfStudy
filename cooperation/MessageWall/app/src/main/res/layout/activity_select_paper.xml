@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:fab="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
     <include
@@ -52,14 +53,16 @@
         </android.support.v7.widget.CardView>
 
 
-        <android.support.design.widget.FloatingActionButton
-            android:layout_height="wrap_content"
+        <com.example.db.messagewall.view.fab.FloatingActionButton
+            android:id="@+id/add"
             android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_gravity="right|bottom"
-            android:src="@drawable/ic_done"
-            android:clickable="true"
             android:layout_marginRight="16dp"
             android:layout_marginBottom="16dp"
-            android:id="@+id/add"/>
+            android:src="@drawable/ic_done"
+            fab:fab_size="normal"
+            fab:fab_label="图片消息"
+            style="@style/MenuButtonsStyle"/>
     </FrameLayout>
 </LinearLayout>

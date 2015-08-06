@@ -19,6 +19,7 @@ import com.example.db.messagewall.activity.MainActivity;
 import com.example.db.messagewall.adapter.WallPaperGridAdapter;
 import com.example.db.messagewall.utils.AppConstant;
 import com.example.db.messagewall.view.ALifeToast;
+import com.example.db.messagewall.view.fab.FloatingActionMenu;
 import com.support.android.designlibdemo.R;
 
 /**
@@ -42,7 +43,7 @@ public class EditWallPaperFragment extends Fragment {
 
     public GridView mGridView;
     public WallPaperGridAdapter wallPaperGridAdapter;
-    public FloatingActionButton floatingActionButton;
+    public com.example.db.messagewall.view.fab.FloatingActionButton floatingActionButton;
     public TextView select;
 
     private OnFragmentInteractionListener mListener;
@@ -90,7 +91,9 @@ public class EditWallPaperFragment extends Fragment {
 
         View rootView = inflater.inflate(R.layout.fragment_wall_paper, container, false);
 
-        floatingActionButton = (FloatingActionButton)rootView.findViewById(R.id.add);
+        floatingActionButton = (com.example.db.messagewall.view.fab.FloatingActionButton)rootView.findViewById(R.id.add);
+        floatingActionButton.show(true);
+
         mGridView = (GridView)rootView.findViewById(R.id.gridview);
         select = (TextView)rootView.findViewById(R.id.select);
 
