@@ -22,9 +22,9 @@ public class FileDetailsActivity extends BaseActivity {
 
     public Bundle bundle;
 
-    public String content,date,from,url;
+    public String content,date,from,url,size;
 
-    public TextView mContent,mDate,mFrom;
+    public TextView mContent,mDate,mFrom,mSize;
 
 
     @Override
@@ -40,6 +40,7 @@ public class FileDetailsActivity extends BaseActivity {
         mContent = (TextView)findViewById(R.id.content);
         mDate = (TextView)findViewById(R.id.date);
         mFrom = (TextView)findViewById(R.id.from);
+        mSize = (TextView)findViewById(R.id.size);
 
         /*
         给textview设置下划线
@@ -52,13 +53,14 @@ public class FileDetailsActivity extends BaseActivity {
             date = bundle.getString("date");
             from = bundle.getString("from");
             url = bundle.getString("url");
-
+            size = bundle.getString("size");
         }
 
         if (content!=null&&content.length()!=0){
             mContent.setText(content);
             mDate.setText("时间: "+date);
             mFrom.setText("来自: "+from);
+            mSize.setText("大小: "+size);
         }
 
         mContent.setOnClickListener(new View.OnClickListener() {

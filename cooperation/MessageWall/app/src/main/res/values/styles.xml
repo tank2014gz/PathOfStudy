@@ -103,6 +103,11 @@
         <item name="fab_colorRipple">#e9c04d</item>
     </style>
 
+    <style name="MenuButtonsSmall.Red">
+        <item name="fab_colorNormal">#fdea17</item>
+        <item name="fab_colorPressed">#fdea17</item>
+        <item name="fab_colorRipple">#fdea17</item>
+    </style>
 
     <!-- 录音的-->
     <style name="chat_record_button_toast_dialog_style">

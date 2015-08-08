@@ -15,27 +15,22 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.GridView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.avos.avoscloud.AVObject;
-import com.avos.avoscloud.im.v2.AVIMConversation;
-import com.avos.avoscloud.im.v2.AVIMMessage;
 import com.avos.avoscloud.im.v2.AVIMTypedMessage;
 import com.avos.avoscloud.im.v2.messages.AVIMAudioMessage;
 import com.avos.avoscloud.im.v2.messages.AVIMFileMessage;
 import com.avos.avoscloud.im.v2.messages.AVIMImageMessage;
 import com.avos.avoscloud.im.v2.messages.AVIMTextMessage;
+import com.avos.avoscloud.im.v2.messages.AVIMVideoMessage;
 import com.example.db.messagewall.activity.FileDetailsActivity;
 import com.example.db.messagewall.activity.PictureDetailsActivity;
 import com.example.db.messagewall.activity.TextDetailsActivity;
+import com.example.db.messagewall.activity.VideoDetailsActivity;
 import com.example.db.messagewall.activity.VoiceDetailsActivity;
 import com.example.db.messagewall.utils.AppConstant;
 import com.example.db.messagewall.view.CircleButton;
-import com.nostra13.universalimageloader.core.DisplayImageOptions;
-import com.nostra13.universalimageloader.core.ImageLoader;
-import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.support.android.designlibdemo.R;
 
 import java.util.List;
@@ -135,7 +130,7 @@ public class MessageGridAdapter extends BaseAdapter{
                 AVIMTextMessage avimTextMessage = (AVIMTextMessage)avimMessage;
                 viewHolder.from.setText("来自: "+avimTextMessage.getFrom().toString());
                 viewHolder.date0.setText("时间: "+AppConstant.convertTime(avimTextMessage.getTimestamp()));
-                viewHolder.circleButton.setImageResource(R.drawable.ic_edit_white_24dp);
+                viewHolder.circleButton.setImageResource(R.drawable.ic_mode_edit_white_24dp);
                 viewHolder.circleButton.setColor(Color.parseColor("#58d996"));
                 viewHolder.date.setText("文字");
                 break;
@@ -145,7 +140,7 @@ public class MessageGridAdapter extends BaseAdapter{
                 viewHolder.date0.setText("时间: "+AppConstant.convertTime(avimImageMessage.getTimestamp()));
                 viewHolder.circleButton.setImageResource(R.drawable.ic_crop_original_white_24dp);
                 viewHolder.circleButton.setColor(Color.parseColor("#01c2e1"));
-                viewHolder.date.setText("图片");
+                viewHolder.date.setText("图片"+"("+AppConstant.bytesToKB(avimImageMessage.getSize())+")");
                 break;
             case -3:
                 AVIMAudioMessage avimAudioMessage = (AVIMAudioMessage)avimMessage;
@@ -153,15 +148,23 @@ public class MessageGridAdapter extends BaseAdapter{
                 viewHolder.date0.setText("时间: "+AppConstant.convertTime(avimAudioMessage.getTimestamp()));
                 viewHolder.circleButton.setImageResource(R.drawable.abc_ic_voice_search_api_mtrl_alpha);
                 viewHolder.circleButton.setColor(Color.parseColor("#e45779"));
-                viewHolder.date.setText("语音");
+                viewHolder.date.setText("语音"+"("+AppConstant.bytesToKB(avimAudioMessage.getSize())+")");
                 break;
             case -6:
                 AVIMFileMessage avimFileMessage = (AVIMFileMessage)avimMessage;
                 viewHolder.date0.setText("时间: "+AppConstant.convertTime(avimFileMessage.getTimestamp()));
                 viewHolder.from.setText("来自: "+avimFileMessage.getFrom().toString());
-                viewHolder.circleButton.setImageResource(R.drawable.ic_insert_link_white_24dp);
+                viewHolder.circleButton.setImageResource(R.drawable.ic_attachment_white_24dp);
                 viewHolder.circleButton.setColor(Color.parseColor("#e9c04d"));
-                viewHolder.date.setText("文件");
+                viewHolder.date.setText("文件"+"("+AppConstant.bytesToKB(avimFileMessage.getSize())+")");
+                break;
+            case -4:
+                AVIMVideoMessage avimVideoMessage = (AVIMVideoMessage)avimMessage;
+                viewHolder.date0.setText("时间: "+AppConstant.convertTime(avimVideoMessage.getTimestamp()));
+                viewHolder.from.setText("来自: " + avimVideoMessage.getFrom().toString());
+                viewHolder.circleButton.setImageResource(R.drawable.ic_videocam_white_24dp);
+                viewHolder.circleButton.setColor(Color.parseColor("#fdea17"));
+                viewHolder.date.setText("视频"+"("+AppConstant.bytesToKB(avimVideoMessage.getSize())+")");
                 break;
         }
 
@@ -190,6 +193,7 @@ public class MessageGridAdapter extends BaseAdapter{
                         bundle0.putString("from",avimImageMessage.getFrom().toString());
                         bundle0.putString("date",AppConstant.convertTime(avimImageMessage.getTimestamp()));
                         bundle0.putString("url",avimImageMessage.getFileUrl());
+                        bundle0.putString("size",AppConstant.bytesToKB(avimImageMessage.getSize()));
                         intent0.putExtras(bundle0);
                         context.startActivity(intent0);
                         break;
@@ -203,6 +207,8 @@ public class MessageGridAdapter extends BaseAdapter{
                         bundle2.putString("date",AppConstant.convertTime(avimAudioMessage.getTimestamp()));
                         bundle2.putString("url",avimAudioMessage.getFileUrl());
                         bundle2.putString("msgId",avimAudioMessage.getMessageId());
+                        bundle2.putString("long",AppConstant.miaoToFormat((int)avimAudioMessage.getDuration()));
+                        bundle2.putString("size",AppConstant.bytesToKB(avimAudioMessage.getSize()));
                         intent2.putExtras(bundle2);
                         context.startActivity(intent2);
                         break;
@@ -215,8 +221,24 @@ public class MessageGridAdapter extends BaseAdapter{
                         bundle1.putString("from",avimFileMessage.getFrom().toString());
                         bundle1.putString("date",AppConstant.convertTime(avimFileMessage.getTimestamp()));
                         bundle1.putString("url",avimFileMessage.getFileUrl());
+                        bundle1.putString("size",AppConstant.bytesToKB(avimFileMessage.getSize()));
                         intent1.putExtras(bundle1);
                         context.startActivity(intent1);
+                        break;
+                    case -4:
+                        AVIMVideoMessage avimVideoMessage = (AVIMVideoMessage)avimMessage;
+                        Intent intent3 = new Intent(context, VideoDetailsActivity.class);
+                        intent3.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        Bundle bundle3 = new Bundle();
+                        bundle3.putString("content", avimVideoMessage.getText().toString());
+                        bundle3.putString("from", avimVideoMessage.getFrom().toString());
+                        bundle3.putString("date", AppConstant.convertTime(avimVideoMessage.getTimestamp()));
+                        bundle3.putString("url", avimVideoMessage.getFileUrl());
+                        bundle3.putString("msgId", avimVideoMessage.getMessageId());
+                        bundle3.putString("long", AppConstant.miaoToFormat((int) avimVideoMessage.getDuration()));
+                        bundle3.putString("size", AppConstant.bytesToKB(avimVideoMessage.getSize()));
+                        intent3.putExtras(bundle3);
+                        context.startActivity(intent3);
                         break;
                 }
             }

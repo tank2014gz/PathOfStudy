@@ -31,6 +31,7 @@ import com.support.android.designlibdemo.R;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.OutputStream;
+import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -329,5 +330,44 @@ public class AppConstant {
 
         return Uri.fromFile(file);
     }
+    /**
+     * byte(字节)根据长度转成kb(千字节)和mb(兆字节)
+     *
+     * @param bytes
+     * @return
+     */
+    public static String bytesToKB(long bytes) {
+        BigDecimal filesize = new BigDecimal(bytes);
+        BigDecimal megabyte = new BigDecimal(1024 * 1024);
+        float returnValue = filesize.divide(megabyte, 2, BigDecimal.ROUND_UP)
+                .floatValue();
+        if (returnValue > 1)
+            return (returnValue + "MB");
+        BigDecimal kilobyte = new BigDecimal(1024);
+        returnValue = filesize.divide(kilobyte, 2, BigDecimal.ROUND_UP)
+                .floatValue();
+        return (returnValue + "KB");
+    }
+    /*
+    将秒格式化
+     */
+    public static String miaoToFormat(int duration){
 
+        int hour = duration/3600;
+        int minute = (duration-hour*3600)/60;
+        int second = (duration-hour*3600)%60;
+
+        Log.v("mlgb",format(hour)+":"+format(minute)+":"+format(second));
+
+        return format(hour)+":"+format(minute)+":"+format(second);
+    }
+    public static String format(int temp){
+
+        if (String.valueOf(temp).length()==1){
+            return "0"+String.valueOf(temp);
+        }else {
+            return String.valueOf(temp);
+
+        }
+    }
 }

@@ -28,9 +28,9 @@ public class VoiceDetailsActivity extends BaseActivity {
 
     public Bundle bundle;
 
-    public String content,date,from,url,msgId;
+    public String content,date,from,url,msgId,size,duration;
 
-    public TextView mContent,mDate,mFrom;
+    public TextView mContent,mDate,mFrom,mSize,mDuration;
     public PlayButton playButton;
 
     public Handler handler;
@@ -48,6 +48,8 @@ public class VoiceDetailsActivity extends BaseActivity {
         mContent = (TextView)findViewById(R.id.content);
         mDate = (TextView)findViewById(R.id.date);
         mFrom = (TextView)findViewById(R.id.from);
+        mSize = (TextView)findViewById(R.id.size);
+        mDuration = (TextView)findViewById(R.id.duration);
         playButton = (PlayButton)findViewById(R.id.playBtn);
 
         /*
@@ -62,6 +64,8 @@ public class VoiceDetailsActivity extends BaseActivity {
             from = bundle.getString("from");
             url = bundle.getString("url");
             msgId = bundle.getString("msgId");
+            size = bundle.getString("size");
+            duration = bundle.getString("long");
             Log.v("mlgeb",url);
         }
 
@@ -69,6 +73,8 @@ public class VoiceDetailsActivity extends BaseActivity {
             mContent.setText(content+".wav");
             mDate.setText("时间: "+date);
             mFrom.setText("来自: "+from);
+            mSize.setText("大小: "+size);
+            mDuration.setText("长度: "+duration);
         }
 
         mContent.setOnClickListener(new View.OnClickListener() {

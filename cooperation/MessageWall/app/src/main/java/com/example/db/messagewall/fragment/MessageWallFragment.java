@@ -27,6 +27,7 @@ import com.avos.avoscloud.im.v2.callback.AVIMMessagesQueryCallback;
 import com.example.db.messagewall.activity.AddFileItemActivity;
 import com.example.db.messagewall.activity.AddMessageItemActivity;
 import com.example.db.messagewall.activity.AddPictureItemActivity;
+import com.example.db.messagewall.activity.AddVideoItemActivity;
 import com.example.db.messagewall.activity.AddVoiceItemActivity;
 import com.example.db.messagewall.adapter.MessageGridAdapter;
 import com.example.db.messagewall.api.AppData;
@@ -64,11 +65,11 @@ public class MessageWallFragment extends Fragment {
     com.example.db.messagewall.view.fab.FloatingActionButton floatingActionButton_Text
                                                             ,floatingActionButton_Picture
                                                             ,floatingActionButton_Voice
-                                                            ,floatingActionButton_File;
+                                                            ,floatingActionButton_File
+                                                            ,floatingActionButton_Video;
     FloatingActionMenu floatingActionMenu;
 
     public AVIMConversation avimConversation;
-    public NoteHandler noteHandler;
     public MessageGridAdapter messageGridAdapter;
 
     private OnFragmentInteractionListener mListener;
@@ -173,6 +174,8 @@ public class MessageWallFragment extends Fragment {
                 rootView.findViewById(R.id.fab_voice);
         floatingActionButton_File = (com.example.db.messagewall.view.fab.FloatingActionButton)
                 rootView.findViewById(R.id.fab_file);
+        floatingActionButton_Video = (com.example.db.messagewall.view.fab.FloatingActionButton)
+                rootView.findViewById(R.id.fab_video);
 
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -221,6 +224,16 @@ public class MessageWallFragment extends Fragment {
             public void onClick(View v) {
                 floatingActionMenu.close(true);
                 Intent intent = new Intent(getActivity(), AddFileItemActivity.class);
+                intent.putExtras(bundle);
+                startActivity(intent);
+            }
+        });
+
+        floatingActionButton_Video.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                floatingActionMenu.close(true);
+                Intent intent = new Intent(getActivity(), AddVideoItemActivity.class);
                 intent.putExtras(bundle);
                 startActivity(intent);
             }
@@ -315,10 +328,5 @@ public class MessageWallFragment extends Fragment {
 
     }
 
-    /*
-    外部消息处理类
-     */
-    public static class NoteHandler{
 
-    }
 }

@@ -72,5 +72,7 @@
   <string name="chat_bottom_record_layout_pressToRecord">按住录音</string>
   <string name="chat_record_button_pleaseSayMore">说多点吧～</string>
     <string name="title_activity_guide">留言墙</string>
+    <string name="title_activity_add_video_item">AddVideoItemActivity</string>
+    <string name="title_activity_video_details">VideoDetailsActivity</string>
 
 </resources>

@@ -66,6 +66,24 @@
                     android:textColor="@android:color/darker_gray"
                     android:paddingLeft="16dp"
                     android:paddingRight="16dp"
+                    android:id="@+id/duration"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="32dp"
+                    android:gravity="left|center"
+                    android:textSize="14sp"
+                    android:textColor="@android:color/darker_gray"
+                    android:paddingLeft="16dp"
+                    android:paddingRight="16dp"
+                    android:id="@+id/size"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="32dp"
+                    android:gravity="left|center"
+                    android:textSize="14sp"
+                    android:textColor="@android:color/darker_gray"
+                    android:paddingLeft="16dp"
+                    android:paddingRight="16dp"
                     android:id="@+id/from"/>
                 <TextView
                     android:layout_width="match_parent"

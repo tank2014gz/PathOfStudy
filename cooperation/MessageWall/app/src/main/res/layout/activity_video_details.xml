@@ -26,7 +26,7 @@
                     android:textSize="16sp"
                     android:gravity="left|center"
                     android:textColor="@color/content"
-                    android:text="图片留言条详情"
+                    android:text="视频留言条详情"
                     android:paddingLeft="16dp"
                     android:paddingRight="16dp"/>
                 <TextView
@@ -42,11 +42,30 @@
                     android:id="@+id/content"
                     android:autoLink="all"
                     />
-                <ImageView
+                <FrameLayout
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:layout_marginTop="32dp"
+                    android:layout_marginBottom="32dp"
+                    android:layout_gravity="center"
+                    android:background="@drawable/circle_gray">
+                    <Button
+                        android:id="@+id/playBtn"
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:orientation="vertical"
+                        android:layout_gravity="center"
+                        android:background="@drawable/ic_videocam_white_24dp"/>
+                </FrameLayout>
+                <TextView
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/img"
-                    />
+                    android:layout_height="32dp"
+                    android:gravity="left|center"
+                    android:textSize="14sp"
+                    android:textColor="@android:color/darker_gray"
+                    android:paddingLeft="16dp"
+                    android:paddingRight="16dp"
+                    android:id="@+id/duration"/>
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="32dp"
