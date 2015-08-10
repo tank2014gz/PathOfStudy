@@ -21,6 +21,7 @@ import com.example.db.messagewall.adapter.ItemPaperAdapter;
 import com.example.db.messagewall.adapter.WallPaperGridAdapter;
 import com.example.db.messagewall.utils.AppConstant;
 import com.example.db.messagewall.view.ALifeToast;
+import com.example.db.messagewall.view.fab.FloatingActionMenu;
 import com.support.android.designlibdemo.R;
 
 public class SelectPaperActivity extends BaseActivity {
@@ -32,7 +33,7 @@ public class SelectPaperActivity extends BaseActivity {
 
     public GridView mGridView;
     public ItemPaperAdapter wallPaperGridAdapter;
-    public FloatingActionButton floatingActionButton;
+    public com.example.db.messagewall.view.fab.FloatingActionButton floatingActionButton;
 
 
     @Override
@@ -48,7 +49,9 @@ public class SelectPaperActivity extends BaseActivity {
         bundle = this.getIntent().getExtras();
         CONVERSATION_ID = bundle.getString("_ID");
 
-        floatingActionButton = (FloatingActionButton)findViewById(R.id.add);
+        floatingActionButton = (com.example.db.messagewall.view.fab.FloatingActionButton)findViewById(R.id.add);
+        floatingActionButton.show(true);
+
         mGridView = (GridView)findViewById(R.id.gridview);
 
         wallPaperGridAdapter = new ItemPaperAdapter(SelectPaperActivity.this);

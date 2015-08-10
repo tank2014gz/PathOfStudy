@@ -109,9 +109,9 @@ public class AskMembersFragment extends Fragment {
         imageLoader.init(ImageLoaderConfiguration.createDefault(getActivity()));
 
         options = new DisplayImageOptions.Builder()
-                .showImageOnLoading(R.drawable.photo3)
-                .showImageForEmptyUri(R.drawable.photo3)
-                .showImageOnFail(R.drawable.photo3)
+                .showImageOnLoading(R.drawable.code)
+                .showImageForEmptyUri(R.drawable.code)
+                .showImageOnFail(R.drawable.code)
                 .cacheInMemory(true)
                 .cacheOnDisk(true)
                 .considerExifParams(true)
@@ -125,15 +125,6 @@ public class AskMembersFragment extends Fragment {
         /*
         现在本地找，后从网络中找
          */
-        AVIMConversation avimConversation = AppData.getIMClient()
-                .getConversation(CONVERSATION_ID);
-        if (AppConstant.isCodeExist(avimConversation.getAttribute("name").toString())){
-            imageLoader.displayImage(AppConstant.getCodePath(avimConversation.getAttribute("name")
-                    .toString())
-                    .toString()
-                    ,mAskCode
-                    ,options);
-        }else {
             AppData.getIMClient()
                     .getConversation(CONVERSATION_ID).fetchInfoInBackground(new AVIMConversationCallback() {
                 @Override
@@ -152,7 +143,6 @@ public class AskMembersFragment extends Fragment {
                     }
                 }
             });
-        }
 
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override

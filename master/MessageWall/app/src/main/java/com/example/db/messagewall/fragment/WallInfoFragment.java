@@ -102,9 +102,9 @@ public class WallInfoFragment extends Fragment {
         imageLoader.init(ImageLoaderConfiguration.createDefault(getActivity()));
 
         options = new DisplayImageOptions.Builder()
-                .showImageOnLoading(R.drawable.photo3)
-                .showImageForEmptyUri(R.drawable.photo3)
-                .showImageOnFail(R.drawable.photo3)
+                .showImageOnLoading(R.drawable.code)
+                .showImageForEmptyUri(R.drawable.code)
+                .showImageOnFail(R.drawable.code)
                 .cacheInMemory(true)
                 .cacheOnDisk(true)
                 .considerExifParams(true)
@@ -134,13 +134,6 @@ public class WallInfoFragment extends Fragment {
         /*
         先在本地寻找，本地找不到再去后台数据库寻找
          */
-        if (AppConstant.isCodeExist(avimConversation.getAttribute("name").toString())){
-            imageLoader.displayImage(AppConstant.getCodePath(avimConversation.getAttribute("name")
-                    .toString())
-                    .toString()
-                    ,mImageView
-                    ,options);
-        }else {
             avimConversation.fetchInfoInBackground(new AVIMConversationCallback() {
                 @Override
                 public void done(AVException e) {
@@ -158,7 +151,6 @@ public class WallInfoFragment extends Fragment {
                     }
                 }
             });
-        }
 
 
         return rootView;

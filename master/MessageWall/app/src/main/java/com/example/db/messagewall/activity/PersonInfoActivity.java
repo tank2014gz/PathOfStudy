@@ -71,7 +71,7 @@ public class PersonInfoActivity extends BaseActivity {
         SharedPreferences sharedPreferences = this.getSharedPreferences("com.example.db.alife_walllogo", Context.MODE_PRIVATE);
         String paper = sharedPreferences.getString("paper_path","");
         if(paper.equals("")){
-            circleImageView.setBackgroundResource(R.drawable.ic_launcher_web);
+            circleImageView.setBackgroundResource(R.drawable.ic_launcher);
         }else {
             Bitmap bitmap = BitmapFactory.decodeFile(paper);
             circleImageView.setImageBitmap(bitmap);

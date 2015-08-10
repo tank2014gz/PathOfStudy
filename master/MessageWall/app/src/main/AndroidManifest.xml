@@ -15,6 +15,7 @@
   ~ limitations under the License.
 -->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.support.android.designlibdemo" >
 
     <!-- 权限 -->
@@ -52,9 +53,10 @@
     <application
         android:name="com.example.db.messagewall.api.AppData"
         android:allowBackup="true"
-        android:icon="@drawable/ic_launcher"
+        android:icon="@drawable/logo"
         android:label="@string/app_name"
-        android:theme="@style/Theme.DesignDemo" >
+        android:theme="@style/Theme.DesignDemo"
+        tools:replace="android:icon,android:label" >
 
         <!-- 配置leancloud的群组环境 -->
         <service
@@ -133,7 +135,6 @@
         <activity
             android:name="com.example.db.messagewall.activity.SelectActivity"
             android:label="@string/app_name" >
-
         </activity>
         <activity
             android:name="com.example.db.messagewall.activity.AddMessageWallActivity"
@@ -236,13 +237,41 @@
         <activity
             android:name="com.example.db.messagewall.activity.GuideActivity"
             android:label="@string/title_activity_guide"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name="com.example.db.messagewall.activity.AddVideoItemActivity"
+            android:label="@string/title_activity_add_video_item" >
+        </activity>
+        <activity
+            android:name="com.example.db.messagewall.activity.VideoDetailsActivity"
+            android:label="@string/title_activity_video_details" >
+        </activity>
+        <activity
+            android:name="com.example.db.messagewall.details.PictureActivity"
+            android:label="@string/title_activity_picture" >
+        </activity>
+        <activity
+            android:name="com.example.db.messagewall.details.TextActivity"
+            android:label="@string/title_activity_text" >
+        </activity>
+        <activity
+            android:name="com.example.db.messagewall.details.VoiceActivity"
+            android:label="@string/title_activity_voice" >
+        </activity>
+        <activity
+            android:name="com.example.db.messagewall.details.FileActivity"
+            android:label="@string/title_activity_file" >
+        </activity>
+        <activity
+            android:name="com.example.db.messagewall.details.VideoActivity"
+            android:label="@string/title_activity_video" >
         </activity>
     </application>
 

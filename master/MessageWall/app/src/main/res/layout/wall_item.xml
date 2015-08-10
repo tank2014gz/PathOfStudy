@@ -12,14 +12,14 @@
             android:orientation="horizontal">
 
             <FrameLayout
-                android:layout_width="48dp"
-                android:layout_height="48dp"
+                android:layout_width="56dp"
+                android:layout_height="56dp"
                 android:layout_gravity="center"
                 android:layout_marginLeft="16dp"
                 android:layout_marginRight="16dp">
                 <com.example.db.messagewall.view.CircleButton
-                    android:layout_width="48dp"
-                    android:layout_height="48dp"
+                    android:layout_width="56dp"
+                    android:layout_height="56dp"
                     android:layout_gravity="center"
                     app:cb_color="?attr/appBkg0"
                     app:cb_pressedRingWidth="0dp"
@@ -44,7 +44,8 @@
                 android:layout_weight="1"
                 android:layout_gravity="center"
                 android:gravity="center"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:layout_marginBottom="2dp">
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="32dp"

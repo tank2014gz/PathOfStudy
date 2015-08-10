@@ -40,7 +40,11 @@ import android.view.View;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.avos.avoscloud.AVException;
+import com.avos.avoscloud.AVObject;
+import com.avos.avoscloud.AVQuery;
 import com.avos.avoscloud.AVUser;
+import com.avos.avoscloud.FindCallback;
 import com.example.db.messagewall.adapter.ColorPickerAdapter;
 import com.example.db.messagewall.fragment.AddMessageItemFragment;
 import com.example.db.messagewall.fragment.AlertWallFragment;
@@ -56,6 +60,8 @@ import com.example.db.messagewall.view.MaterialDialog;
 import com.support.android.designlibdemo.R;
 import com.umeng.fb.FeedbackAgent;
 import com.umeng.message.PushAgent;
+
+import java.util.List;
 
 /**
  * TODO
@@ -178,15 +184,37 @@ public class MainActivity extends BaseActivity implements MessageWallFragment.On
     private void setupDrawerContent(NavigationView navigationView) {
 
         CircleImageView imageView = (CircleImageView)navigationView.findViewById(R.id.account_logo);
-        TextView textView = (TextView)navigationView.findViewById(R.id.account_name);
-        textView.setText("ID: "+AVUser.getCurrentUser().getUsername());
+        final TextView textView = (TextView)navigationView.findViewById(R.id.account_name);
+        final TextView nichen = (TextView)navigationView.findViewById(R.id.account_nichen);
+        /*
+        显示昵称
+         */
+        AVQuery<AVObject> query = new AVQuery<AVObject>("NiChen");
+        query.whereEqualTo("username", AVUser.getCurrentUser().getUsername());
+        query.findInBackground(new FindCallback<AVObject>() {
+            @Override
+            public void done(List<AVObject> list, AVException e) {
+                if (e==null){
+                    AVObject avObject = (AVObject)list.get(0);
+                    if (avObject.get("nichen").toString()!=null){
+                        textView.setText("账号: "+AVUser.getCurrentUser().getUsername());
+                        nichen.setText("昵称: "+avObject.get("nichen").toString());
+                    }else {
+                        textView.setText("账号: "+AVUser.getCurrentUser().getUsername());
+                        nichen.setText("昵称: "+AVUser.getCurrentUser().getUsername());
+                    }
+                }else {
+                    e.printStackTrace();
+                }
+            }
+        });
         /*
         显示用户设置的logo
          */
         SharedPreferences sharedPreferences = this.getSharedPreferences("com.example.db.alife_walllogo", Context.MODE_PRIVATE);
         String paper = sharedPreferences.getString("paper_path","");
         if(paper.equals("")){
-            imageView.setBackgroundResource(R.drawable.ic_launcher_web);
+            imageView.setBackgroundResource(R.drawable.ic_launcher);
         }else {
             Bitmap bitmap = BitmapFactory.decodeFile(paper);
             imageView.setImageBitmap(bitmap);

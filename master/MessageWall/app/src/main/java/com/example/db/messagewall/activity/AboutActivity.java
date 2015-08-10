@@ -11,6 +11,7 @@ import android.widget.ListView;
 
 import com.example.db.messagewall.adapter.AboutAdapter;
 import com.example.db.messagewall.utils.AppConstant;
+import com.example.db.messagewall.view.CircleImageView;
 import com.support.android.designlibdemo.R;
 
 public class AboutActivity extends BaseActivity {

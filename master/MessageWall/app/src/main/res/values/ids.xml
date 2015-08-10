@@ -38,4 +38,7 @@
   <item type="id" name="split">false</item>
 
     <item name="fab_label" type="id"/>
+
+    <item name="indicators_title" type="id"/>
+    <item name="indicators_switcher" type="id"/>
 </resources>

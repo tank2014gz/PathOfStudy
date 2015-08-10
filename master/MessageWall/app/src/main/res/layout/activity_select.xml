@@ -31,15 +31,27 @@
     </android.support.v7.widget.RecyclerView >
     </android.support.v4.widget.SwipeRefreshLayout>
 
-        <android.support.design.widget.FloatingActionButton
-            android:layout_height="wrap_content"
-            android:layout_width="wrap_content"
-            android:layout_gravity="right|bottom"
-            android:src="@drawable/ic_action_create_message"
-            android:layout_marginRight="16dp"
-            android:layout_marginBottom="16dp"
-            android:clickable="true"
-            android:id="@+id/add"/>
+        <!--<android.support.design.widget.FloatingActionButton-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_gravity="right|bottom"-->
+            <!--android:src="@drawable/ic_action_create_message"-->
+            <!--android:layout_marginRight="16dp"-->
+            <!--android:layout_marginBottom="16dp"-->
+            <!--android:clickable="true"-->
+            <!--android:id="@+id/add"/>-->
+        <com.example.db.messagewall.view.filtermenu.library.FilterMenuLayout
+            android:id="@+id/add"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:elevation="8dp"
+            app:fm_expandedRadius="128dp"
+            app:fm_collapsedRadius="28dp"
+            app:fm_centerBottom="50dp"
+            app:fm_centerRight="50dp"
+            app:fm_primaryColor="?attr/appBkg0"
+            app:fm_primaryDarkColor="?attr/appBkg">
+        </com.example.db.messagewall.view.filtermenu.library.FilterMenuLayout>
     </FrameLayout>
 
 </LinearLayout>

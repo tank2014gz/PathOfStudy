@@ -14,12 +14,18 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.avos.avoscloud.AVException;
+import com.avos.avoscloud.AVObject;
+import com.avos.avoscloud.AVQuery;
+import com.avos.avoscloud.FindCallback;
 import com.example.db.messagewall.record.PlayButton;
 import com.example.db.messagewall.utils.AppConstant;
 import com.example.db.messagewall.utils.DownloadFileRunnable;
 import com.example.db.messagewall.utils.DownloadRunnable0;
 import com.example.db.messagewall.utils.PathHelper;
 import com.support.android.designlibdemo.R;
+
+import java.util.List;
 
 
 public class VoiceDetailsActivity extends BaseActivity {
@@ -28,9 +34,9 @@ public class VoiceDetailsActivity extends BaseActivity {
 
     public Bundle bundle;
 
-    public String content,date,from,url,msgId;
+    public String content,date,from,url,msgId,size,duration,nichen;
 
-    public TextView mContent,mDate,mFrom;
+    public TextView mContent,mDate,mFrom,mSize,mDuration,mNiChen;
     public PlayButton playButton;
 
     public Handler handler;
@@ -48,6 +54,9 @@ public class VoiceDetailsActivity extends BaseActivity {
         mContent = (TextView)findViewById(R.id.content);
         mDate = (TextView)findViewById(R.id.date);
         mFrom = (TextView)findViewById(R.id.from);
+        mSize = (TextView)findViewById(R.id.size);
+        mDuration = (TextView)findViewById(R.id.duration);
+        mNiChen = (TextView)findViewById(R.id.nichen);
         playButton = (PlayButton)findViewById(R.id.playBtn);
 
         /*
@@ -62,6 +71,9 @@ public class VoiceDetailsActivity extends BaseActivity {
             from = bundle.getString("from");
             url = bundle.getString("url");
             msgId = bundle.getString("msgId");
+            size = bundle.getString("size");
+            duration = bundle.getString("long");
+            nichen = bundle.getString("nichen");
             Log.v("mlgeb",url);
         }
 
@@ -69,7 +81,30 @@ public class VoiceDetailsActivity extends BaseActivity {
             mContent.setText(content+".wav");
             mDate.setText("时间: "+date);
             mFrom.setText("来自: "+from);
+            mSize.setText("大小: "+size);
+            mDuration.setText("长度: "+duration);
         }
+
+        /*
+        显示昵称
+         */
+        AVQuery<AVObject> query = new AVQuery<AVObject>("NiChen");
+        query.whereEqualTo("username", from);
+        query.findInBackground(new FindCallback<AVObject>() {
+            @Override
+            public void done(List<AVObject> list, AVException e) {
+                if (e==null){
+                    AVObject avObject = (AVObject)list.get(0);
+                    if (avObject.get("nichen").toString()!=null){
+                        mNiChen.setText("昵称: "+avObject.get("nichen").toString());
+                    }else {
+                        mNiChen.setText("昵称: "+from);
+                    }
+                }else {
+                    e.printStackTrace();
+                }
+            }
+        });
 
         mContent.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -84,6 +119,7 @@ public class VoiceDetailsActivity extends BaseActivity {
             @Override
             public void handleMessage(Message msg) {
                 if (msg.what==0x123){
+                    Log.v("wwwwwww",(String)msg.obj);
                     playButton.setLeftSide(true);
                     playButton.setPath((String)msg.obj);
                 }else if(msg.what==0x122){

@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.AVMobilePhoneVerifyCallback;
+import com.avos.avoscloud.AVObject;
 import com.avos.avoscloud.AVUser;
 import com.avos.avoscloud.SignUpCallback;
 import com.example.db.messagewall.utils.AppConstant;
@@ -28,8 +29,8 @@ public class SignUpActivity extends BaseActivity {
 
     public Button mSignUp;
     public TextView mSignIn,mSendCheckCode;
-    public EditText mUserName,mUserPsd,mCheckCode;
-    public String username,userpsd,usercheckcode;
+    public EditText mUserName,mUserPsd,mCheckCode,mNiChen;
+    public String username,userpsd,usercheckcode,usernichen;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,13 +49,15 @@ public class SignUpActivity extends BaseActivity {
         mUserName = (EditText)findViewById(R.id.user_name);
         mUserPsd = (EditText)findViewById(R.id.user_psd);
         mCheckCode = (EditText)findViewById(R.id.user_check);
+        mNiChen = (EditText)findViewById(R.id.user_nichen);
 
         mSendCheckCode.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 username = mUserName.getText().toString();
                 userpsd = mUserPsd.getText().toString();
-                if (username.length()!=0&&userpsd.length()!=0){
+                usernichen = mNiChen.getText().toString();
+                if (username.length()!=0&&userpsd.length()!=0&&AppConstant.isMobile(username)&&usernichen!=null&&usernichen.length()!=0){
                     AVUser avUser = new AVUser();
                     avUser.setUsername(username);
                     avUser.setPassword(userpsd);
@@ -98,11 +101,20 @@ public class SignUpActivity extends BaseActivity {
             public void onClick(View v) {
                 username = mUserName.getText().toString();
                 userpsd = mUserPsd.getText().toString();
-                if (username.length()!=0&&userpsd.length()!=0&&AppConstant.isMobile(username)){
+                usernichen = mNiChen.getText().toString();
+                if (username.length()!=0&&userpsd.length()!=0&&AppConstant.isMobile(username)&&usernichen!=null&&usernichen.length()!=0){
                     AVUser avUser = new AVUser();
                     avUser.setUsername(username);
                     avUser.setPassword(userpsd);
                     avUser.setMobilePhoneNumber(username);
+                    /*
+                    保存用户的昵称
+                     */
+                    AVObject avObject = new AVObject("NiChen");
+                    avObject.put("username",username);
+                    avObject.put("nichen",usernichen);
+                    avObject.saveInBackground();
+
                     usercheckcode = mCheckCode.getText().toString();
                     if (usercheckcode.length()!=0){
                         avUser.verifyMobilePhoneInBackground(usercheckcode, new AVMobilePhoneVerifyCallback() {

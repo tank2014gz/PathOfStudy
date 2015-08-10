@@ -9,9 +9,15 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
+import com.avos.avoscloud.AVException;
+import com.avos.avoscloud.AVObject;
+import com.avos.avoscloud.AVQuery;
+import com.avos.avoscloud.FindCallback;
 import com.example.db.messagewall.api.MessageHandlerHelper;
 import com.example.db.messagewall.utils.AppConstant;
 import com.support.android.designlibdemo.R;
+
+import java.util.List;
 
 public class TextDetailsActivity extends BaseActivity {
 
@@ -19,9 +25,9 @@ public class TextDetailsActivity extends BaseActivity {
 
     public Bundle bundle;
 
-    public String content,date,from;
+    public String content,date,from,nichen;
 
-    public TextView mContent,mDate,mFrom;
+    public TextView mContent,mDate,mFrom,mNiChen;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,12 +42,14 @@ public class TextDetailsActivity extends BaseActivity {
         mContent = (TextView)findViewById(R.id.content);
         mDate = (TextView)findViewById(R.id.date);
         mFrom = (TextView)findViewById(R.id.from);
+        mNiChen = (TextView)findViewById(R.id.nichen);
 
         bundle = this.getIntent().getExtras();
         if (bundle!=null){
             content = bundle.getString("content");
             date = bundle.getString("date");
             from = bundle.getString("from");
+            nichen = bundle.getString("nichen");
         }
 
         if (content!=null&&content.length()!=0){
@@ -49,6 +57,27 @@ public class TextDetailsActivity extends BaseActivity {
             mDate.setText("时间: "+date);
             mFrom.setText("来自: "+from);
         }
+
+        /*
+        显示昵称
+         */
+        AVQuery<AVObject> query = new AVQuery<AVObject>("NiChen");
+        query.whereEqualTo("username", from);
+        query.findInBackground(new FindCallback<AVObject>() {
+            @Override
+            public void done(List<AVObject> list, AVException e) {
+                if (e==null){
+                    AVObject avObject = (AVObject)list.get(0);
+                    if (avObject.get("nichen").toString()!=null){
+                        mNiChen.setText("昵称: "+avObject.get("nichen").toString());
+                    }else {
+                        mNiChen.setText("昵称: " + from);
+                    }
+                }else {
+                    e.printStackTrace();
+                }
+            }
+        });
     }
 
     private void initToolBar() {

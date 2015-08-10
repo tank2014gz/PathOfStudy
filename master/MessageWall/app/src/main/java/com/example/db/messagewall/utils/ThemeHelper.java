@@ -35,7 +35,7 @@ public class ThemeHelper {
         return mdPreferences;
     }
     public static int getTheme(Context context){
-        return ThemeHelper.getSharedPreferences(context).getInt(KEY_THEME, R.style.AppTheme_DarkActionBar);
+        return ThemeHelper.getSharedPreferences(context).getInt(KEY_THEME, R.style.nLiveo_Theme_WumaiActionBar);
     }
 
     public static void setTheme(Context context, int theme){

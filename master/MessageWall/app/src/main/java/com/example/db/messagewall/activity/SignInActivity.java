@@ -109,6 +109,9 @@ public class SignInActivity extends BaseActivity {
                                     AppData.setClientIdToPre(AVUser.getCurrentUser().getUsername());
                                 }
 
+                                Intent intent = new Intent(SignInActivity.this,SelectActivity.class);
+                                startActivity(intent);
+                                SignInActivity.this.finish();
 
 
                                 } else {

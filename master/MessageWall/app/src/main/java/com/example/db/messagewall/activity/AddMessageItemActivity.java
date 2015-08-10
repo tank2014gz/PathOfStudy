@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Build;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -18,6 +20,10 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.avos.avoscloud.AVException;
+import com.avos.avoscloud.AVObject;
+import com.avos.avoscloud.AVQuery;
+import com.avos.avoscloud.AVUser;
+import com.avos.avoscloud.FindCallback;
 import com.avos.avoscloud.im.v2.AVIMConversation;
 import com.avos.avoscloud.im.v2.AVIMMessage;
 import com.avos.avoscloud.im.v2.callback.AVIMConversationCallback;
@@ -29,6 +35,8 @@ import com.example.db.messagewall.view.ALifeToast;
 import com.example.db.messagewall.view.materialedittext.MaterialEditText;
 import com.support.android.designlibdemo.R;
 
+import java.util.List;
+
 public class AddMessageItemActivity extends BaseActivity {
 
     public Toolbar toolbar;
@@ -39,6 +47,8 @@ public class AddMessageItemActivity extends BaseActivity {
     public TextView select_tuijian;
 
     public String wallcontent;
+
+    public String path;
 
     public Bundle bundle;
     public static String CONVERSATION_ID;
@@ -71,9 +81,10 @@ public class AddMessageItemActivity extends BaseActivity {
 
                     /*
                     发送消息
-                     */
-                    AVIMTextMessage avimMessage = new AVIMTextMessage();
+                    */
+                    final AVIMTextMessage avimMessage = new AVIMTextMessage();
                     avimMessage.setText(wallcontent);
+
                     /*
                     通过CONVERSATION_ID找到群组,来通过群组发布消息
                      */
@@ -89,7 +100,7 @@ public class AddMessageItemActivity extends BaseActivity {
                                         , ALifeToast.LENGTH_SHORT)
                                         .show();
 
-                                Intent intent = new Intent(AddMessageItemActivity.this,MainActivity.class);
+                                Intent intent = new Intent(AddMessageItemActivity.this, MainActivity.class);
                                 intent.putExtras(bundle);
                                 startActivity(intent);
                                 AddMessageItemActivity.this.finish();
@@ -101,7 +112,7 @@ public class AddMessageItemActivity extends BaseActivity {
                                         , ALifeToast.LENGTH_SHORT)
                                         .show();
 
-                                Intent intent = new Intent(AddMessageItemActivity.this,MainActivity.class);
+                                Intent intent = new Intent(AddMessageItemActivity.this, MainActivity.class);
                                 intent.putExtras(bundle);
                                 startActivity(intent);
                                 AddMessageItemActivity.this.finish();

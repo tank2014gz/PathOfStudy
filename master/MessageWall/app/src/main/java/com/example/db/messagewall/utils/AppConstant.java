@@ -20,6 +20,11 @@ import android.view.WindowManager;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.avos.avoscloud.AVException;
+import com.avos.avoscloud.AVObject;
+import com.avos.avoscloud.AVQuery;
+import com.avos.avoscloud.AVUser;
+import com.avos.avoscloud.FindCallback;
 import com.example.db.messagewall.activity.PersonInfoActivity;
 import com.example.db.messagewall.view.SystemBarTintManager;
 import com.google.zxing.BarcodeFormat;
@@ -31,6 +36,7 @@ import com.support.android.designlibdemo.R;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.OutputStream;
+import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -56,17 +62,15 @@ public class AppConstant {
 
     public static void setStatus(boolean on,Activity context){
 
-        /**
-        Window window = context.getWindow();
-        WindowManager.LayoutParams layoutParams=window.getAttributes();
-        final int bits = WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS;
-        if (on){
-            layoutParams.flags |=bits;
-        }else {
-            layoutParams.flags &= ~bits;
-        }
-        window.setAttributes(layoutParams);
-         */
+//        Window window = context.getWindow();
+//        WindowManager.LayoutParams layoutParams=window.getAttributes();
+//        final int bits = WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS;
+//        if (on){
+//            layoutParams.flags |=bits;
+//        }else {
+//            layoutParams.flags &= ~bits;
+//        }
+//        window.setAttributes(layoutParams);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT){
             context.getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
@@ -328,6 +332,46 @@ public class AppConstant {
         File file=new File(QR.getAbsolutePath()+"/"+name+".png");
 
         return Uri.fromFile(file);
+    }
+    /**
+     * byte(字节)根据长度转成kb(千字节)和mb(兆字节)
+     *
+     * @param bytes
+     * @return
+     */
+    public static String bytesToKB(long bytes) {
+        BigDecimal filesize = new BigDecimal(bytes);
+        BigDecimal megabyte = new BigDecimal(1024 * 1024);
+        float returnValue = filesize.divide(megabyte, 2, BigDecimal.ROUND_UP)
+                .floatValue();
+        if (returnValue > 1)
+            return (returnValue + "MB");
+        BigDecimal kilobyte = new BigDecimal(1024);
+        returnValue = filesize.divide(kilobyte, 2, BigDecimal.ROUND_UP)
+                .floatValue();
+        return (returnValue + "KB");
+    }
+    /*
+    将秒格式化
+     */
+    public static String miaoToFormat(int duration){
+
+        int hour = duration/3600;
+        int minute = (duration-hour*3600)/60;
+        int second = (duration-hour*3600)%60;
+
+        Log.v("mlgb",format(hour)+":"+format(minute)+":"+format(second));
+
+        return format(hour)+":"+format(minute)+":"+format(second);
+    }
+    public static String format(int temp){
+
+        if (String.valueOf(temp).length()==1){
+            return "0"+String.valueOf(temp);
+        }else {
+            return String.valueOf(temp);
+
+        }
     }
 
 }

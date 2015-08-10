@@ -13,8 +13,14 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.avos.avoscloud.AVException;
+import com.avos.avoscloud.AVObject;
+import com.avos.avoscloud.AVQuery;
+import com.avos.avoscloud.FindCallback;
 import com.example.db.messagewall.utils.AppConstant;
 import com.support.android.designlibdemo.R;
+
+import java.util.List;
 
 public class FileDetailsActivity extends BaseActivity {
 
@@ -22,9 +28,9 @@ public class FileDetailsActivity extends BaseActivity {
 
     public Bundle bundle;
 
-    public String content,date,from,url;
+    public String content,date,from,url,size,nichen;
 
-    public TextView mContent,mDate,mFrom;
+    public TextView mContent,mDate,mFrom,mSize,mNiChen;
 
 
     @Override
@@ -40,6 +46,8 @@ public class FileDetailsActivity extends BaseActivity {
         mContent = (TextView)findViewById(R.id.content);
         mDate = (TextView)findViewById(R.id.date);
         mFrom = (TextView)findViewById(R.id.from);
+        mSize = (TextView)findViewById(R.id.size);
+        mNiChen = (TextView)findViewById(R.id.nichen);
 
         /*
         给textview设置下划线
@@ -52,14 +60,37 @@ public class FileDetailsActivity extends BaseActivity {
             date = bundle.getString("date");
             from = bundle.getString("from");
             url = bundle.getString("url");
-
+            size = bundle.getString("size");
+            nichen = bundle.getString("nichen");
         }
 
         if (content!=null&&content.length()!=0){
             mContent.setText(content);
             mDate.setText("时间: "+date);
             mFrom.setText("来自: "+from);
+            mSize.setText("大小: "+size);
         }
+
+        /*
+        显示昵称
+         */
+        AVQuery<AVObject> query = new AVQuery<AVObject>("NiChen");
+        query.whereEqualTo("username", from);
+        query.findInBackground(new FindCallback<AVObject>() {
+            @Override
+            public void done(List<AVObject> list, AVException e) {
+                if (e==null){
+                    AVObject avObject = (AVObject)list.get(0);
+                    if (avObject.get("nichen").toString()!=null){
+                        mNiChen.setText("昵称: "+avObject.get("nichen").toString());
+                    }else {
+                        mNiChen.setText("昵称: "+from);
+                    }
+                }else {
+                    e.printStackTrace();
+                }
+            }
+        });
 
         mContent.setOnClickListener(new View.OnClickListener() {
             @Override
