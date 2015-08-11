@@ -49,7 +49,6 @@ public class FileActivity extends BaseActivity implements FileDetailsFragment.On
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setTitle(null);
         if (Build.VERSION.SDK_INT >= 21)
-            toolbar.setElevation(24);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -65,6 +64,7 @@ public class FileActivity extends BaseActivity implements FileDetailsFragment.On
         FileDetailsFragment fileDetailsFragment = new FileDetailsFragment();
         fileDetailsFragment.setArguments(bundle);
         FileCommitFragment fileCommitFragment = new FileCommitFragment();
+        fileCommitFragment.setArguments(bundle);
         list.add(fileDetailsFragment);
         list.add(fileCommitFragment);
 

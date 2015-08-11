@@ -49,7 +49,6 @@ public class VoiceActivity extends BaseActivity implements VoiceDetailsFragment.
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setTitle(null);
         if (Build.VERSION.SDK_INT >= 21)
-            toolbar.setElevation(24);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -65,6 +64,7 @@ public class VoiceActivity extends BaseActivity implements VoiceDetailsFragment.
         VoiceDetailsFragment voiceDetailsFragment = new VoiceDetailsFragment();
         voiceDetailsFragment.setArguments(bundle);
         VoiceCommitFragment voiceCommitFragment = new VoiceCommitFragment();
+        voiceCommitFragment.setArguments(bundle);
         list.add(voiceDetailsFragment);
         list.add(voiceCommitFragment);
 

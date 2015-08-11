@@ -67,9 +67,9 @@ public class PictureDetailsActivity extends BaseActivity {
         imageLoader = ImageLoader.getInstance();
         imageLoader.init(ImageLoaderConfiguration.createDefault(PictureDetailsActivity.this));
         options = new DisplayImageOptions.Builder()
-                .showImageOnLoading(R.drawable.photo3)
-                .showImageForEmptyUri(R.drawable.photo3)
-                .showImageOnFail(R.drawable.photo3)
+                .showImageOnLoading(R.drawable.phone)
+                .showImageForEmptyUri(R.drawable.phone)
+                .showImageOnFail(R.drawable.phone)
                 .cacheInMemory(true)
                 .cacheOnDisk(true)
                 .considerExifParams(true)
@@ -138,7 +138,6 @@ public class PictureDetailsActivity extends BaseActivity {
         toolbar.setSubtitleTextColor(getResources().getColor(R.color.actionbar_title_color));
 
         if (Build.VERSION.SDK_INT >= 21)
-            toolbar.setElevation(24);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {

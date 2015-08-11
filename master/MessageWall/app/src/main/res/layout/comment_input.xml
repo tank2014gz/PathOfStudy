@@ -11,7 +11,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="32dp"
-            android:text="标题"
+            android:text="评论"
             android:textColor="@color/content"
             android:layout_gravity="center"
             android:gravity="center|left"
@@ -27,7 +27,7 @@
             android:layout_gravity="center"
             android:gravity="center|left"
             android:textColorHint="@android:color/darker_gray"
-            android:hint="说些什么吧"
+            android:hint="请输入评论"
             android:cursorVisible="false"
             app:hideUnderline="true"
             app:baseColor="@android:color/darker_gray"

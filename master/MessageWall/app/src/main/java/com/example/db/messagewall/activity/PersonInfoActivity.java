@@ -71,7 +71,7 @@ public class PersonInfoActivity extends BaseActivity {
         SharedPreferences sharedPreferences = this.getSharedPreferences("com.example.db.alife_walllogo", Context.MODE_PRIVATE);
         String paper = sharedPreferences.getString("paper_path","");
         if(paper.equals("")){
-            circleImageView.setBackgroundResource(R.drawable.ic_launcher);
+            circleImageView.setBackgroundResource(R.drawable.head_xiaoqiang_m);
         }else {
             Bitmap bitmap = BitmapFactory.decodeFile(paper);
             circleImageView.setImageBitmap(bitmap);
@@ -158,7 +158,6 @@ public class PersonInfoActivity extends BaseActivity {
         toolbar.setSubtitleTextColor(getResources().getColor(R.color.actionbar_title_color));
 
         if (Build.VERSION.SDK_INT >= 21)
-            toolbar.setElevation(24);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {

@@ -30,7 +30,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:gravity="top|left"
-                    android:textColor="?attr/appBkg0"
+                    android:textColor="#e45779"
                     android:textSize="16sp"
                     android:paddingLeft="16dp"
                     android:paddingRight="16dp"

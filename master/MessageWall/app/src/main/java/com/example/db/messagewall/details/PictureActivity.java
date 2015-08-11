@@ -49,7 +49,6 @@ public class PictureActivity extends BaseActivity implements PictureDetailsFragm
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setTitle(null);
         if (Build.VERSION.SDK_INT >= 21)
-            toolbar.setElevation(24);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -65,6 +64,7 @@ public class PictureActivity extends BaseActivity implements PictureDetailsFragm
         PictureDetailsFragment pictureDetailsFragment = new PictureDetailsFragment();
         pictureDetailsFragment.setArguments(bundle);
         PictureCommitFragment pictureCommitFragment = new PictureCommitFragment();
+        pictureCommitFragment.setArguments(bundle);
         list.add(pictureDetailsFragment);
         list.add(pictureCommitFragment);
 

@@ -214,7 +214,7 @@ public class MainActivity extends BaseActivity implements MessageWallFragment.On
         SharedPreferences sharedPreferences = this.getSharedPreferences("com.example.db.alife_walllogo", Context.MODE_PRIVATE);
         String paper = sharedPreferences.getString("paper_path","");
         if(paper.equals("")){
-            imageView.setBackgroundResource(R.drawable.ic_launcher);
+            imageView.setBackgroundResource(R.drawable.head_xiaoqiang_m);
         }else {
             Bitmap bitmap = BitmapFactory.decodeFile(paper);
             imageView.setImageBitmap(bitmap);

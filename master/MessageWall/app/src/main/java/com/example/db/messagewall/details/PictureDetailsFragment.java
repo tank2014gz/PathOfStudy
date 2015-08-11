@@ -99,9 +99,9 @@ public class PictureDetailsFragment extends Fragment {
         imageLoader = ImageLoader.getInstance();
         imageLoader.init(ImageLoaderConfiguration.createDefault(getActivity()));
         options = new DisplayImageOptions.Builder()
-                .showImageOnLoading(R.drawable.photo3)
-                .showImageForEmptyUri(R.drawable.photo3)
-                .showImageOnFail(R.drawable.photo3)
+                .showImageOnLoading(R.drawable.code)
+                .showImageForEmptyUri(R.drawable.code)
+                .showImageOnFail(R.drawable.code)
                 .cacheInMemory(true)
                 .cacheOnDisk(true)
                 .considerExifParams(true)

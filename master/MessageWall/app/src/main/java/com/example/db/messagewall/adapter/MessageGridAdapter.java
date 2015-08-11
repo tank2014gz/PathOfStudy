@@ -207,6 +207,7 @@ public class MessageGridAdapter extends BaseAdapter{
                         bundle.putString("from",avimTextMessage.getFrom().toString());
                         bundle.putString("nichen",avimTextMessage.getContent().toString());
                         bundle.putString("date",AppConstant.convertTime(avimTextMessage.getTimestamp()));
+                        bundle.putString("msgId",avimTextMessage.getMessageId());
                         intent.putExtras(bundle);
                         context.startActivity(intent);
                         break;
@@ -221,6 +222,7 @@ public class MessageGridAdapter extends BaseAdapter{
                         bundle0.putString("date",AppConstant.convertTime(avimImageMessage.getTimestamp()));
                         bundle0.putString("url",avimImageMessage.getFileUrl());
                         bundle0.putString("size",AppConstant.bytesToKB(avimImageMessage.getSize()));
+                        bundle0.putString("msgId",avimImageMessage.getMessageId());
                         intent0.putExtras(bundle0);
                         context.startActivity(intent0);
                         break;
@@ -251,6 +253,7 @@ public class MessageGridAdapter extends BaseAdapter{
                         bundle1.putString("date",AppConstant.convertTime(avimFileMessage.getTimestamp()));
                         bundle1.putString("url",avimFileMessage.getFileUrl());
                         bundle1.putString("size",AppConstant.bytesToKB(avimFileMessage.getSize()));
+                        bundle1.putString("msgId",avimFileMessage.getMessageId());
                         intent1.putExtras(bundle1);
                         context.startActivity(intent1);
                         break;
@@ -267,6 +270,7 @@ public class MessageGridAdapter extends BaseAdapter{
                         bundle3.putString("msgId", avimVideoMessage.getMessageId());
                         bundle3.putString("long", AppConstant.miaoToFormat((int) avimVideoMessage.getDuration()));
                         bundle3.putString("size", AppConstant.bytesToKB(avimVideoMessage.getSize()));
+                        bundle3.putString("msgId",avimVideoMessage.getMessageId());
                         intent3.putExtras(bundle3);
                         context.startActivity(intent3);
                         break;

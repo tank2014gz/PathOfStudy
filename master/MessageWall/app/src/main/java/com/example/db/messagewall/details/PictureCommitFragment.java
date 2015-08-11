@@ -4,41 +4,53 @@ import android.app.Activity;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
 
+import com.avos.avoscloud.AVException;
+import com.avos.avoscloud.AVObject;
+import com.avos.avoscloud.AVQuery;
+import com.avos.avoscloud.AVUser;
+import com.avos.avoscloud.FindCallback;
+import com.avos.avoscloud.SaveCallback;
+import com.example.db.messagewall.adapter.CommitAdapter;
+import com.example.db.messagewall.utils.AppConstant;
+import com.example.db.messagewall.view.CircleImageView;
+import com.example.db.messagewall.view.MaterialDialog;
+import com.example.db.messagewall.view.fab.FloatingActionButton;
+import com.example.db.messagewall.view.materialedittext.MaterialEditText;
 import com.support.android.designlibdemo.R;
 
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link PictureCommitFragment.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link PictureCommitFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+import java.util.List;
+
+
 public class PictureCommitFragment extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
+
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
-    // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
 
+    public Bundle bundle;
+
+    public String from,msgId,comment;
+
+    public ListView listView;
+
+    public FloatingActionButton floatingActionButton;
+    public MaterialEditText materialEditText;
+
+    public SwipeRefreshLayout mSwipeRefreshLayout;
+
+    public CommitAdapter commitAdapter;
+
     private OnFragmentInteractionListener mListener;
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment PictureCommitActivity.
-     */
-    // TODO: Rename and change types and number of parameters
+
     public static PictureCommitFragment newInstance(String param1, String param2) {
         PictureCommitFragment fragment = new PictureCommitFragment();
         Bundle args = new Bundle();
@@ -49,7 +61,6 @@ public class PictureCommitFragment extends Fragment {
     }
 
     public PictureCommitFragment() {
-        // Required empty public constructor
     }
 
     @Override
@@ -64,11 +75,121 @@ public class PictureCommitFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_picture_commit, container, false);
+
+        View rootView = inflater.inflate(R.layout.fragment_picture_commit, container, false);
+
+        bundle = this.getArguments();
+        if (bundle!=null){
+            from = bundle.getString("from");
+            msgId = bundle.getString("msgId");
+        }
+
+        listView = (ListView)rootView.findViewById(R.id.listview);
+        floatingActionButton = (FloatingActionButton)rootView.findViewById(R.id.add);
+        mSwipeRefreshLayout=(SwipeRefreshLayout)rootView.findViewById(R.id.refreshlayout);
+
+        AVQuery<AVObject> query = new AVQuery<AVObject>("Commit");
+        query.whereEqualTo("from", AVUser.getCurrentUser().getUsername());
+        query.whereEqualTo("msgId",msgId);
+        query.orderByDescending("createdAt");
+        query.findInBackground(new FindCallback<AVObject>() {
+            @Override
+            public void done(List<AVObject> list, AVException e) {
+                if (e==null){
+                    if (list.size()!=0){
+                        commitAdapter = new CommitAdapter(getActivity(),list);
+                        listView.setAdapter(commitAdapter);
+                    }else {
+
+                    }
+                }else {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                AVQuery<AVObject> query = new AVQuery<AVObject>("Commit");
+                query.whereEqualTo("to", from);
+                query.whereEqualTo("msgId",msgId);
+                query.orderByDescending("createdAt");
+                query.findInBackground(new FindCallback<AVObject>() {
+                    @Override
+                    public void done(List<AVObject> list, AVException e) {
+                        if (e==null){
+                            if (list.size()!=0){
+                                commitAdapter = new CommitAdapter(getActivity(),list);
+                                listView.setAdapter(commitAdapter);
+                            }else {
+
+                            }
+                        }else {
+                            e.printStackTrace();
+                        }
+                    }
+                });
+                mSwipeRefreshLayout.setRefreshing(false);
+            }
+        });
+
+        mSwipeRefreshLayout.setColorScheme(android.R.color.holo_blue_bright,
+                android.R.color.holo_green_light,
+                android.R.color.holo_orange_light,
+                android.R.color.holo_red_light);
+
+        floatingActionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final MaterialDialog materialDialog = new MaterialDialog(getActivity());
+                View view = LayoutInflater.from(getActivity())
+                        .inflate(R.layout.comment_input,null);
+                materialEditText = (MaterialEditText)view.findViewById(R.id.edit_ask_phone);
+                materialDialog.setView(view);
+                materialDialog.setCanceledOnTouchOutside(true)
+                        .setPositiveButton("Ok", new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                comment = materialEditText.getText().toString();
+                                if (comment!=null&&comment.length()!=0){
+                                    AVObject avObject = new AVObject("Commit");
+                                    avObject.put("to",from);
+                                    avObject.put("msgId",msgId);
+                                    avObject.put("comment",comment);
+                                    avObject.put("from",AVUser.getCurrentUser().getUsername());
+                                    avObject.saveInBackground(new SaveCallback() {
+                                        @Override
+                                        public void done(AVException e) {
+                                            if (e==null){
+                                                AppConstant.showSelfToast(getActivity(),"评论成功!");
+                                                materialDialog.dismiss();
+                                            }else {
+                                                e.printStackTrace();
+                                                AppConstant.showSelfToast(getActivity(),"评论失败!");
+                                                materialDialog.dismiss();
+                                            }
+                                        }
+                                    });
+                                }else {
+                                    materialDialog.dismiss();
+                                }
+
+                            }
+                        })
+                        .setNegativeButton("Cancel", new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                materialDialog.dismiss();
+                            }
+                        });
+                materialDialog.show();
+            }
+        });
+
+        return rootView;
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
             mListener.onFragmentInteraction(uri);
@@ -92,18 +213,8 @@ public class PictureCommitFragment extends Fragment {
         mListener = null;
     }
 
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p/>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
+
     public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
         public void onFragmentInteraction(Uri uri);
     }
 

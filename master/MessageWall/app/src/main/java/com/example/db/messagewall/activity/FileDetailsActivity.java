@@ -110,7 +110,6 @@ public class FileDetailsActivity extends BaseActivity {
         toolbar.setSubtitleTextColor(getResources().getColor(R.color.actionbar_title_color));
 
         if (Build.VERSION.SDK_INT >= 21)
-            toolbar.setElevation(24);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
