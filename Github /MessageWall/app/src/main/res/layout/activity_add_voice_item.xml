@@ -1,0 +1,39 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    >
+
+    <include
+        layout="@layout/toolbar"></include>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="@color/actionbar_title_color"
+        >
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_gravity="center"
+                android:text=""
+                android:textSize="16sp"
+                android:textColor="#bebebe"
+                android:gravity="center"/>
+            <com.example.db.messagewall.record.RecordButton
+                android:id="@+id/recordBtn"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_gravity="bottom|center"
+                android:background="@drawable/abc_ic_voice_search_api_mtrl_alpha"
+                android:textSize="13sp"
+                android:textColor="@color/actionbar_title_color"
+                android:text="按住录音"
+                android:layout_marginBottom="32dp" />
+        </FrameLayout>
+    </LinearLayout>
+</LinearLayout>

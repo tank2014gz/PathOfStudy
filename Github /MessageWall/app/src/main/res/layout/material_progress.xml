@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="48dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:orientation="horizontal">
+        <com.example.db.messagewall.view.materialloadingprogressbar.CircleProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="16dp"
+            android:layout_marginLeft="16dp"
+            app:mlpb_show_arrow="true"
+            app:mlpb_arrow_height="5dp"
+            app:mlpb_arrow_width="4dp"
+            app:mlpb_progress_stoke_width="2dp"
+            app:mlpb_progress_text_visibility="invisible"
+            android:id="@+id/dialog">
+
+        </com.example.db.messagewall.view.materialloadingprogressbar.CircleProgressBar>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="36dp"
+            android:layout_weight="1"
+            android:gravity="left|center"
+            android:text="正在下载......"
+            android:textSize="16sp"
+            android:textColor="@android:color/darker_gray"
+            android:layout_gravity="center"
+            android:id="@+id/text"/>
+
+    </LinearLayout>
+</LinearLayout>

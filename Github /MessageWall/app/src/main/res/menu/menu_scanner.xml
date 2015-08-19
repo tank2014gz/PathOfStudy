@@ -1,0 +1,9 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.example.db.messagewall.activity.ScannerActivity">
+    <item android:id="@+id/menu_light"
+        android:icon="@drawable/ic_brightness_high_white_24dp"
+        app:showAsAction="ifRoom|collapseActionView"
+        android:title="灯光"/>
+</menu>

@@ -1,0 +1,91 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:fab="http://schemas.android.com/apk/res-auto"
+    tools:context="com.example.db.messagewall.fragment.EditWallPaperFeagment"
+    android:background="@color/actionbar_title_color"
+    android:id="@+id/set_bkg">
+
+    <!-- TODO: Update blank fragment layout -->
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/refreshlayout"
+        >
+        <GridView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:numColumns="2"
+            android:id="@+id/gridview"
+            android:scrollbars="none"
+            android:layout_marginLeft="6dp"
+            android:layout_marginRight="6dp">
+
+        </GridView>
+
+    </android.support.v4.widget.SwipeRefreshLayout>
+
+    <com.example.db.messagewall.view.fab.FloatingActionMenu
+        android:id="@+id/fab_menu"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="16dp"
+        android:layout_marginBottom="16dp"
+        fab:menu_labels_ellipsize="end"
+        fab:menu_labels_singleLine="true"
+        fab:menu_labels_colorNormal="#f3f3f3"
+        fab:menu_labels_colorPressed="#ffffff"
+        fab:menu_labels_textColor="@color/content"
+        fab:menu_backgroundColor="#ccffffff"
+        fab:menu_colorNormal="?attr/appBkg0">
+        <com.example.db.messagewall.view.fab.FloatingActionButton
+            android:id="@+id/fab_file"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_attachment_white_24dp"
+            fab:fab_size="mini"
+            fab:fab_label="文件消息"
+            style="@style/MenuButtonsSmall.Yellow"/>
+
+        <com.example.db.messagewall.view.fab.FloatingActionButton
+            android:id="@+id/fab_video"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_videocam_white_24dp"
+            fab:fab_size="mini"
+            fab:fab_label="视频消息"
+            style="@style/MenuButtonsSmall.Red"/>
+
+        <com.example.db.messagewall.view.fab.FloatingActionButton
+            android:id="@+id/fab_voice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/abc_ic_voice_search_api_mtrl_alpha"
+            fab:fab_size="mini"
+            fab:fab_label="语音消息"
+            style="@style/MenuButtonsSmall.Blue"/>
+
+        <com.example.db.messagewall.view.fab.FloatingActionButton
+            android:id="@+id/fab_picture"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/fab_new_img"
+            fab:fab_size="mini"
+            fab:fab_label="图片消息"
+            style="@style/MenuButtonsSmall"/>
+
+        <com.example.db.messagewall.view.fab.FloatingActionButton
+            android:id="@+id/fab_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/fab_new_text"
+            fab:fab_size="mini"
+            fab:fab_label="文字消息"
+            style="@style/MenuButtonsSmall.Green"/>
+
+    </com.example.db.messagewall.view.fab.FloatingActionMenu>
+
+</FrameLayout>

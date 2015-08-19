@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright (C) 2015 The Android Open Source Project
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~      http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+-->
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.support.android.designlibdemo" >
+
+    <!-- 权限 -->
+
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
+
+    <uses-feature android:name="android.hardware.camera" />
+    <uses-feature android:name="android.hardware.camera.autofocus" />
+
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.FLASHLIGHT" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+
+    <!-- 检测网络状态 -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <!-- 获取mac地址作为用户的备用唯一标识 -->
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <!-- 获取用户手机的IMEI，用来唯一的标识用户 -->
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <!-- 缓存资源优先存入SDcard -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <!-- 允许应用程序联网，以便向我们的服务器端发送数据 -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <!-- QQ、QQ空间所需权限 -->
+    <uses-permission android:name="android.permission.GET_TASKS" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+
+    <application
+        android:name="com.example.db.messagewall.api.AppData"
+        android:allowBackup="true"
+        android:icon="@drawable/logo"
+        android:label="@string/app_name"
+        android:theme="@style/Theme.DesignDemo"
+        tools:replace="android:icon,android:label" >
+
+        <!-- 配置leancloud的群组环境 -->
+        <service
+            android:name="com.avos.avoscloud.PushService"
+            android:exported="true" />
+
+        <receiver android:name="com.avos.avoscloud.AVBroadcastReceiver" >
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="android.intent.action.USER_PRESENT" />
+            </intent-filter>
+        </receiver>
+
+        <!-- 配置友盟的反馈环境 -->
+        <activity
+            android:name="com.umeng.fb.ConversationActivity"
+            android:launchMode="singleTop" />
+
+        <meta-data
+            android:name="UMENG_APPKEY"
+            android:value="55a9e26c67e58e8b8100098f" />
+
+        <service
+            android:name="org.android.agoo.service.ElectionService"
+            android:exported="true"
+            android:process=":umengService_v1" >
+            <intent-filter>
+                <action android:name="org.agoo.android.intent.action.ELECTION_V2" />
+            </intent-filter>
+        </service>
+        <service android:name="com.umeng.message.UmengIntentService" />
+        <service
+            android:name="com.umeng.message.UmengService"
+            android:exported="true"
+            android:process=":umengService_v1" >
+            <intent-filter>
+                <action android:name="com.umeng.fb.example.intent.action.START" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="com.umeng.fb.example.intent.action.COCKROACH" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="org.agoo.android.intent.action.PING" />
+            </intent-filter>
+        </service>
+
+        <receiver
+            android:name="com.umeng.message.NotificationProxyBroadcastReceiver"
+            android:exported="false" >
+        </receiver>
+        <receiver android:name="com.umeng.message.RegistrationReceiver" >
+            <intent-filter>
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.PACKAGE_REMOVED" />
+
+                <data android:scheme="package" />
+            </intent-filter>
+        </receiver>
+        <receiver android:name="com.umeng.message.UmengBroadcastReceiver" >
+            <intent-filter>
+                <action android:name="org.agoo.android.intent.action.RECEIVE" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="com.umeng.fb.example.intent.action.COMMAND" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="org.agoo.android.intent.action.RE_ELECTION_V2" />
+            </intent-filter>
+        </receiver>
+
+        <activity android:name="com.example.db.messagewall.activity.MainActivity" >
+        </activity>
+        <activity android:name="com.example.db.messagewall.activity.CheeseDetailActivity" />
+        <activity
+            android:name="com.example.db.messagewall.activity.SelectActivity"
+            android:label="@string/app_name" >
+        </activity>
+        <activity
+            android:name="com.example.db.messagewall.activity.AddMessageWallActivity"
+            android:label="@string/title_activity_add_message_wall" >
+        </activity>
+        <!-- android:theme="@style/nLiveoDrawer" -->
+        <activity android:name="com.example.db.messagewall.activity.SignInActivity" >
+        </activity>
+        <activity android:name="com.example.db.messagewall.activity.SignUpActivity" >
+        </activity>
+        <activity android:name="com.example.db.messagewall.activity.CustomActivity" >
+        </activity>
+        <activity
+            android:name="com.example.db.messagewall.scanner.MipcaActivityCapture"
+            android:theme="@style/nLiveoDrawer" >
+        </activity>
+        <activity
+            android:name="com.example.db.messagewall.activity.AboutActivity"
+            android:label="@string/title_activity_about" >
+        </activity>
+        <activity
+            android:name="com.example.db.messagewall.activity.PersonInfoActivity"
+            android:label="@string/title_activity_person_info" >
+        </activity>
+        <activity android:name="com.avos.sns.SNSWebActivity" >
+        </activity>
+        <activity
+            android:name="com.sina.weibo.sdk.component.WeiboSdkBrowser"
+            android:configChanges="keyboardHidden|orientation"
+            android:exported="false"
+            android:theme="@android:style/Theme.NoTitleBar"
+            android:windowSoftInputMode="adjustResize" >
+        </activity>
+        <activity
+            android:name="com.tencent.tauth.AuthActivity"
+            android:launchMode="singleTask"
+            android:noHistory="true" >
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.sina.weibo.sdk.component.WeiboSdkBrowser"
+            android:configChanges="keyboardHidden|orientation"
+            android:exported="false"
+            android:theme="@android:style/Theme.NoTitleBar"
+            android:windowSoftInputMode="adjustResize" >
+        </activity>
+        <activity
+            android:name="com.example.db.messagewall.activity.AlertWallActivity"
+            android:label="@string/title_activity_alert_wall" >
+        </activity>
+        <activity
+            android:name="com.example.db.messagewall.activity.AddMessageItemActivity"
+            android:label="@string/title_activity_add_message_item" >
+        </activity>
+        <activity
+            android:name="com.example.db.messagewall.activity.SelectPaperActivity"
+            android:label="@string/title_activity_select_paper" >
+        </activity>
+        <activity
+            android:name="com.example.db.messagewall.activity.BaseActivity"
+            android:label="@string/title_activity_base" >
+        </activity>
+        <activity
+            android:name="com.example.db.messagewall.activity.AddPictureItemActivity"
+            android:label="@string/title_activity_add_picture" >
+        </activity>
+        <activity
+            android:name="com.example.db.messagewall.activity.AddVoiceItemActivity"
+            android:label="@string/title_activity_add_voice" >
+        </activity>
+        <activity
+            android:name="com.example.db.messagewall.activity.AddFileItemActivity"
+            android:label="@string/title_activity_add_file_item" >
+        </activity>
+        <activity
+            android:name="com.example.db.messagewall.activity.PictureDetailsactivity"
+            android:label="@string/title_activity_picture_detailsactivity" >
+        </activity>
+        <activity
+            android:name="com.example.db.messagewall.activity.GuideActivity"
+            android:label="@string/title_activity_guide"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.example.db.messagewall.activity.AddVideoItemActivity"
+            android:label="@string/title_activity_add_video_item" >
+        </activity>
+        <activity
+            android:name="com.example.db.messagewall.details.PictureActivity"
+            android:label="@string/title_activity_picture" >
+        </activity>
+        <activity
+            android:name="com.example.db.messagewall.details.TextActivity"
+            android:label="@string/title_activity_text" >
+        </activity>
+        <activity
+            android:name="com.example.db.messagewall.details.VoiceActivity"
+            android:label="@string/title_activity_voice" >
+        </activity>
+        <activity
+            android:name="com.example.db.messagewall.details.FileActivity"
+            android:label="@string/title_activity_file" >
+        </activity>
+        <activity
+            android:name="com.example.db.messagewall.details.VideoActivity"
+            android:label="@string/title_activity_video" >
+        </activity>
+    </application>
+
+</manifest>

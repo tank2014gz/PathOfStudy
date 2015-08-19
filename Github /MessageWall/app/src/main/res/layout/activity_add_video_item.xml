@@ -1,0 +1,40 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+
+    <include
+        layout="@layout/toolbar"></include>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="@color/actionbar_title_color"
+        >
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_gravity="center"
+                android:text=""
+                android:textSize="16sp"
+                android:textColor="#bebebe"
+                android:gravity="center"/>
+            <com.example.db.messagewall.view.CircleButton
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_gravity="center|bottom"
+                app:cb_color="#bebebe"
+                app:cb_pressedRingWidth="0dp"
+                android:id="@+id/circlebutton"
+                android:layout_marginBottom="32dp"
+                android:src="@drawable/ic_videocam_white_24dp">
+            </com.example.db.messagewall.view.CircleButton>
+        </FrameLayout>
+    </LinearLayout>
+
+</LinearLayout>
