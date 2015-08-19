@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
@@ -28,6 +29,8 @@ import com.avos.sns.SNSType;
 import com.example.db.messagewall.api.AppData;
 import com.example.db.messagewall.utils.AppConstant;
 import com.example.db.messagewall.view.ALifeToast;
+import com.example.db.messagewall.view.dd.CircularProgressButton;
+import com.example.db.messagewall.view.swipebacklayout.SwipeBackActivity;
 import com.support.android.designlibdemo.R;
 import com.umeng.socialize.bean.SHARE_MEDIA;
 import com.umeng.socialize.controller.UMServiceFactory;
@@ -39,15 +42,17 @@ import com.umeng.socialize.sso.UMSsoHandler;
 import java.util.Map;
 import java.util.Set;
 
-public class SignInActivity extends BaseActivity {
+public class SignInActivity extends SwipeBackActivity {
 
     public Toolbar toolbar;
 
     public TextView mSignUp;
-    public Button mSignIn;
+//    public Button mSignIn;
     public EditText mUserName,mUserPsd;
     public String username,userpsd;
     public Button mLoginQQ,mLoginWeiBo;
+
+    public CircularProgressButton circularProgressButton;
 
     public SNSType type = null;
 
@@ -67,9 +72,12 @@ public class SignInActivity extends BaseActivity {
 
 
         mSignUp = (TextView)findViewById(R.id.tv_signup);
-        mSignIn = (Button)findViewById(R.id.btn_signin);
+//        mSignIn = (Button)findViewById(R.id.btn_signin);
         mLoginQQ = (Button)findViewById(R.id.login_qq);
         mLoginWeiBo = (Button)findViewById(R.id.login_weibo);
+
+        circularProgressButton = (CircularProgressButton)findViewById(R.id.circularButton);
+        circularProgressButton.setIndeterminateProgressMode(true);
 
         mUserName = (EditText)findViewById(R.id.user_name);
         mUserPsd = (EditText)findViewById(R.id.user_psd);
@@ -82,53 +90,74 @@ public class SignInActivity extends BaseActivity {
             }
         });
 
-        mSignIn.setOnClickListener(new View.OnClickListener() {
+        circularProgressButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                username = mUserName.getText().toString();
-                userpsd = mUserPsd.getText().toString();
-                if (username.length()!=0&&userpsd.length()!=0&&AppConstant.isMobile(username)){
-                    AVUser.logInInBackground(username, userpsd, new LogInCallback<AVUser>() {
-                        @Override
-                        public void done(AVUser avUser, AVException e) {
-                            if (e == null) {
+
+                if (circularProgressButton.getProgress()==0){
+                    circularProgressButton.setProgress(50);
+
+                    username = mUserName.getText().toString();
+                    userpsd = mUserPsd.getText().toString();
+                    if (username.length()!=0&&userpsd.length()!=0&&AppConstant.isMobile(username)){
+                        AVUser.logInInBackground(username, userpsd, new LogInCallback<AVUser>() {
+                                    @Override
+                                    public void done(AVUser avUser, AVException e) {
+                                        if (e == null) {
                                 /*
                                 存储本地账户的相关信息
                                 包括姓名、登陆状态
                                 在初始的时候显示
                                  */
-                                SharedPreferences sharedPreferences = getApplicationContext()
-                                                                        .getSharedPreferences("com.example.db.alife_account"
-                                                                        , Context.MODE_PRIVATE);
-                                SharedPreferences.Editor editor = sharedPreferences.edit();
-                                editor.putString("NAME", avUser.getUsername());
-                                editor.putBoolean("STATUS", true);
-                                editor.commit();
+                                            SharedPreferences sharedPreferences = getApplicationContext()
+                                                    .getSharedPreferences("com.example.db.alife_account"
+                                                            , Context.MODE_PRIVATE);
+                                            SharedPreferences.Editor editor = sharedPreferences.edit();
+                                            editor.putString("NAME", avUser.getUsername());
+                                            editor.putBoolean("STATUS", true);
+                                            editor.commit();
 
-                                if (!TextUtils.isEmpty(AVUser.getCurrentUser().getUsername())) {
-                                    AppData.setClientIdToPre(AVUser.getCurrentUser().getUsername());
+                                            if (!TextUtils.isEmpty(AVUser.getCurrentUser().getUsername())) {
+                                                AppData.setClientIdToPre(AVUser.getCurrentUser().getUsername());
+                                            }
+
+//                                Intent intent = new Intent(SignInActivity.this,SelectActivity.class);
+//                                startActivity(intent);
+//                                SignInActivity.this.finish();
+                                            circularProgressButton.setProgress(100);
+                                            new Handler().postDelayed(new Runnable() {
+                                                @Override
+                                                public void run() {
+                                                    Intent intent = new Intent(SignInActivity.this,SelectActivity.class);
+                                                    startActivity(intent);
+                                                    SignInActivity.this.finish();
+                                                }
+                                            },1000);
+
+                                        } else {
+                                            circularProgressButton.setProgress(0);
+
+                                            Log.v("db.error1", e.getMessage());
+                                        }
+                                    }
                                 }
-
-                                Intent intent = new Intent(SignInActivity.this,SelectActivity.class);
-                                startActivity(intent);
-                                SignInActivity.this.finish();
-
-
-                                } else {
-                                    Log.v("db.error1", e.getMessage());
-                                }
-                            }
-                        }
 
                         );
                     }else {
                         ALifeToast.makeText(SignInActivity.this
-                                            , "输入不正确！"
-                                            , ALifeToast.ToastType.SUCCESS
-                                            , ALifeToast.LENGTH_SHORT)
-                                            .show();
+                                , "输入不正确！"
+                                , ALifeToast.ToastType.SUCCESS
+                                , ALifeToast.LENGTH_SHORT)
+                                .show();
 
+                    }
+                }else if (circularProgressButton.getProgress()==100){
+                    Intent intent = new Intent(SignInActivity.this,SelectActivity.class);
+                    startActivity(intent);
+                    SignInActivity.this.finish();
                 }
+
+
             }
         });
 
@@ -245,7 +274,6 @@ public class SignInActivity extends BaseActivity {
         toolbar.setSubtitleTextColor(getResources().getColor(R.color.actionbar_title_color));
 
         if (Build.VERSION.SDK_INT >= 21)
-            toolbar.setElevation(24);
             setSupportActionBar(toolbar);
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             toolbar.setNavigationOnClickListener(new View.OnClickListener() {

@@ -22,9 +22,10 @@ import com.example.db.messagewall.adapter.WallPaperGridAdapter;
 import com.example.db.messagewall.utils.AppConstant;
 import com.example.db.messagewall.view.ALifeToast;
 import com.example.db.messagewall.view.fab.FloatingActionMenu;
+import com.example.db.messagewall.view.swipebacklayout.SwipeBackActivity;
 import com.support.android.designlibdemo.R;
 
-public class SelectPaperActivity extends BaseActivity {
+public class SelectPaperActivity extends SwipeBackActivity {
 
     public Toolbar toolbar;
 
@@ -96,7 +97,6 @@ public class SelectPaperActivity extends BaseActivity {
         toolbar.setSubtitleTextColor(getResources().getColor(R.color.actionbar_title_color));
 
         if (Build.VERSION.SDK_INT >= 21)
-            toolbar.setElevation(24);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {

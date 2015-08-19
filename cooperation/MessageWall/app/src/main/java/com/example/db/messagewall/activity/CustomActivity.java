@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.List;
 
 import com.example.db.messagewall.utils.AppConstant;
+import com.example.db.messagewall.view.swipebacklayout.SwipeBackActivity;
 import com.support.android.designlibdemo.R;
 import com.umeng.fb.FeedbackAgent;
 import com.umeng.fb.SyncListener;
@@ -35,7 +36,7 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-public class CustomActivity extends BaseActivity {
+public class CustomActivity extends SwipeBackActivity {
 
 	public Toolbar toolbar;
 
@@ -87,7 +88,6 @@ public class CustomActivity extends BaseActivity {
 		toolbar.setSubtitleTextColor(getResources().getColor(R.color.actionbar_title_color));
 
 		if (Build.VERSION.SDK_INT >= 21)
-			toolbar.setElevation(24);
 		setSupportActionBar(toolbar);
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 		toolbar.setNavigationOnClickListener(new View.OnClickListener() {

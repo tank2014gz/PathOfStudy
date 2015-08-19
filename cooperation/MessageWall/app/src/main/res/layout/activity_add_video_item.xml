@@ -20,7 +20,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
                 android:layout_gravity="center"
-                android:text="点击按钮开始录制视频"
+                android:text=""
                 android:textSize="16sp"
                 android:textColor="#bebebe"
                 android:gravity="center"/>

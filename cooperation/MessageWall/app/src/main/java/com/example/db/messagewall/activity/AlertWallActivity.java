@@ -21,12 +21,13 @@ import com.avos.avoscloud.im.v2.callback.AVIMConversationQueryCallback;
 import com.example.db.messagewall.adapter.AlterWallAdapter;
 import com.example.db.messagewall.api.AppData;
 import com.example.db.messagewall.utils.AppConstant;
+import com.example.db.messagewall.view.swipebacklayout.SwipeBackActivity;
 import com.support.android.designlibdemo.R;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class AlertWallActivity extends BaseActivity {
+public class AlertWallActivity extends SwipeBackActivity {
 
     public Toolbar toolbar;
 
@@ -88,7 +89,6 @@ public class AlertWallActivity extends BaseActivity {
         toolbar.setSubtitleTextColor(getResources().getColor(R.color.actionbar_title_color));
 
         if (Build.VERSION.SDK_INT >= 21)
-            toolbar.setElevation(24);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {

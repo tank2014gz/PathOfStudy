@@ -101,7 +101,7 @@ public class ColorPickerAdapter extends BaseAdapter{
 
         bkg.add("#777777");
         bkg.add("#009edf");
-        bkg.add("#24b191");
+//        bkg.add("#24b191");
         bkg.add("#cc2c28");
         bkg.add("#1b1b1b");
         bkg.add("#3baa24");
@@ -112,7 +112,7 @@ public class ColorPickerAdapter extends BaseAdapter{
 
         name.add("留言墙灰");
         name.add("天空蓝");
-        name.add("豌豆荚绿");
+//        name.add("豌豆荚绿");
         name.add("中国红");
         name.add("高端黑");
         name.add("豆瓣青");
@@ -123,7 +123,7 @@ public class ColorPickerAdapter extends BaseAdapter{
 
         theme.add(R.style.nLiveo_Theme_WumaiActionBar);
         theme.add(R.style.nLiveo_Theme_BlueActionBar);
-        theme.add(R.style.nLiveo_Theme_DarkActionBar);
+//        theme.add(R.style.AppTheme_DarkActionBar);
         theme.add(R.style.nLiveo_Theme_ChinaredActionBar);
         theme.add(R.style.nLiveo_Theme_GdblackActionBar);
         theme.add(R.style.nLiveo_Theme_DoubangreenActionBar);

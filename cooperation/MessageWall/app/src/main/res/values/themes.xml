@@ -30,6 +30,7 @@
         <item name="appBkg0">@color/message_gray</item>
         <item name="textDark">@color/content</item>
         <item name="textGray">@android:color/darker_gray</item>
+        <item name="android:windowIsTranslucent">true</item>
     </style>
     <style name="pop" parent="Base.Widget.AppCompat.Light.PopupMenu.Overflow">
         <item name="android:textColor">@color/actionbar0</item>
@@ -58,6 +59,10 @@
         <item name="appBkg0">@color/actionbar_blue0</item>
         <item name="textDark">@color/content</item>
         <item name="textGray">@android:color/darker_gray</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="cpb_selectorIdle">@color/actionbar_blue0</item>
+        <item name="cpb_selectorComplete">@color/actionbar_blue</item>
+        <item name="cpb_selectorError">@color/cpb_red</item>
     </style>
     <style name="nLiveo.Theme.BlueActionBar" parent="AppTheme.BlueActionBar" />
 
@@ -74,6 +79,10 @@
         <item name="appBkg0">@color/actionbar_wumai0</item>
         <item name="textDark">@color/content</item>
         <item name="textGray">@android:color/darker_gray</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="cpb_selectorIdle">@color/actionbar_wumai0</item>
+        <item name="cpb_selectorComplete">@color/actionbar_wumai</item>
+        <item name="cpb_selectorError">@color/cpb_red</item>
     </style>
     <style name="nLiveo.Theme.WumaiActionBar" parent="AppTheme.WumaiActionBar" />
 
@@ -90,6 +99,10 @@
         <item name="appBkg0">@color/actionbar_chinared0</item>
         <item name="textDark">@color/content</item>
         <item name="textGray">@android:color/darker_gray</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="cpb_selectorIdle">@color/actionbar_chinared0</item>
+        <item name="cpb_selectorComplete">@color/actionbar_chinared</item>
+        <item name="cpb_selectorError">@color/cpb_red</item>
     </style>
     <style name="nLiveo.Theme.ChinaredActionBar" parent="AppTheme.ChinaredActionBar" />
 
@@ -106,6 +119,10 @@
         <item name="appBkg0">@color/actionbar_gdblack0</item>
         <item name="textDark">@color/content</item>
         <item name="textGray">@android:color/darker_gray</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="cpb_selectorIdle">@color/actionbar_gdblack0</item>
+        <item name="cpb_selectorComplete">@color/actionbar_gdblack</item>
+        <item name="cpb_selectorError">@color/cpb_red</item>
     </style>
     <style name="nLiveo.Theme.GdblackActionBar" parent="AppTheme.GdblackActionBar" />
 
@@ -122,6 +139,10 @@
         <item name="appBkg0">@color/actionbar_doubangreen0</item>
         <item name="textDark">@color/content</item>
         <item name="textGray">@android:color/darker_gray</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="cpb_selectorIdle">@color/actionbar_doubangreen0</item>
+        <item name="cpb_selectorComplete">@color/actionbar_doubangreen</item>
+        <item name="cpb_selectorError">@color/cpb_red</item>
     </style>
     <style name="nLiveo.Theme.DoubangreenActionBar" parent="AppTheme.DoubangreenActionBar" />
 
@@ -138,6 +159,10 @@
         <item name="appBkg0">@color/actionbar_xiaomiorigin0</item>
         <item name="textDark">@color/content</item>
         <item name="textGray">@android:color/darker_gray</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="cpb_selectorIdle">@color/actionbar_xiaomiorigin0</item>
+        <item name="cpb_selectorComplete">@color/actionbar_xiaomiorigin</item>
+        <item name="cpb_selectorError">@color/cpb_red</item>
     </style>
     <style name="nLiveo.Theme.XiaomigreenActionBar" parent="AppTheme.XiaomioriginActionBar" />
 
@@ -154,6 +179,10 @@
         <item name="appBkg0">@color/actionbar_dansuiyellow0</item>
         <item name="textDark">@color/content</item>
         <item name="textGray">@android:color/darker_gray</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="cpb_selectorIdle">@color/actionbar_dansuiyellow0</item>
+        <item name="cpb_selectorComplete">@color/actionbar_dansuiyellow</item>
+        <item name="cpb_selectorError">@color/cpb_red</item>
     </style>
     <style name="nLiveo.Theme.DansuiyellowActionBar" parent="AppTheme.DansuiyellowActionBar" />
 
@@ -170,6 +199,10 @@
         <item name="appBkg0">@color/actionbar_naocanpink0</item>
         <item name="textDark">@color/content</item>
         <item name="textGray">@android:color/darker_gray</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="cpb_selectorIdle">@color/actionbar_naocanpink0</item>
+        <item name="cpb_selectorComplete">@color/actionbar_naocanpink</item>
+        <item name="cpb_selectorError">@color/cpb_red</item>
     </style>
     <style name="nLiveo.Theme.NaocanpinkActionBar" parent="AppTheme.NaocanpinkActionBar" />
 
@@ -186,6 +219,10 @@
         <item name="appBkg0">@color/actionbar_mensaopurple0</item>
         <item name="textDark">@color/content</item>
         <item name="textGray">@android:color/darker_gray</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="cpb_selectorIdle">@color/actionbar_mensaopurple0</item>
+        <item name="cpb_selectorComplete">@color/actionbar_mensaopurple</item>
+        <item name="cpb_selectorError">@color/cpb_red</item>
     </style>
     <style name="nLiveo.Theme.MensaopurpleActionBar" parent="AppTheme.MensaopurpleActionBar" />
 

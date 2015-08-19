@@ -2,8 +2,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    >
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
     <include
         layout="@layout/toolbar"></include>
 
@@ -105,18 +105,32 @@
             android:layout_height="42dp"
             android:layout_marginTop="32dp"
             android:orientation="horizontal">
-            <Button
-                android:id="@+id/btn_signin"
+            <!--<Button-->
+                <!--android:id="@+id/btn_signin"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="42dp"-->
+                <!--android:layout_marginLeft="64dp"-->
+                <!--android:layout_marginRight="64dp"-->
+                <!--android:textSize="16sp"-->
+                <!--android:layout_gravity="center"-->
+                <!--android:gravity="center"-->
+                <!--android:text="登陆"-->
+                <!--android:background="?attr/appBkg0"-->
+                <!--android:textColor="@color/actionbar_title_color"/>-->
+            <com.example.db.messagewall.view.dd.CircularProgressButton
+                android:id="@+id/circularButton"
                 android:layout_width="match_parent"
                 android:layout_height="42dp"
                 android:layout_marginLeft="64dp"
                 android:layout_marginRight="64dp"
+                android:textColor="@color/actionbar_title_color"
                 android:textSize="16sp"
-                android:layout_gravity="center"
-                android:gravity="center"
-                android:text="登陆"
-                android:background="?attr/appBkg0"
-                android:textColor="@color/actionbar_title_color"/>
+                app:cpb_textComplete="登陆成功"
+                app:cpb_textError="登陆失败"
+                app:cpb_textIdle="登陆"
+                app:cpb_selectorIdle="?attr/cpb_selectorIdle"
+                app:cpb_selectorComplete="?attr/cpb_selectorComplete"
+                app:cpb_selectorError="?attr/cpb_selectorError"/>
         </LinearLayout>
         <TextView
             android:layout_width="match_parent"

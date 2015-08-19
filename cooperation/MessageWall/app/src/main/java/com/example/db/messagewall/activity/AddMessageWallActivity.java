@@ -3,6 +3,7 @@ package com.example.db.messagewall.activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Build;
+import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -29,8 +30,11 @@ import com.avos.avoscloud.im.v2.callback.AVIMConversationCreatedCallback;
 import com.example.db.messagewall.api.AppData;
 import com.example.db.messagewall.utils.AppConstant;
 import com.example.db.messagewall.view.ALifeToast;
+import com.example.db.messagewall.view.dd.CircularProgressButton;
 import com.example.db.messagewall.view.materialedittext.MaterialEditText;
 import com.example.db.messagewall.view.materialloadingprogressbar.CircleProgressBar;
+import com.example.db.messagewall.view.swipebacklayout.SwipeBackActivity;
+import com.example.db.messagewall.view.swipebacklayout.SwipeBackLayout;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.EncodeHintType;
 import com.google.zxing.MultiFormatWriter;
@@ -44,15 +48,16 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class AddMessageWallActivity extends BaseActivity {
+public class AddMessageWallActivity extends SwipeBackActivity {
 
     public Toolbar toolbar;
 
     public MaterialEditText mWallName,mNiChen,mWallDescription;
-    public Button mPutForward;
+//    public Button mPutForward;
+
+    public CircularProgressButton circularProgressButton;
 
     public String wall_name,wall_nichen,wall_description,friends;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,16 +72,22 @@ public class AddMessageWallActivity extends BaseActivity {
         mWallName = (MaterialEditText)findViewById(R.id.edit_wall_name);
         mNiChen = (MaterialEditText)findViewById(R.id.edit_wall_nichen);
         mWallDescription = (MaterialEditText)findViewById(R.id.edit_wall_description);
-        mPutForward = (Button)findViewById(R.id.btn_fab);
+//        mPutForward = (Button)findViewById(R.id.btn_fab);
 
+        circularProgressButton = (CircularProgressButton)findViewById(R.id.circularButton);
+        circularProgressButton.setIndeterminateProgressMode(true);
 
-        mPutForward.setOnClickListener(new View.OnClickListener() {
+        circularProgressButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                wall_name = mWallName.getText().toString();
-                wall_nichen = mNiChen.getText().toString();
-                wall_description = mWallDescription.getText().toString();
-                if (wall_name.length()!=0&&wall_nichen.length()!=0&&wall_description.length()!=0){
+
+                if (circularProgressButton.getProgress()==0){
+                    circularProgressButton.setProgress(50);
+
+                    wall_name = mWallName.getText().toString();
+                    wall_nichen = mNiChen.getText().toString();
+                    wall_description = mWallDescription.getText().toString();
+                    if (wall_name.length()!=0&&wall_nichen.length()!=0&&wall_description.length()!=0){
                         AppData.setClientIdToPre(AVUser.getCurrentUser().getUsername());
                         AVIMClient avimClient = AppData.getIMClient();
                         avimClient.open(new AVIMClientCallback() {
@@ -145,24 +156,45 @@ public class AddMessageWallActivity extends BaseActivity {
                                                     Log.v("db.error8",e0.getMessage());
                                                 }
 
-                                                ALifeToast.makeText(AddMessageWallActivity.this
-                                                        , "创建成功！"
-                                                        , ALifeToast.ToastType.SUCCESS
-                                                        , ALifeToast.LENGTH_SHORT)
-                                                        .show();
+//                                                ALifeToast.makeText(AddMessageWallActivity.this
+//                                                        , "创建成功！"
+//                                                        , ALifeToast.ToastType.SUCCESS
+//                                                        , ALifeToast.LENGTH_SHORT)
+//                                                        .show();
 
-                                                Intent intent = new Intent(AddMessageWallActivity.this, SelectActivity.class);
-                                                startActivity(intent);
-                                                AddMessageWallActivity.this.finish();
+                                                circularProgressButton.setProgress(100);
+//                                                Intent intent = new Intent(AddMessageWallActivity.this, SelectActivity.class);
+//                                                startActivity(intent);
+//                                                AddMessageWallActivity.this.finish();
+                                                new Handler().postDelayed(new Runnable() {
+                                                    @Override
+                                                    public void run() {
+                                                        Intent intent = new Intent(AddMessageWallActivity.this,SelectActivity.class);
+                                                        startActivity(intent);
+                                                        AddMessageWallActivity.this.finish();
+                                                    }
+                                                },1000);
                                             }else {
+
+                                                circularProgressButton.setProgress(0);
+
                                                 ALifeToast.makeText(AddMessageWallActivity.this
                                                         , "创建失败！"
                                                         , ALifeToast.ToastType.SUCCESS
                                                         , ALifeToast.LENGTH_SHORT)
                                                         .show();
-                                                Intent intent = new Intent(AddMessageWallActivity.this, SelectActivity.class);
-                                                startActivity(intent);
-                                                AddMessageWallActivity.this.finish();
+
+//                                                Intent intent = new Intent(AddMessageWallActivity.this, SelectActivity.class);
+//                                                startActivity(intent);
+//                                                AddMessageWallActivity.this.finish();
+                                                new Handler().postDelayed(new Runnable() {
+                                                    @Override
+                                                    public void run() {
+                                                        Intent intent = new Intent(AddMessageWallActivity.this,SelectActivity.class);
+                                                        startActivity(intent);
+                                                        AddMessageWallActivity.this.finish();
+                                                    }
+                                                },1000);
 
                                             }
                                         }
@@ -179,14 +211,21 @@ public class AddMessageWallActivity extends BaseActivity {
                             }
                         });
 
-                }else {
-                    ALifeToast.makeText(AddMessageWallActivity.this
-                            , "输入不能为空！"
-                            , ALifeToast.ToastType.SUCCESS
-                            , ALifeToast.LENGTH_SHORT)
-                            .show();
+                    }else {
+                        ALifeToast.makeText(AddMessageWallActivity.this
+                                , "输入不能为空！"
+                                , ALifeToast.ToastType.SUCCESS
+                                , ALifeToast.LENGTH_SHORT)
+                                .show();
 
+                    }
+                }else if (circularProgressButton.getProgress()==100){
+
+                    Intent intent = new Intent(AddMessageWallActivity.this, SelectActivity.class);
+                    startActivity(intent);
+                    AddMessageWallActivity.this.finish();
                 }
+
             }
         });
 
@@ -200,7 +239,6 @@ public class AddMessageWallActivity extends BaseActivity {
         toolbar.setSubtitleTextColor(getResources().getColor(R.color.actionbar_title_color));
 
         if (Build.VERSION.SDK_INT >= 21)
-            toolbar.setElevation(24);
             setSupportActionBar(toolbar);
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             toolbar.setNavigationOnClickListener(new View.OnClickListener() {

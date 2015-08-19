@@ -6,6 +6,7 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -19,9 +20,11 @@ import android.widget.LinearLayout;
 import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.im.v2.AVIMConversation;
 import com.avos.avoscloud.im.v2.callback.AVIMConversationCallback;
+import com.example.db.messagewall.activity.MainActivity;
 import com.example.db.messagewall.api.AppData;
 import com.example.db.messagewall.utils.AppConstant;
 import com.example.db.messagewall.view.ALifeToast;
+import com.example.db.messagewall.view.dd.CircularProgressButton;
 import com.example.db.messagewall.view.materialedittext.MaterialEditText;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -53,7 +56,9 @@ public class AskMembersFragment extends Fragment {
 
     public MaterialEditText mAskName;
     public ImageView mAskCode;
-    public Button floatingActionButton;
+//    public Button floatingActionButton;
+
+    public CircularProgressButton circularProgressButton;
 
     public String askphone;
 
@@ -109,9 +114,9 @@ public class AskMembersFragment extends Fragment {
         imageLoader.init(ImageLoaderConfiguration.createDefault(getActivity()));
 
         options = new DisplayImageOptions.Builder()
-                .showImageOnLoading(R.drawable.photo3)
-                .showImageForEmptyUri(R.drawable.photo3)
-                .showImageOnFail(R.drawable.photo3)
+                .showImageOnLoading(R.drawable.code)
+                .showImageForEmptyUri(R.drawable.code)
+                .showImageOnFail(R.drawable.code)
                 .cacheInMemory(true)
                 .cacheOnDisk(true)
                 .considerExifParams(true)
@@ -120,20 +125,14 @@ public class AskMembersFragment extends Fragment {
 
         mAskName = (MaterialEditText)rootView.findViewById(R.id.edit_ask_phone);
         mAskCode = (ImageView)rootView.findViewById(R.id.edit_ask_code);
-        floatingActionButton = (Button)rootView.findViewById(R.id.btn_fab);
+//        floatingActionButton = (Button)rootView.findViewById(R.id.btn_fab);
+
+        circularProgressButton = (CircularProgressButton)rootView.findViewById(R.id.circularButton);
+        circularProgressButton.setIndeterminateProgressMode(true);
 
         /*
         现在本地找，后从网络中找
          */
-        AVIMConversation avimConversation = AppData.getIMClient()
-                .getConversation(CONVERSATION_ID);
-        if (AppConstant.isCodeExist(avimConversation.getAttribute("name").toString())){
-            imageLoader.displayImage(AppConstant.getCodePath(avimConversation.getAttribute("name")
-                    .toString())
-                    .toString()
-                    ,mAskCode
-                    ,options);
-        }else {
             AppData.getIMClient()
                     .getConversation(CONVERSATION_ID).fetchInfoInBackground(new AVIMConversationCallback() {
                 @Override
@@ -152,57 +151,96 @@ public class AskMembersFragment extends Fragment {
                     }
                 }
             });
-        }
 
-        floatingActionButton.setOnClickListener(new View.OnClickListener() {
+        circularProgressButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                askphone = mAskName.getText().toString();
-                if (askphone!=null&& AppConstant.isMobile(askphone)){
-                    List<String> list = new ArrayList<String>();
-                    list.add(askphone);
-                    AVIMConversation avimConversation = AppData.getIMClient().getConversation(CONVERSATION_ID);
-                    avimConversation.addMembers(list, new AVIMConversationCallback() {
-                        @Override
-                        public void done(AVException e) {
-                            if (e==null){
 
-                                FragmentTransaction fragmentTransaction = getActivity()
-                                                                            .getSupportFragmentManager()
-                                                                            .beginTransaction();
-                                MessageWallFragment messageWallFeagment = new MessageWallFragment();
-                                messageWallFeagment.setArguments(bundle);
-                                fragmentTransaction.replace(R.id.container,messageWallFeagment).commit();
+                if (circularProgressButton.getProgress()==0){
+                    circularProgressButton.setProgress(50);
 
-                                ALifeToast.makeText(getActivity()
-                                        , "添加成功！"
-                                        , ALifeToast.ToastType.SUCCESS
-                                        , ALifeToast.LENGTH_SHORT)
-                                        .show();
-                            }else {
+                    askphone = mAskName.getText().toString();
+                    if (askphone!=null&& AppConstant.isMobile(askphone)){
+                        List<String> list = new ArrayList<String>();
+                        list.add(askphone);
+                        AVIMConversation avimConversation = AppData.getIMClient().getConversation(CONVERSATION_ID);
+                        avimConversation.addMembers(list, new AVIMConversationCallback() {
+                            @Override
+                            public void done(AVException e) {
+                                if (e==null){
 
-                                FragmentTransaction fragmentTransaction = getActivity()
-                                                                            .getSupportFragmentManager()
-                                                                            .beginTransaction();
-                                MessageWallFragment messageWallFeagment = new MessageWallFragment();
-                                messageWallFeagment.setArguments(bundle);
-                                fragmentTransaction.replace(R.id.container,messageWallFeagment).commit();
+//                                FragmentTransaction fragmentTransaction = getActivity()
+//                                        .getSupportFragmentManager()
+//                                        .beginTransaction();
+//                                MessageWallFragment messageWallFeagment = new MessageWallFragment();
+//                                messageWallFeagment.setArguments(bundle);
+//                                fragmentTransaction.replace(R.id.container,messageWallFeagment).commit();
 
-                                ALifeToast.makeText(getActivity()
+//                                ALifeToast.makeText(getActivity()
+//                                        , "添加成功！"
+//                                        , ALifeToast.ToastType.SUCCESS
+//                                        , ALifeToast.LENGTH_SHORT)
+//                                        .show();
+                                    circularProgressButton.setProgress(100);
+                                    new Handler().postDelayed(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            FragmentTransaction fragmentTransaction = getActivity()
+                                                    .getSupportFragmentManager()
+                                                    .beginTransaction();
+                                            MessageWallFragment messageWallFeagment = new MessageWallFragment();
+                                            messageWallFeagment.setArguments(bundle);
+                                            fragmentTransaction.replace(R.id.container,messageWallFeagment).commit();
+                                        }
+                                    },1000);
+                                }else {
+
+//                                FragmentTransaction fragmentTransaction = getActivity()
+//                                                                            .getSupportFragmentManager()
+//                                                                            .beginTransaction();
+//                                MessageWallFragment messageWallFeagment = new MessageWallFragment();
+//                                messageWallFeagment.setArguments(bundle);
+//                                fragmentTransaction.replace(R.id.container,messageWallFeagment).commit();
+
+                                    circularProgressButton.setProgress(0);
+
+                                    ALifeToast.makeText(getActivity()
                                         , "添加失败！"
                                         , ALifeToast.ToastType.SUCCESS
                                         , ALifeToast.LENGTH_SHORT)
                                         .show();
+
+                                    new Handler().postDelayed(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            FragmentTransaction fragmentTransaction = getActivity()
+                                                    .getSupportFragmentManager()
+                                                    .beginTransaction();
+                                            MessageWallFragment messageWallFeagment = new MessageWallFragment();
+                                            messageWallFeagment.setArguments(bundle);
+                                            fragmentTransaction.replace(R.id.container,messageWallFeagment).commit();
+                                        }
+                                    },1000);
+                                }
                             }
-                        }
-                    });
-                }else {
-                    ALifeToast.makeText(getActivity()
-                            , "输入格式不正确！"
-                            , ALifeToast.ToastType.SUCCESS
-                            , ALifeToast.LENGTH_SHORT)
-                            .show();
+                        });
+                    }else {
+                        ALifeToast.makeText(getActivity()
+                                , "输入格式不正确！"
+                                , ALifeToast.ToastType.SUCCESS
+                                , ALifeToast.LENGTH_SHORT)
+                                .show();
+                    }
+                }else if (circularProgressButton.getProgress()==100){
+
+                    FragmentTransaction fragmentTransaction = getActivity()
+                            .getSupportFragmentManager()
+                            .beginTransaction();
+                    MessageWallFragment messageWallFeagment = new MessageWallFragment();
+                    messageWallFeagment.setArguments(bundle);
+                    fragmentTransaction.replace(R.id.container,messageWallFeagment).commit();
                 }
+
             }
         });
 

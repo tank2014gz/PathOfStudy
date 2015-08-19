@@ -9,13 +9,15 @@
     <!-- TODO: Update blank fragment layout -->
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
+        android:layout_height="match_parent"
         android:orientation="vertical">
         <android.support.v7.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/card_margin">
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginBottom="16dp"
+            android:layout_marginTop="16dp">
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -55,20 +57,35 @@
 
             </LinearLayout>
         </android.support.v7.widget.CardView>
-        <Button
-            android:id="@+id/btn_fab"
+        <!--<Button-->
+            <!--android:id="@+id/btn_fab"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="42dp"-->
+            <!--android:layout_marginLeft="64dp"-->
+            <!--android:layout_marginRight="64dp"-->
+            <!--android:layout_marginBottom="16dp"-->
+            <!--android:layout_marginTop="16dp"-->
+            <!--android:textSize="16sp"-->
+            <!--android:layout_gravity="center"-->
+            <!--android:gravity="center"-->
+            <!--android:text="邀请"-->
+            <!--android:background="?attr/appBkg0"-->
+            <!--android:textColor="@color/actionbar_title_color"/>-->
+        <com.example.db.messagewall.view.dd.CircularProgressButton
+            android:id="@+id/circularButton"
             android:layout_width="match_parent"
             android:layout_height="42dp"
             android:layout_marginLeft="64dp"
             android:layout_marginRight="64dp"
             android:layout_marginBottom="16dp"
-            android:layout_marginTop="16dp"
+            android:textColor="@color/actionbar_title_color"
             android:textSize="16sp"
-            android:layout_gravity="center"
-            android:gravity="center"
-            android:text="邀请"
-            android:background="?attr/appBkg0"
-            android:textColor="@color/actionbar_title_color"/>
+            app:cpb_textComplete="邀请成功"
+            app:cpb_textError="邀请失败"
+            app:cpb_textIdle="邀请"
+            app:cpb_selectorIdle="?attr/cpb_selectorIdle"
+            app:cpb_selectorComplete="?attr/cpb_selectorComplete"
+            app:cpb_selectorError="?attr/cpb_selectorError"/>
         <android.support.v7.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -81,7 +98,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:layout_marginLeft="8dp"
-                android:layout_marginRight="8dp">
+                android:layout_marginRight="16dp">
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="32dp"
@@ -109,7 +126,8 @@
                         android:layout_gravity="center"
                         android:src="@drawable/code"
                         android:scaleType="fitXY"
-                        android:id="@+id/edit_ask_code"/>
+                        android:id="@+id/edit_ask_code"
+                        android:layout_marginBottom="8dp"/>
                 </LinearLayout>
             </LinearLayout>
 

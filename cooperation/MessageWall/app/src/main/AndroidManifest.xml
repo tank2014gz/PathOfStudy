@@ -215,24 +215,8 @@
             android:label="@string/title_activity_add_file_item" >
         </activity>
         <activity
-            android:name="com.example.db.messagewall.activity.TextDetailsActivity"
-            android:label="@string/title_activity_text_details" >
-        </activity>
-        <activity
             android:name="com.example.db.messagewall.activity.PictureDetailsactivity"
             android:label="@string/title_activity_picture_detailsactivity" >
-        </activity>
-        <activity
-            android:name="com.example.db.messagewall.activity.PictureDetailsActivity"
-            android:label="@string/title_activity_picture_details" >
-        </activity>
-        <activity
-            android:name="com.example.db.messagewall.activity.VoiceDetailsActivity"
-            android:label="@string/title_activity_voice_details" >
-        </activity>
-        <activity
-            android:name="com.example.db.messagewall.activity.FileDetailsActivity"
-            android:label="@string/title_activity_file_details" >
         </activity>
         <activity
             android:name="com.example.db.messagewall.activity.GuideActivity"
@@ -250,8 +234,24 @@
             android:label="@string/title_activity_add_video_item" >
         </activity>
         <activity
-            android:name="com.example.db.messagewall.activity.VideoDetailsActivity"
-            android:label="@string/title_activity_video_details" >
+            android:name="com.example.db.messagewall.details.PictureActivity"
+            android:label="@string/title_activity_picture" >
+        </activity>
+        <activity
+            android:name="com.example.db.messagewall.details.TextActivity"
+            android:label="@string/title_activity_text" >
+        </activity>
+        <activity
+            android:name="com.example.db.messagewall.details.VoiceActivity"
+            android:label="@string/title_activity_voice" >
+        </activity>
+        <activity
+            android:name="com.example.db.messagewall.details.FileActivity"
+            android:label="@string/title_activity_file" >
+        </activity>
+        <activity
+            android:name="com.example.db.messagewall.details.VideoActivity"
+            android:label="@string/title_activity_video" >
         </activity>
     </application>
 

@@ -15,6 +15,7 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.avos.avoscloud.AVException;
+import com.avos.avoscloud.AVUser;
 import com.avos.avoscloud.im.v2.AVIMConversation;
 import com.avos.avoscloud.im.v2.callback.AVIMConversationCallback;
 import com.avos.avoscloud.im.v2.messages.AVIMAudioMessage;
@@ -25,11 +26,12 @@ import com.example.db.messagewall.view.ALifeToast;
 import com.example.db.messagewall.view.CircleButton;
 import com.example.db.messagewall.view.MaterialDialog;
 import com.example.db.messagewall.view.materialedittext.MaterialEditText;
+import com.example.db.messagewall.view.swipebacklayout.SwipeBackActivity;
 import com.support.android.designlibdemo.R;
 
 import java.io.IOException;
 
-public class AddVideoItemActivity extends BaseActivity {
+public class AddVideoItemActivity extends SwipeBackActivity {
 
     public Toolbar toolbar;
 
@@ -84,7 +86,6 @@ public class AddVideoItemActivity extends BaseActivity {
         toolbar.setSubtitleTextColor(getResources().getColor(R.color.actionbar_title_color));
 
         if (Build.VERSION.SDK_INT >= 21)
-            toolbar.setElevation(24);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {

@@ -20,6 +20,11 @@ import android.view.WindowManager;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.avos.avoscloud.AVException;
+import com.avos.avoscloud.AVObject;
+import com.avos.avoscloud.AVQuery;
+import com.avos.avoscloud.AVUser;
+import com.avos.avoscloud.FindCallback;
 import com.example.db.messagewall.activity.PersonInfoActivity;
 import com.example.db.messagewall.view.SystemBarTintManager;
 import com.google.zxing.BarcodeFormat;
@@ -57,17 +62,15 @@ public class AppConstant {
 
     public static void setStatus(boolean on,Activity context){
 
-        /**
-        Window window = context.getWindow();
-        WindowManager.LayoutParams layoutParams=window.getAttributes();
-        final int bits = WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS;
-        if (on){
-            layoutParams.flags |=bits;
-        }else {
-            layoutParams.flags &= ~bits;
-        }
-        window.setAttributes(layoutParams);
-         */
+//        Window window = context.getWindow();
+//        WindowManager.LayoutParams layoutParams=window.getAttributes();
+//        final int bits = WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS;
+//        if (on){
+//            layoutParams.flags |=bits;
+//        }else {
+//            layoutParams.flags &= ~bits;
+//        }
+//        window.setAttributes(layoutParams);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT){
             context.getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
@@ -77,9 +80,9 @@ public class AppConstant {
                 case R.style.nLiveo_Theme_BlueActionBar:
                     tintManager.setStatusBarTintColor(context.getResources().getColor(R.color.actionbar_blue));
                     break;
-                case R.style.nLiveo_Theme_DarkActionBar:
-                    tintManager.setStatusBarTintColor(context.getResources().getColor(R.color.actionbar));
-                    break;
+//                case R.style.AppTheme_DarkActionBar:
+//                    tintManager.setStatusBarTintColor(context.getResources().getColor(R.color.actionbar));
+//                    break;
                 case R.style.nLiveo_Theme_ChinaredActionBar:
                     tintManager.setStatusBarTintColor(context.getResources().getColor(R.color.actionbar_chinared));
                     break;
@@ -370,4 +373,5 @@ public class AppConstant {
 
         }
     }
+
 }

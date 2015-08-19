@@ -1,7 +1,6 @@
 package com.example.db.messagewall.activity;
 
 import android.os.Build;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -11,14 +10,17 @@ import android.widget.ListView;
 
 import com.example.db.messagewall.adapter.AboutAdapter;
 import com.example.db.messagewall.utils.AppConstant;
-import com.example.db.messagewall.view.CircleImageView;
+import com.example.db.messagewall.view.swipebacklayout.SwipeBackActivity;
+import com.example.db.messagewall.view.swipebacklayout.SwipeBackLayout;
 import com.support.android.designlibdemo.R;
 
-public class AboutActivity extends BaseActivity {
+public class AboutActivity extends SwipeBackActivity {
 
     public Toolbar toolbar;
 
     public ListView mListView;
+
+    private SwipeBackLayout mSwipeBackLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +36,9 @@ public class AboutActivity extends BaseActivity {
 
         AboutAdapter aboutAdapter = new AboutAdapter(getApplicationContext());
         mListView.setAdapter(aboutAdapter);
+
+        mSwipeBackLayout = getSwipeBackLayout();
+
     }
 
     private void initToolBar() {
@@ -44,7 +49,6 @@ public class AboutActivity extends BaseActivity {
         toolbar.setSubtitleTextColor(getResources().getColor(R.color.actionbar_title_color));
 
         if (Build.VERSION.SDK_INT >= 21)
-            toolbar.setElevation(24);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {

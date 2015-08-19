@@ -45,6 +45,7 @@ import com.example.db.messagewall.view.ALifeToast;
 import com.example.db.messagewall.view.MaterialDialog;
 import com.example.db.messagewall.view.filtermenu.library.FilterMenu;
 import com.example.db.messagewall.view.filtermenu.library.FilterMenuLayout;
+import com.example.db.messagewall.view.swipebacklayout.SwipeBackLayout;
 import com.support.android.designlibdemo.R;
 
 import java.util.ArrayList;
@@ -61,6 +62,9 @@ public class SelectActivity extends BaseActivity {
     public SwipeRefreshLayout mSwipeRefreshLayout;
     public RecyclerView recyclerView;
 
+    public SwipeBackLayout mSwipeBackLayout;
+
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
 
@@ -76,6 +80,7 @@ public class SelectActivity extends BaseActivity {
         toolbar.setTitle(cheeseName);
 
         loadBackdrop();
+
         mSwipeRefreshLayout=(SwipeRefreshLayout)findViewById(R.id.refreshlayout);
         recyclerView = (RecyclerView)findViewById(R.id.listview);
         recyclerView.setLayoutManager(new LinearLayoutManager(recyclerView.getContext()));
@@ -84,7 +89,11 @@ public class SelectActivity extends BaseActivity {
 
         filterMenuLayout = (FilterMenuLayout)findViewById(R.id.add);
         filterMenuLayout.setDrawable(getApplicationContext().getResources().getDrawable(R.drawable.ic_more_horiz_white_24dp));
-        attachMenu(filterMenuLayout);
+        if (AVUser.getCurrentUser()!=null){
+            attachMenu(filterMenuLayout);
+        }else {
+            attachMenu0(filterMenuLayout);
+        }
 
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -220,7 +229,7 @@ public class SelectActivity extends BaseActivity {
         return new FilterMenu.Builder(this)
                 .addItem(R.drawable.ic_edit_white_24dp)
                 .addItem(R.drawable.cam_camera)
-                .addItem(R.drawable.ic_group_white_24dp)
+//                .addItem(R.drawable.ic_group_white_24dp)
                 .attach(layout)
                 .withListener(new FilterMenu.OnMenuChangeListener() {
                     @Override
@@ -245,12 +254,37 @@ public class SelectActivity extends BaseActivity {
                                         AppConstant.showSelfToast(getApplicationContext(),"请先登陆或注册！");
                                     }
                                     break;
-                                case 2:
-                                    Intent intent1 = new Intent(SelectActivity.this,SignUpActivity.class);
-                                    startActivity(intent1);
-                                    break;
+//                                case 2:
+//                                    Intent intent1 = new Intent(SelectActivity.this,SignUpActivity.class);
+//                                    startActivity(intent1);
+//                                    break;
                             }
 
+                    }
+
+                    @Override
+                    public void onMenuCollapse() {
+
+                    }
+
+                    @Override
+                    public void onMenuExpand() {
+
+                    }
+                })
+                .build();
+    }
+
+    private FilterMenu attachMenu0(FilterMenuLayout layout) {
+        return new FilterMenu.Builder(this)
+                .addItem(R.drawable.ic_group_white_24dp)
+                .attach(layout)
+                .withListener(new FilterMenu.OnMenuChangeListener() {
+                    @Override
+                    public void onMenuItemClick(View view, int position) {
+
+                        Intent intent1 = new Intent(SelectActivity.this,SignUpActivity.class);
+                        startActivity(intent1);
                     }
 
                     @Override

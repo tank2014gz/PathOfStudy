@@ -15,7 +15,7 @@
             android:layout_gravity="center"
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp"
-            android:src="@drawable/logo"
+            android:src="@drawable/head_xiaoqiang_m"
             app:border_width="2dp"
             app:border_color="@color/actionbar_title_color"
             android:id="@+id/img"/>

@@ -74,5 +74,10 @@
     <string name="title_activity_guide">留言墙</string>
     <string name="title_activity_add_video_item">AddVideoItemActivity</string>
     <string name="title_activity_video_details">VideoDetailsActivity</string>
+    <string name="title_activity_picture">PictureActivity</string>
+    <string name="title_activity_text">TextActivity</string>
+    <string name="title_activity_voice">VoiceActivity</string>
+    <string name="title_activity_file">FileActivity</string>
+    <string name="title_activity_video">VideoActivity</string>
 
 </resources>

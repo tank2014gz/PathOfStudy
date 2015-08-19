@@ -73,9 +73,9 @@ public class ItemPaperAdapter extends BaseAdapter {
         imageLoader.init(ImageLoaderConfiguration.createDefault(context));
 
         options = new DisplayImageOptions.Builder()
-                .showImageOnLoading(R.drawable.photo3)
-                .showImageForEmptyUri(R.drawable.photo3)
-                .showImageOnFail(R.drawable.photo3)
+                .showImageOnLoading(R.drawable.phone)
+                .showImageForEmptyUri(R.drawable.phone)
+                .showImageOnFail(R.drawable.phone)
                 .cacheInMemory(true)
                 .cacheOnDisk(true)
                 .considerExifParams(true)

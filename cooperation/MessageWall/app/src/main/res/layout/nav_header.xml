@@ -33,22 +33,32 @@
             android:layout_gravity="center"
             android:layout_marginLeft="16dp"
             android:layout_marginTop="8dp"
-            android:src="@drawable/ic_launcher"
+            android:src="@drawable/head_xiaoqiang_m"
             android:id="@+id/account_logo"/>
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="48dp"
-        android:orientation="horizontal">
+        android:orientation="vertical"
+        android:layout_marginBottom="8dp">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="24dp"
+            android:layout_marginLeft="16dp"
+            android:textColor="@android:color/white"
+            android:textSize="14sp"
+            android:id="@+id/account_name"
+            android:gravity="left|center"
+            android:text="......"/>
         <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginLeft="16dp"
             android:textColor="@android:color/white"
-            android:textSize="16sp"
-            android:id="@+id/account_name"
+            android:textSize="14sp"
+            android:id="@+id/account_nichen"
             android:gravity="left|center"
-            android:text="3025673709@qq.com"/>
+            android:text="......"/>
 
     </LinearLayout>
 

@@ -130,7 +130,8 @@
                        android:layout_gravity="center"
                        android:scaleType="fitXY"
                        android:src="@drawable/code"
-                       android:id="@+id/wall_code"/>
+                       android:id="@+id/wall_code"
+                       />
                </LinearLayout>
 
             </LinearLayout>
