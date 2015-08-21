@@ -192,7 +192,7 @@ public class AddFileItemActivity extends SwipeBackActivity {
                 Uri uri = data.getData();
                 path = uri.getPath();
 
-                Log.v("paper_path", path);
+//                Log.v("paper_path", path);
             }else {
                 AppConstant.showSelfToast(AddFileItemActivity.this,"选择失败！");
             }

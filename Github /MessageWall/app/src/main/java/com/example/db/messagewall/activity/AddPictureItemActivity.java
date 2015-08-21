@@ -28,6 +28,7 @@ import com.example.db.messagewall.view.swipebacklayout.SwipeBackActivity;
 import com.example.db.messagewall.view.swipebacklayout.SwipeBackLayout;
 import com.support.android.designlibdemo.R;
 
+import java.io.File;
 import java.io.IOException;
 
 public class AddPictureItemActivity extends SwipeBackActivity {
@@ -191,9 +192,9 @@ public class AddPictureItemActivity extends SwipeBackActivity {
                 Uri uri = data.getData();
                 path = AppConstant.getPath(AddPictureItemActivity.this,uri);
 
-                Log.v("paper_path", path);
+//                Log.v("paper_path", uri.toString());
             }else {
-                AppConstant.showSelfToast(AddPictureItemActivity.this,"选择失败！");
+                AppConstant.showSelfToast(AddPictureItemActivity.this,"选择失败,请从图库选择！");
             }
         }
     }

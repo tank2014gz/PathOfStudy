@@ -112,6 +112,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="24dp"
+                    android:layout_marginRight="12dp"
+                    android:lineSpacingMultiplier="1.2"
                     android:layout_weight="1"
                     android:textColor="@color/actionbar0"
                     android:textSize="14sp"
@@ -128,7 +130,7 @@
                     app:errorColor="@color/error"
                     app:helperText=""
                     app:primaryColor="#f3f3f3"
-                    app:singleLineEllipsis="true"/>
+                    app:singleLineEllipsis="false"/>
 
             </LinearLayout>
 

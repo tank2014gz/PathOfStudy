@@ -326,7 +326,7 @@ public class MainActivity extends BaseActivity implements MessageWallFragment.On
                SharedPreferences.Editor editor = sharedPreferences.edit();
                editor.putString("paper_path", path);
                editor.commit();
-               Log.v("paper_path",path);
+//               Log.v("paper_path",path);
            }else {
                AppConstant.showSelfToast(MainActivity.this,"选择失败！");
            }

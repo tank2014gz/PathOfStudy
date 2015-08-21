@@ -229,7 +229,7 @@ public class AddMessageItemActivity extends SwipeBackActivity {
                 SharedPreferences.Editor editor = sharedPreferences.edit();
                 editor.putString("paper_path", path);
                 editor.commit();
-                Log.v("paper_path", path);
+//                Log.v("paper_path", path);
             }else {
                 AppConstant.showSelfToast(AddMessageItemActivity.this,"选择失败！");
             }

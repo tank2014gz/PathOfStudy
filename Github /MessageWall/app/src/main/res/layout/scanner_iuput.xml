@@ -21,6 +21,7 @@
             android:id="@+id/edit_ask_phone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:lineSpacingMultiplier="1.2"
             android:layout_weight="1"
             android:textColor="@color/content"
             android:textSize="14sp"
@@ -37,7 +38,7 @@
             app:errorColor="@color/error"
             app:helperText=""
             app:primaryColor="#f3f3f3"
-            app:singleLineEllipsis="true"
+            app:singleLineEllipsis="false"
             android:drawableLeft="@drawable/ab_handwriting"
             android:paddingLeft="16dp"
             android:drawablePadding="16dp"/>

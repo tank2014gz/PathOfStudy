@@ -205,7 +205,7 @@ public class PersonInfoActivity extends SwipeBackActivity {
                     /*
                     存储到本地
                      */
-                    Log.v("haahha",savePicture(photo));
+//                    Log.v("haahha",savePicture(photo));
                     SharedPreferences sharedPreferences = this
                             .getSharedPreferences("com.example.db.alife_walllogo"
                                     , Context.MODE_PRIVATE);
