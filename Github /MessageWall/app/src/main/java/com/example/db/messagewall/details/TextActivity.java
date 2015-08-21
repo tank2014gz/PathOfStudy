@@ -95,7 +95,7 @@ public class TextActivity extends SwipeBackActivity implements TextDetailsFragme
     private class MyAdapter extends FragmentPagerAdapter implements IconicProvider {
 
 
-        int[] icons = {R.drawable.ic_home_white_24dp,R.drawable.ic_chat_bubble_white_24dp};
+        int[] icons = {R.drawable.ic_home_white_24dp,R.drawable.ic_textsms_white_24dp};
 
         String[] titles = {"详情","评论"};
 
