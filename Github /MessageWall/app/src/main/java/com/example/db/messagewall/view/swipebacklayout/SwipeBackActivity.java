@@ -15,7 +15,7 @@ public class SwipeBackActivity extends AppCompatActivity implements SwipeBackAct
 
     private SwipeBackActivityHelper mHelper;
 
-    public int mThemeId = R.style.nLiveo_Theme_WumaiActionBar;
+    public int mThemeId = R.style.nLiveo_Theme_BlueActionBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

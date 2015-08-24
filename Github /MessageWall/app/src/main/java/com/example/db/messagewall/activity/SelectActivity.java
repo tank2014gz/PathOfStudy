@@ -62,6 +62,8 @@ public class SelectActivity extends BaseActivity {
     public SwipeRefreshLayout mSwipeRefreshLayout;
     public RecyclerView recyclerView;
 
+    public TextView mCreate,mJoin;
+
     public SwipeBackLayout mSwipeBackLayout;
 
 
@@ -80,6 +82,9 @@ public class SelectActivity extends BaseActivity {
         toolbar.setTitle(cheeseName);
 
         loadBackdrop();
+
+        mCreate = (TextView)findViewById(R.id.create);
+        mJoin = (TextView)findViewById(R.id.join);
 
         mSwipeRefreshLayout=(SwipeRefreshLayout)findViewById(R.id.refreshlayout);
         recyclerView = (RecyclerView)findViewById(R.id.listview);
@@ -123,6 +128,10 @@ public class SelectActivity extends BaseActivity {
                                         if (null != e) {
                                             Log.v("db.error4", e.getMessage());
                                         } else {
+
+                                            mCreate.setText(String.valueOf(countCreated(list)));
+                                            mJoin.setText(String.valueOf(list.size()-countCreated(list)));
+
                                             recyclerView.setAdapter(new WallAdapter(SelectActivity.this, list));
                                             Log.v("db.cnm2", String.valueOf(list.size()));
                                         }
@@ -209,6 +218,10 @@ public class SelectActivity extends BaseActivity {
                                 if (null != e) {
                                     Log.v("db.error4", e.getMessage());
                                 } else {
+
+                                    mCreate.setText(String.valueOf(countCreated(list)));
+                                    mJoin.setText(String.valueOf(list.size()-countCreated(list)));
+
                                     recyclerView.setAdapter(new WallAdapter(SelectActivity.this, list));
                                     Log.v("db.cnm2", String.valueOf(list.size()));
                                 }
@@ -318,6 +331,7 @@ public class SelectActivity extends BaseActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         return true;
     }
+
     private class RemoteDataTask0 extends AsyncTask<Void, Integer, List<AVIMConversation>> {
 
         public List<AVIMConversation> avimConversations = new ArrayList<AVIMConversation>();
@@ -376,5 +390,13 @@ public class SelectActivity extends BaseActivity {
         return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp,
                 getResources().getDisplayMetrics());
     }
-
+    public int countCreated(List<AVIMConversation> list){
+        int count = 0;
+        for (AVIMConversation avimConversation : list){
+            if (avimConversation.getCreator().toString().equals(AVUser.getCurrentUser().getUsername())){
+                count++;
+            }
+        }
+        return count;
+    }
 }

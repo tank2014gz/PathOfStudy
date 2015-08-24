@@ -35,7 +35,7 @@ public class ThemeHelper {
         return mdPreferences;
     }
     public static int getTheme(Context context){
-        return ThemeHelper.getSharedPreferences(context).getInt(KEY_THEME, R.style.nLiveo_Theme_WumaiActionBar);
+        return ThemeHelper.getSharedPreferences(context).getInt(KEY_THEME, R.style.nLiveo_Theme_BlueActionBar);
     }
 
     public static void setTheme(Context context, int theme){

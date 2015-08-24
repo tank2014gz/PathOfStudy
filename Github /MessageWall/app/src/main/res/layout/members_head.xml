@@ -2,17 +2,30 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="horizontal"
+    android:background="?attr/appBkg">
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="48dp"
+        android:layout_width="wrap_content"
+        android:layout_height="64dp"
+        android:layout_weight="1"
         android:layout_gravity="center"
-        android:gravity="left|center"
-        android:textColor="@color/content"
+        android:gravity="right|center"
+        android:textColor="@color/actionbar_title_color"
         android:textSize="16dp"
-        android:text=""
+        android:text="成员数:"
+        android:maxLines="1"
+        android:paddingRight="16dp"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="64dp"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:textColor="?attr/appBkg0"
+        android:textSize="20dp"
+        android:textStyle="italic"
+        android:text="0"
         android:maxLines="1"
         android:id="@+id/count"
-        android:paddingLeft="16dp"
-        />
+        android:layout_marginRight="16dp"/>
 </LinearLayout>

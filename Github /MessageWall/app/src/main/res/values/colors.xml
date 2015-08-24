@@ -32,8 +32,8 @@
     <color name="error">#a2316c</color>
 
     <!--蓝色主题-->
-    <color name="actionbar_blue">#009edf</color>
-    <color name="actionbar_blue0">#598d9a</color>
+    <color name="actionbar_blue">#48cfe0</color>
+    <color name="actionbar_blue0">#fdea17</color>
     <!-- 雾霾灰主题-->
     <color name="actionbar_wumai">#777777</color>
     <color name="actionbar_wumai0">#fe595f</color>

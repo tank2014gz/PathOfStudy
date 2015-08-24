@@ -77,8 +77,8 @@ public class AppConstant {
             context.getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
             tintManager = new SystemBarTintManager(context);
             switch (ThemeHelper.getTheme(context)){
-                case R.style.nLiveo_Theme_BlueActionBar:
-                    tintManager.setStatusBarTintColor(context.getResources().getColor(R.color.actionbar_blue));
+                case R.style.nLiveo_Theme_WumaiActionBar:
+                    tintManager.setStatusBarTintColor(context.getResources().getColor(R.color.actionbar_wumai));
                     break;
 //                case R.style.AppTheme_DarkActionBar:
 //                    tintManager.setStatusBarTintColor(context.getResources().getColor(R.color.actionbar));
@@ -105,7 +105,7 @@ public class AppConstant {
                     tintManager.setStatusBarTintColor(context.getResources().getColor(R.color.actionbar_mensaopurple));
                     break;
                 default:
-                    tintManager.setStatusBarTintColor(context.getResources().getColor(R.color.actionbar_wumai));
+                    tintManager.setStatusBarTintColor(context.getResources().getColor(R.color.actionbar_blue));
             }
             tintManager.setStatusBarTintEnabled(true);
         }

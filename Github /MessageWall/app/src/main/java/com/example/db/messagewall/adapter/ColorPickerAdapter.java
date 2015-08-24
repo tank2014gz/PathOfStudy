@@ -100,7 +100,7 @@ public class ColorPickerAdapter extends BaseAdapter{
     public void initList(){
 
         bkg.add("#777777");
-        bkg.add("#009edf");
+        bkg.add("#48cfe0");
 //        bkg.add("#24b191");
         bkg.add("#cc2c28");
         bkg.add("#1b1b1b");

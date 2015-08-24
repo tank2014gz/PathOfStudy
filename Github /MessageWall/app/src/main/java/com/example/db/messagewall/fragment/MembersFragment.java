@@ -119,7 +119,7 @@ public class MembersFragment extends Fragment {
                      @Override
                      public void done(Integer integer, AVException e) {
                          if (e==null){
-                             textView.setText("一共有"+String.valueOf(integer)+"个成员");
+                             textView.setText(String.valueOf(integer));
                          }
                      }
                  });
