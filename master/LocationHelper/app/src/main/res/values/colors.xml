@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright (C) 2015 The Android Open Source Project
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~      http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+<!--#ffc247-->
+<!--#598d9a-->
+<!--#4c4c4c-->
+<!--#009edf-->
+<resources>
+    <color name="window_background">#FFF5F5F5</color>
+    <color name="actionbar">#24ba91</color>
+    <color name="content">#757575</color>
+    <color name="actionbar0">#757575</color>
+    <color name="messagewall_bkg">#989282</color>
+    <color name="message_gray">#fdea17</color>
+    <color name="messagewall_ganlan">#8b6f1c</color>
+    <color name="messagewall_anshihui">#335c4c</color>
+    <color name="messagewall_wuyelan">#002f7d</color>
+    <color name="actionbar_title_color">#ffffff</color>
+    <color name="error">#a2316c</color>
+
+    <!--蓝色主题-->
+    <color name="actionbar_blue">#48cfe0</color>
+    <color name="actionbar_blue0">#598d9a</color>
+    <!-- 雾霾灰主题-->
+    <color name="actionbar_wumai">#777777</color>
+    <color name="actionbar_wumai0">#fe595f</color>
+    <!-- 中国红主题-->
+    <color name="actionbar_chinared">#cc2c28</color>
+    <color name="actionbar_chinared0">#ffb016</color>
+    <!-- 高端黑主题-->
+    <color name="actionbar_gdblack">#1b1b1b</color>
+    <color name="actionbar_gdblack0">#777777</color>
+    <!-- 豆瓣请主题-->
+    <color name="actionbar_doubangreen">#3baa24</color>
+    <color name="actionbar_doubangreen0">#862fc9</color>
+    <!-- 小米橙色主题-->
+    <color name="actionbar_xiaomiorigin">#fe595f</color>
+    <color name="actionbar_xiaomiorigin0">#777777</color>
+    <!-- 蛋碎黄主题-->
+    <color name="actionbar_dansuiyellow">#ffb016</color>
+    <color name="actionbar_dansuiyellow0">#3baa24</color>
+    <!-- 脑残粉主题-->
+    <color name="actionbar_naocanpink">#f95ebd</color>
+    <color name="actionbar_naocanpink0">#3baa24</color>
+    <!-- 闷骚紫主题-->
+    <color name="actionbar_mensaopurple">#862fc9</color>
+    <color name="actionbar_mensaopurple0">#598d9a</color>
+
+
+    <!-- materialdialog-->
+    <color name="card_background">#f5f5f5</color>
+    <color name="card_shadow">#F5F5F5</color>
+    <color name="lite_blue">#ff359ff2</color>
+    <!-- 扫码-->
+    <color name="DarkActionBarColor">#333333</color>
+    <color name="first">#99CC00</color>
+    <color name="second">#FFBB33</color>
+    <color name="third">#FF4444</color>
+    <color name="four">#ff46ffd3</color>
+    <color name="five">#fff4abff</color>
+    <color name="six">#ff22ff80</color>
+    <color name="seven">#ffff777d</color>
+    <color name="theme">#3f51b5</color>
+    <color name="result_view">#b0000000</color>
+    <color name="viewfinder_mask">#60000000</color>
+    <color name="possible_result_points">#c0ffff00</color>
+    <color name="button">#24ba91</color>
+    <color name="scanner">@android:color/transparent</color>
+
+    <!-- fab-->
+    <color name="app_primary">#455A64</color>
+    <color name="app_primary_dark">#37474F</color>
+
+    <!-- 录音的-->
+    <color name="chat_common_blue">#2C97E8</color>
+    <color name="chat_transparent">#ffff</color>
+    <color name="chat_base_color_text_black">#3e3e39</color>
+    <color name="chat_msg_emote_divider">#ffa1a1a1</color>
+    <color name="chat_LeftText">#000</color>
+    <color name="chat_record_btn_red">#f00</color>
+    <color name="chat_common_white">#fff</color>
+    <color name="chat_common_guide_color">#898989</color>
+    <color name="chat_base_color_text_white">#fff</color>
+    <color name="contact_num_sort_bg">#66ffffff</color>
+
+    <!--circleprogressbutton-->
+    <color name="cpb_grey">#ffdedede</color>
+    <color name="cpb_blue">#ff0099cc</color>
+    <color name="cpb_blue_dark">#ff00719b</color>
+    <color name="cpb_red">#ffff4444</color>
+    <color name="cpb_red_dark">#ffcd3a3a</color>
+    <color name="cpb_green">#ff99cc00</color>
+    <color name="cpb_green_dark">#ff6d9b00</color>
+    <color name="cpb_white">@android:color/white</color>
+</resources>
