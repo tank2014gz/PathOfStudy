@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@android:color/white">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_gravity="center"
+        android:gravity="left|center"
+        android:paddingLeft="16dp"
+        android:text="推荐的官方组织及好友"
+        android:textSize="20sp"
+        android:textColor="@color/default_black_color"
+        />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@drawable/tt_divide_line" />
+    <android.support.v7.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="128dp"
+        android:scrollbars="none"
+        android:dividerHeight="0dp"
+        android:divider="@drawable/tt_divide_line"
+        android:id="@+id/listview">
+
+    </android.support.v7.widget.RecyclerView >
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@drawable/tt_divide_line" />
+</LinearLayout>

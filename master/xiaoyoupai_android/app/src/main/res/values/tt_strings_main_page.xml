@@ -1,0 +1,11 @@
+<resources>
+
+    <string name="main_chat">活动</string>
+    <string name="main_contact">消息</string>
+    <string name="main_innernet">好友</string>
+    <string name="main_me_tab">我的</string>
+    <string name="page_me">我的</string>
+    <string name="page_setting">设置</string>
+    <string name="page_user_detail">详细资料</string>
+
+</resources>
