@@ -31,7 +31,6 @@
                 android:layout_weight="1"
                 android:textSize="16sp"
                 android:textColor="@color/default_black_color"
-                android:text="武汉大学　2008级　本科"
                 android:layout_gravity="center"
                 android:gravity="center"
                 android:maxLines="1"

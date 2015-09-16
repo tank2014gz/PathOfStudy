@@ -1,6 +1,7 @@
 package com.haitou.xiaoyoupai.ui.fragment;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.app.Fragment;
@@ -11,6 +12,7 @@ import android.widget.Button;
 import android.widget.ListView;
 
 import com.haitou.xiaoyoupai.R;
+import com.haitou.xiaoyoupai.ui.activity.AddCareerActivity;
 import com.haitou.xiaoyoupai.ui.adapter.CareerAdapter;
 import com.haitou.xiaoyoupai.ui.adapter.EducationAdapter;
 
@@ -67,6 +69,13 @@ public class CareerFragment extends MainFragment {
 
         View mFootView = inflater.inflate(R.layout.education_foot,null);
         ((Button)mFootView.findViewById(R.id.next)).setText("增加工作经历");
+        ((Button)mFootView.findViewById(R.id.next)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getActivity(), AddCareerActivity.class));
+                getActivity().finish();
+            }
+        });
         listView.addFooterView(mFootView);
 
         CareerAdapter careerAdapter = new CareerAdapter(getActivity());

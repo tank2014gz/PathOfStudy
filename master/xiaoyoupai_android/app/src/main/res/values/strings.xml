@@ -14,5 +14,7 @@
     <string name="title_activity_about_setting">AboutSetting</string>
     <string name="title_activity_education">EducationActivity</string>
     <string name="title_activity_career">CareerActivity</string>
+    <string name="title_activity_add_education">AddEducationActivity</string>
+    <string name="title_activity_add_career">AddCareerActivity</string>
 
 </resources>

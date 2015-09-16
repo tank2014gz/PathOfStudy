@@ -5,6 +5,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="com.haitou.xiaoyoupai.ui.fragment.NextFragment"
     android:background="@android:color/white">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -15,7 +19,7 @@
             android:layout_marginTop="32dp"
             android:orientation="horizontal">
             <com.haitou.xiaoyoupai.ui.widget.materialedittext.MaterialEditText
-                android:id="@+id/title"
+                android:id="@+id/type"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_marginRight="16dp"
@@ -46,7 +50,8 @@
                     android:layout_height="match_parent"
                     android:scaleType="fitXY"
                     android:src="@drawable/logo"
-                    android:layout_gravity="center"/>
+                    android:layout_gravity="center"
+                    android:id="@+id/cover_img"/>
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="32dp"
@@ -90,16 +95,101 @@
         </FrameLayout>
 
         <!-- 富文本编辑器-->
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:background="@drawable/edit_bkg"
+            >
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                >
+                <ImageButton
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:layout_gravity="left|center"
+                    android:layout_marginLeft="8dp"
+                    android:background="@drawable/icon_undo"
+                    android:id="@+id/undo"
+                    />
+                <ImageButton
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:layout_gravity="left|center"
+                    android:layout_marginLeft="48dp"
+                    android:background="@drawable/icon_redo"
+                    android:id="@+id/redo"
+                    />
 
+                <ImageButton
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:layout_gravity="left|center"
+                    android:layout_marginLeft="88dp"
+                    android:background="@drawable/ab_camera"
+                    android:id="@+id/camera"
+                    />
+                <ImageButton
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:layout_gravity="left|center"
+                    android:layout_marginLeft="128dp"
+                    android:background="@drawable/ab_attach_picture"
+                    android:id="@+id/picture"
+                    />
+                <ImageButton
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:layout_gravity="left|center"
+                    android:layout_marginLeft="168dp"
+                    android:background="@drawable/icon_attach"
+                    android:id="@+id/link"
+                    />
+                <ImageButton
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:layout_gravity="left|center"
+                    android:layout_marginLeft="208dp"
+                    android:background="@drawable/ab_textselect_format"
+                    android:backgroundTint="@color/default_light_grey_color"
+                    android:id="@+id/format"
+                    />
+            </FrameLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="45dp"
+                android:background="@color/default_light_grey_color"
+                ></View>
+            <!-- 富文本编辑器-->
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="45dp"
+                >
+                <com.haitou.xiaoyoupai.ui.widget.RichEditor
+                    android:id="@+id/editor"
+                    android:layout_width="match_parent"
+                    android:layout_height="240dp"
+                    android:layout_margin="8dp"
+                    android:background="@color/default_light_grey_color"
+
+                    />
+            </FrameLayout>
+
+        </FrameLayout>
         <Button
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:layout_margin="16dp"
-            android:background="@color/default_blue_color"
+            android:background="@drawable/tt_default_btn_bk"
             android:textColor="@color/default_bk"
             android:text="下一步"
-            android:textSize="16sp"
+            android:textSize="19sp"
             android:id="@+id/next"/>
     </LinearLayout>
+    </ScrollView>
 
 </FrameLayout>

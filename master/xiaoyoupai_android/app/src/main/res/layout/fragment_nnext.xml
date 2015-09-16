@@ -20,7 +20,7 @@
             android:layout_width="match_parent"
             android:layout_height="96dp">
             <com.haitou.xiaoyoupai.ui.widget.materialedittext.MaterialEditText
-                android:id="@+id/position"
+                android:id="@+id/end_time"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
@@ -58,13 +58,15 @@
         <!-- 标签-->
         <GridView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="88dp"
             android:numColumns="4"
             android:scrollbars="none"
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="16dp"
+            android:horizontalSpacing="8dp"
+            android:verticalSpacing="8dp"
             android:id="@+id/tag">
 
         </GridView>
@@ -81,7 +83,7 @@
                 android:text="报名预付费用"
                 android:gravity="center"/>
             <com.haitou.xiaoyoupai.ui.widget.materialedittext.MaterialEditText
-                android:id="@+id/p"
+                android:id="@+id/price"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -124,7 +126,7 @@
                 android:text="参会人数上限"
                 android:gravity="center"/>
             <com.haitou.xiaoyoupai.ui.widget.materialedittext.MaterialEditText
-                android:id="@+id/po"
+                android:id="@+id/amount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -172,7 +174,8 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginRight="16dp"
-                android:checked="false"/>
+                android:checked="false"
+                android:id="@+id/is_check"/>
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
@@ -192,7 +195,8 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginRight="16dp"
-                android:checked="true"/>
+                android:checked="true"
+                android:id="@+id/is_restrain"/>
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
@@ -204,21 +208,23 @@
                 android:layout_height="48dp"
                 android:layout_weight="1"
                 android:layout_margin="16dp"
-                android:background="@color/default_blue_color"
+                android:background="@drawable/tt_default_btn_bk"
                 android:textColor="@color/default_bk"
                 android:text="预览"
-                android:textSize="16sp"
-                android:id="@+id/preview"/>
+                android:textSize="19sp"
+                android:id="@+id/preview"
+                android:clickable="true"/>
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="48dp"
                 android:layout_weight="1"
                 android:layout_margin="16dp"
-                android:background="@color/default_blue_color"
+                android:background="@drawable/tt_default_btn_bk"
                 android:textColor="@color/default_bk"
                 android:text="发布"
-                android:textSize="16sp"
-                android:id="@+id/put"/>
+                android:textSize="19sp"
+                android:id="@+id/put"
+                android:clickable="true"/>
         </LinearLayout>
     </LinearLayout>
     </ScrollView>

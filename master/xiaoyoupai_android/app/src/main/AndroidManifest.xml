@@ -180,6 +180,14 @@
             android:name=".ui.activity.CareerActivity"
             android:label="@string/title_activity_career" >
         </activity>
+        <activity
+            android:name=".ui.activity.AddEducationActivity"
+            android:label="@string/title_activity_add_education" >
+        </activity>
+        <activity
+            android:name=".ui.activity.AddCareerActivity"
+            android:label="@string/title_activity_add_career" >
+        </activity>
     </application>
 
 </manifest>

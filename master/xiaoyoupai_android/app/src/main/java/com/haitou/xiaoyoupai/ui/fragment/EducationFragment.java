@@ -1,17 +1,34 @@
 package com.haitou.xiaoyoupai.ui.fragment;
 
 import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.haitou.xiaoyoupai.R;
+import com.haitou.xiaoyoupai.ui.activity.AddEducationActivity;
 import com.haitou.xiaoyoupai.ui.adapter.EducationAdapter;
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.JsonHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
+
+import org.apache.http.Header;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -30,6 +47,8 @@ public class EducationFragment extends MainFragment {
     private String mParam2;
 
     private View curView = null;
+
+    public String uid;
 
     public ListView listView;
 
@@ -78,14 +97,65 @@ public class EducationFragment extends MainFragment {
         super.init(curView);
         initTitleView();
 
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("peer_id", Context.MODE_PRIVATE);
+        uid = sharedPreferences.getString("peer_id", "1");
+
         listView = (ListView)curView.findViewById(R.id.ActivityListView);
 
         View mFootView = inflater.inflate(R.layout.education_foot,null);
         ((Button)mFootView.findViewById(R.id.next)).setText("增加教育经历");
+        ((Button)mFootView.findViewById(R.id.next)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getActivity(), AddEducationActivity.class));
+                getActivity().finish();
+            }
+        });
         listView.addFooterView(mFootView);
 
-        EducationAdapter educationAdapter = new EducationAdapter(getActivity());
-        listView.setAdapter(educationAdapter);
+        AsyncHttpClient asyncHttpClient = new AsyncHttpClient();
+
+        asyncHttpClient.setTimeout(5000);
+        RequestParams requestParams = new RequestParams();
+        requestParams.put("uid",uid);
+        asyncHttpClient.post(getActivity(), "http://202.114.20.55/schoolmate/api/user/findEducation"
+                , requestParams, new JsonHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                // If the response is JSONObject instead of expected JSONArray
+                Log.v("jsonobject",response.toString());
+
+                try {
+                    JSONArray jsonArray = response.getJSONArray("result");
+
+                    if (jsonArray.length()==0){
+
+                    }else {
+
+                        List<JSONObject> jsonObjects = new ArrayList<JSONObject>();
+                        for (int i=0;i<jsonArray.length();i++){
+                            jsonObjects.add(jsonArray.getJSONObject(i));
+                        }
+
+                        final EducationAdapter educationAdapter = new EducationAdapter(getActivity(),jsonObjects);
+                        listView.setAdapter(educationAdapter);
+
+                    }
+
+                }catch (JSONException e){
+                    e.printStackTrace();
+                }
+
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+                super.onFailure(statusCode, headers, throwable, errorResponse);
+
+                Toast.makeText(getActivity(),"加载信息失败！",Toast.LENGTH_SHORT).show();
+            }
+        });
+
 
         topLeftContainerLayout.setOnClickListener(new View.OnClickListener() {
             @Override

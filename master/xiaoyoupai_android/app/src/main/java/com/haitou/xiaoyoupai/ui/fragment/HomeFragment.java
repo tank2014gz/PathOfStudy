@@ -2,7 +2,9 @@ package com.haitou.xiaoyoupai.ui.fragment;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -17,12 +19,18 @@ import android.view.WindowManager;
 import android.widget.ListView;
 import android.widget.PopupWindow;
 
+import com.haitou.xiaoyoupai.DB.entity.UserEntity;
 import com.haitou.xiaoyoupai.R;
+import com.haitou.xiaoyoupai.imservice.event.UserInfoEvent;
+import com.haitou.xiaoyoupai.imservice.service.IMService;
+import com.haitou.xiaoyoupai.imservice.support.IMServiceConnector;
 import com.haitou.xiaoyoupai.ui.activity.PushActivity;
 import com.haitou.xiaoyoupai.ui.adapter.ActivityHeadAdapter;
 import com.haitou.xiaoyoupai.ui.adapter.ActivityListAdapter;
 import com.haitou.xiaoyoupai.ui.widget.QRCodePopWindow;
 import com.haitou.xiaoyoupai.ui.widget.SelfPopWindow;
+
+import de.greenrobot.event.EventBus;
 
 
 public class HomeFragment extends MainFragment {
@@ -34,6 +42,9 @@ public class HomeFragment extends MainFragment {
     private String mParam2;
 
     private View curView = null;
+
+    public UserEntity currentUser;
+    public int currentUserId;
 
     public ListView listView;
 
@@ -58,6 +69,55 @@ public class HomeFragment extends MainFragment {
     public HomeFragment() {
     }
 
+    private IMServiceConnector imServiceConnector = new IMServiceConnector(){
+        @Override
+        public void onServiceDisconnected() {}
+
+        @Override
+        public void onIMServiceConnected() {
+            if (curView == null) {
+                return;
+            }
+            IMService imService = imServiceConnector.getIMService();
+            if (imService == null) {
+                return;
+            }
+            if (!imService.getContactManager().isUserDataReady()) {
+                logger.i("detail#contact data are not ready");
+            } else {
+                init(imService);
+            }
+        }
+    };
+
+    private void init(IMService imService) {
+
+        if (imService == null) {
+            return;
+        }
+
+        final UserEntity loginContact = imService.getLoginManager().getLoginInfo();
+        if (loginContact == null) {
+            return;
+        }
+
+        currentUserId = loginContact.getPeerId();
+
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("peer_id", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString("peer_id",String.valueOf(currentUserId));
+        editor.commit();
+
+
+    }
+
+    public void onEventMainThread(UserInfoEvent event){
+        switch (event){
+            case USER_INFO_OK:
+                init(imServiceConnector.getIMService());
+        }
+    }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -70,6 +130,9 @@ public class HomeFragment extends MainFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
+        imServiceConnector.connect(getActivity());
+        EventBus.getDefault().register(this);
 
         if (null != curView) {
             logger.d("curView is not null, remove it");
